@@ -3,12 +3,12 @@ import uuid
 
 class Seller(models.Model):
     ID_seller = models.CharField(max_length=20, unique=True, editable=False)
-    username = models.CharField(max_length=20, unique=True, blank=False, null=False)
-    name = models.TextField(max_length=15, blank=True, null=True)
-    fsurname = models.TextField(max_length=15, blank=True, null=True)
-    ssurname = models.TextField(max_length=15, blank=True, null=True)
-    phone_number = models.CharField(max_length=16, blank=True, null=True)
-    gmail = models.EmailField(max_length=254, blank=True, null=True)
+    sellerUsername = models.CharField(max_length=20, unique=True, blank=False, null=False)
+    sellerName = models.TextField(max_length=15, blank=True, null=True)
+    sellerFirstSurname = models.TextField(max_length=15, blank=True, null=True)
+    sellerSecondSurname = models.TextField(max_length=15, blank=True, null=True)
+    sellerPhoneNumber = models.CharField(max_length=16, blank=True, null=True)
+    sellerGmail = models.EmailField(max_length=254, blank=True, null=True)
     def save(self, *args, **kwargs):
         if not self.ID_seller:  
             prefix = 'SEL'
@@ -17,22 +17,22 @@ class Seller(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.ID_seller} - {self.username}"
+        return f"{self.ID_seller} - {self.sellerUsername}"
     
 class Collector(models.Model):
-    ID_seller = models.CharField(max_length=20, unique=True, editable=False)
-    username = models.CharField(max_length=20, unique=True, blank=False, null=False)
-    name = models.TextField(max_length=15, blank=True, null=True)
-    fsurname = models.TextField(max_length=15, blank=True, null=True)
-    ssurname = models.TextField(max_length=15, blank=True, null=True)
-    phone_number = models.CharField(max_length=16, blank=True, null=True)
-    gmail = models.EmailField(max_length=254, blank=True, null=True)
+    ID_collector = models.CharField(max_length=20, unique=True, editable=False)
+    collectorUsername = models.CharField(max_length=20, unique=True, blank=False, null=False)
+    collectorName = models.TextField(max_length=15, blank=True, null=True)
+    collectorFirstSurname = models.TextField(max_length=15, blank=True, null=True)
+    collectorSecondSurname = models.TextField(max_length=15, blank=True, null=True)
+    collectorPhoneNumber = models.CharField(max_length=16, blank=True, null=True)
+    collectorGmail = models.EmailField(max_length=254, blank=True, null=True)
     def save(self, *args, **kwargs):
-        if not self.ID_seller:  
-            prefix = 'SEL'
+        if not self.ID_collector:  
+            prefix = 'COL'
             unique_id = str(uuid.uuid4().hex[:6]).upper()  
-            self.ID_seller = f"{prefix}-{unique_id}" 
+            self.ID_collector = f"{prefix}-{unique_id}" 
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.ID_seller} - {self.username}"
+        return f"{self.ID_collector} - {self.collectorUsername}"
