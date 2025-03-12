@@ -3,6 +3,7 @@ import uuid
 
 class Seller(models.Model):
     ID_seller = models.CharField(max_length=20, unique=True, editable=False)
+    SellerPasword = models.CharField(max_length=15, null=False, blank=False)
     sellerUsername = models.CharField(max_length=20, unique=True, blank=False, null=False)
     sellerName = models.TextField(max_length=15, blank=True, null=True)
     sellerFirstSurname = models.TextField(max_length=15, blank=True, null=True)
@@ -21,6 +22,7 @@ class Seller(models.Model):
     
 class Collector(models.Model):
     ID_collector = models.CharField(max_length=20, unique=True, editable=False)
+    collectorPassword = models.CharField(max_length=15, null=False, blank=False)
     collectorUsername = models.CharField(max_length=20, unique=True, blank=False, null=False)
     collectorName = models.TextField(max_length=15, blank=True, null=True)
     collectorFirstSurname = models.TextField(max_length=15, blank=True, null=True)
