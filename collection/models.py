@@ -4,9 +4,6 @@ import uuid
 class Order(models.Model):
     ID_order = models.CharField(max_length=14, unique=True, editable=False, null=False)
     orderCreationDay = models.DateTimeField(auto_now_add=True)  
-    assigned_collector = models.ForeignKey(
-        'users.Collector', on_delete=models.SET_NULL, null=True, blank=True
-    )  
 
 
     routeStartLocation = models.CharField(max_length=255, blank=True, null=True)  

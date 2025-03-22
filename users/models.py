@@ -1,80 +1,46 @@
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db import models
 import uuid
+from django.contrib.auth.hashers import make_password
 
-# Manager personalizado para crear usuarios y superusuarios
-class UserManager(BaseUserManager):
-    def create_user(self, username, email, password=None, **extra_fields):
-        if not email:
-            raise ValueError("El email es obligatorio.")
-        email = self.normalize_email(email)
-        user = self.model(username=username, email=email, **extra_fields)
-        user.set_password(password)  # Encripta la contraseña
-        user.save(using=self._db)
-        return user
-
-    def create_superuser(self, username, email, password=None, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
-        return self.create_user(username, email, password, **extra_fields)
-
-# Modelo Base de Usuario
-class User(AbstractBaseUser, PermissionsMixin):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    username = models.CharField(max_length=20, unique=True)
-    email = models.EmailField(max_length=254, unique=True)
-    first_name = models.CharField(max_length=15, blank=True, null=True)
-    last_name = models.CharField(max_length=15, blank=True, null=True)
-    phone_number = models.CharField(max_length=16, blank=True, null=True)
-    
-    # Campos del sistema
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-
-    # Añadimos un related_name personalizado para evitar conflicto
-    groups = models.ManyToManyField(
-        'auth.Group', 
-        related_name='custom_user_set', 
-        blank=True, 
-        help_text='The groups this user belongs to.'
-    )
-    user_permissions = models.ManyToManyField(
-        'auth.Permission', 
-        related_name='custom_user_set', 
-        blank=True, 
-        help_text='Specific permissions for this user.'
-    )
-
-    objects = UserManager()
-
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
-
-    def __str__(self):
-        return self.username
-
-# Modelo específico para Seller
 class Seller(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='seller_profile')
-    seller_code = models.CharField(max_length=20, unique=True, editable=False, default='')
+    id_seller = models.CharField(max_length=11, primary_key=True,blank=True,  editable=False)
+    sellerpassword = models.CharField(max_length=128, blank=True, null=True)
+    sellerEmail = models.EmailField(max_length=30, blank=True, null=True)  # EmailField en lugar de CharField
+    sellerUsername = models.CharField(max_length=20, blank=True, null=True)
+    sellerPhone = models.CharField(max_length=11, null=True, blank=True)
 
     def save(self, *args, **kwargs):
-        if not self.seller_code:
-            self.seller_code = f"SEL-{uuid.uuid4().hex[:6].upper()}"
+        if not self.id_seller:
+            while True:
+                unique_id = f"SEL-{uuid.uuid4().hex[:6].upper()}"  # Prefijo SEL- para evitar conflicto con Collector
+                if not Seller.objects.filter(id_seller=unique_id).exists():
+                    self.id_seller = unique_id
+                    break  
+        if self.sellerpassword and not self.sellerpassword.startswith("pbkdf2_sha256$"):  
+            self.sellerpassword = make_password(self.sellerpassword)
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.seller_code} - {self.user.username}"
+        return f"{self.id_seller} - {self.sellerUsername}"
 
-# Modelo específico para Collector
+
 class Collector(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='collector_profile')
-    collector_code = models.CharField(max_length=20, unique=True, editable=False, default='')
+    id_collector = models.CharField(max_length=11, primary_key=True, blank=True, editable=False)
+    collectorpassword = models.CharField(max_length=128, blank=True, null=True)
+    collectorEmail = models.EmailField(max_length=30, blank=True, null=True)  
+    collectorUsername = models.CharField(max_length=20, blank=True, null=True)
+    collectorPhone = models.CharField(max_length=11, null=True, blank=True)
 
     def save(self, *args, **kwargs):
-        if not self.collector_code:
-            self.collector_code = f"COL-{uuid.uuid4().hex[:6].upper()}"
+        if not self.id_collector:
+            while True:
+                unique_id = f"COL-{uuid.uuid4().hex[:6].upper()}"
+                if not Collector.objects.filter(id_collector=unique_id).exists():  # Corregido: revisar en Collector
+                    self.id_collector = unique_id
+                    break 
+        if self.collectorpassword and not self.collectorpassword.startswith("pbkdf2_sha256$"):  
+            self.collectorpassword = make_password(self.collectorpassword)
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.collector_code} - {self.user.username}"
+        return f"{self.id_collector} - {self.collectorUsername}"
