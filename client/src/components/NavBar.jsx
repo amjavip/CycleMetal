@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 
 const Navbar = ({ isAuthenticated, onLogout }) => {
   return (
-    <nav className="bg-black text-white p-4 shadow-md">
+    <nav className="bg-[#FDFAF8] text-black p-4 shadow-md black:bg-[#202020]">
       <div className="flex justify-between items-center">
         {/* Logo y nombre de la página */}
-        <Link to="/inicio" className="text-2xl font-semibold">
-          EcoLoop
+        <Link to="/inicio" className="text-2xl ">
+          CycleMetal
         </Link>
 
         {/* Menú de navegación */}
