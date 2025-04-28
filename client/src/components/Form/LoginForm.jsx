@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';  // Importamos el contexto
 
 const LoginForm = () => {
-  const [emailOrUsername, setEmailOrUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [emailOrUsername, setEmailOrUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const { login } = useAuth(); // Desestructuramos login del contexto
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!emailOrUsername || !password) {
-      setError('Por favor, ingresa tu correo/usuario y contraseña.');
+      setError('Todos los datos son obligatorios.');
       return;
     }
 
@@ -28,16 +32,25 @@ const LoginForm = () => {
       const data = await response.json();
 
       if (response.ok) {
+        // Guardamos los datos en localStorage
         localStorage.setItem('access', data.access);
         localStorage.setItem('refresh', data.refresh);
         localStorage.setItem('role', data.role);
-        localStorage.setItem('username', data.username);
-        localStorage.setItem('id', data.id);
 
-        if (data.role === "Seller") {
-          window.location.href = "/dashboard-vendedor";
-        } else if (data.role === "Collector") {
-          window.location.href = "/dashboard-recolector";
+        // Actualizamos el contexto
+        login(data.access, data.role);
+
+        // Guardamos información adicional según el rol
+        if (data.role === 'Seller') {
+          localStorage.setItem('username', data.username);
+          localStorage.setItem('email', data.email);
+          localStorage.setItem('phone', data.phone);
+          navigate("/seller-home"); // Redirigimos a la página correspondiente
+        } else if (data.role === 'Collector') {
+          localStorage.setItem('collector_username', data.username);
+          localStorage.setItem('collector_email', data.email);
+          localStorage.setItem('collector_phone', data.phone);
+          navigate("/collector-home");
         }
       } else {
         setError(data.error || 'Error al iniciar sesión');
@@ -58,11 +71,12 @@ const LoginForm = () => {
           <label htmlFor="emailOrUsername" className="block dark:text-gray-600">Correo electrónico o Usuario</label>
           <input
             type="text"
+            name="emailOrUsername"
             id="emailOrUsername"
+            placeholder="Correo electrónico o Usuario"
             value={emailOrUsername}
             onChange={(e) => setEmailOrUsername(e.target.value)}
             className="w-full px-4 py-3 rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600"
-            placeholder="Correo electrónico o Usuario"
           />
         </div>
 
@@ -70,15 +84,19 @@ const LoginForm = () => {
           <label htmlFor="password" className="block dark:text-gray-600">Contraseña</label>
           <input
             type="password"
+            name="password"
             id="password"
+            placeholder="Contraseña"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full px-4 py-3 rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600"
-            placeholder="Contraseña"
           />
+          <div className="flex justify-end text-xs dark:text-gray-600">
+            <a href="#">¿Olvidaste tu contraseña?</a>
+          </div>
         </div>
 
-        <button type="submit" className="w-full px-8 py-3 bg-[#303030] hover:bg-[#404040] border-none text-white rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg">
+        <button type="submit" className="w-full px-8 py-3 btn btn-primary bg-[#303030] hover:bg-[#404040] border-none text-white px-6 py-3 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg">
           Iniciar sesión
         </button>
       </form>

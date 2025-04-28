@@ -22,6 +22,10 @@ class Seller(models.Model):
 
     def __str__(self):
         return f"{self.id_seller} - {self.sellerUsername}"
+    @property
+    def id(self):
+        return self.id_seller
+
 
 
 class Collector(models.Model):
@@ -44,3 +48,7 @@ class Collector(models.Model):
 
     def __str__(self):
         return f"{self.id_collector} - {self.collectorUsername}"
+    @property
+    def id(self):
+         return self.id_collector
+

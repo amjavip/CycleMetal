@@ -13,6 +13,9 @@ from .serializer import SellerSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import check_password
+from rest_framework_simplejwt.tokens import RefreshToken
+
 
 
 class RegisterUserView(APIView):
@@ -63,6 +66,12 @@ class CollectorViewSet(viewsets.ModelViewSet):
     serializer_class = CollectorSerializer
     permission_classes = [IsAuthenticated] 
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from django.contrib.auth.hashers import check_password
+from .models import Seller, Collector
+from rest_framework_simplejwt.tokens import RefreshToken
 class LoginView(APIView):
     def post(self, request):
         username_or_email = request.data.get("usernameOrEmail")

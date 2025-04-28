@@ -21,7 +21,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#FFF text-[#e4e4e7] black-[#202020]">
+    <div className="min-h-screen bg-[#fff] text-[#e4e4e7] black-[#202020]">
       {/* Sección hero, con flex para dividir el contenido */}
       <div className="hero bg-base-200 min-h-screen px-11 pr-0 flex flex-col lg:flex-row">
         
