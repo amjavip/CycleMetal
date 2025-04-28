@@ -32,7 +32,7 @@ const LoginForm = () => {
         localStorage.setItem('refresh', data.refresh);
         localStorage.setItem('role', data.role);
         localStorage.setItem('username', data.username);
-        localStorage.setItem('user_id', data.id);
+        localStorage.setItem('id', data.id);
 
         if (data.role === "Seller") {
           window.location.href = "/dashboard-vendedor";
