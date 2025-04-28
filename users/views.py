@@ -65,12 +65,35 @@ class CollectorViewSet(viewsets.ModelViewSet):
 
 class LoginView(APIView):
     def post(self, request):
-        username = request.data.get("username")
+        username_or_email = request.data.get("usernameOrEmail")
         password = request.data.get("password")
-        user = authenticate(username=username, password=password)
-        
-        if user is not None:
-            token, created = Token.objects.get_or_create(user=user)
-            return Response({"token": token.key})
-        else:
-            return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+
+        user = None
+        role = None
+
+        # Buscar en Sellers
+        seller = Seller.objects.filter(sellerUsername=username_or_email).first() or Seller.objects.filter(sellerEmail=username_or_email).first()
+        if seller and check_password(password, seller.sellerpassword):
+            user = seller
+            role = "Seller"
+
+        # Buscar en Collectors si no se encontró en Sellers
+        if not user:
+            collector = Collector.objects.filter(collectorUsername=username_or_email).first() or Collector.objects.filter(collectorEmail=username_or_email).first()
+            if collector and check_password(password, collector.collectorpassword):
+                user = collector
+                role = "Collector"
+
+        # Si el usuario es válido, generar tokens
+        if user:
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                "refresh": str(refresh),
+                "access": str(refresh.access_token),
+                "id": user.id_seller if role == "Seller" else user.id_collector,
+                "username": user.sellerUsername if role == "Seller" else user.collectorUsername,
+                "email": user.sellerEmail if role == "Seller" else user.collectorEmail,
+                "role": role
+            }, status=status.HTTP_200_OK)
+
+        return Response({"error": "Credenciales incorrectas"}, status=status.HTTP_401_UNAUTHORIZED)

@@ -27,19 +27,20 @@ const ThreeDScene = () => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const scrollMax = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollPercentage = scrollPosition / scrollMax;
+      const scrollPercentage = scrollMax > 0 ? scrollPosition / scrollMax : 0;
+      
 
       // Mantener una distancia adecuada entre la cámara y el modelo
       const newCameraPosition = [
-        7 - (7 * scrollPercentage), 
-        5 + (30 * scrollPercentage), 
-        7 - (7 * scrollPercentage) 
+        7 - (7  * scrollPercentage), 
+        5 + (15 * scrollPercentage), 
+        7 + (7 * scrollPercentage) ,
       ];
 
       const newModelPosition = [
-        0 + (0.5 * scrollPercentage), 
-        -3 + (3 * scrollPercentage), 
-        -5 + (5 * scrollPercentage)
+        0 + (0 * scrollPercentage), 
+        -3 - (5 * scrollPercentage), 
+        -5 + (6 * scrollPercentage)
       ];
 
       setCameraPosition(newCameraPosition);
@@ -63,7 +64,7 @@ const ThreeDScene = () => {
       }}
     >
       <ambientLight intensity={1} />
-      <directionalLight position={[0, 10, 0]} castShadow intensity={4} />
+      <directionalLight position={[0, 10, 0]} castShadow intensity={6} />
 
       {/* Modelo 3D con posición dinámica */}
       <primitive object={scene} scale={3} position={modelPosition} castShadow />

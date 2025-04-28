@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import SellerViewSet, CollectorViewSet, RegisterUserView
+from .views import SellerViewSet, CollectorViewSet, RegisterUserView, LoginView
 from rest_framework.documentation import include_docs_urls
 from .views import check_username
 
@@ -18,4 +18,6 @@ urlpatterns = [
     path('api/check-username/', check_username, name='check_username'),
     # URL para el registro de un nuevo usuario (Seller o Collector)
     path('api/register/', RegisterUserView.as_view(), name='register_user'),
+    path('api/login/', LoginView.as_view(), name='login'),
+
 ]
