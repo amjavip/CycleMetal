@@ -5,9 +5,10 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 
 // Componentes
-import DefaultNavbar from './components/DefaultNavbar';
+import NavbarSelector from './components/NavbarSelector';
 import ProtectedRoute from './components/ProtectedRoute';
 import RedirectIfAuth from './components/RedirectIfAuth'
+
 
 // Páginas generales
 import Home from './pages/home';
@@ -28,7 +29,7 @@ function App() {
 
   return (
     <>
-      <DefaultNavbar />
+      <NavbarSelector />
       <Routes>
         <Route path="/" element={<Navigate to="/inicio" />} />
         <Route path="/inicio" element={<Home />} />
