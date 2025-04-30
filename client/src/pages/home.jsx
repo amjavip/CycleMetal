@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#fff] text-[#e4e4e7] black-[#202020]">
       {/* Sección hero, con flex para dividir el contenido */}
-      <div className="hero bg-base-200 min-h-screen px-11 pr-0 flex flex-col lg:flex-row">
+      <div className="min-h-screen px-11 pr-0 flex flex-col lg:flex-row">
         
         {/* Contenedor de texto */}
         <div className="flex-1 text-center lg:text-left px-5 py-25 flex flex-col justify-center gap-6">
@@ -49,7 +49,7 @@ export default function Home() {
             
 
             <Link to="/how-it-works">
-              <button className="btn btn-secondary bg-[#303030] hover:bg-[#404040] border-none text-white px-6 py-3 rounded-md 
+              <button className="btn btn-secondary bg-[#303030] hover:bg-[#404040] border-none text-white px-7 py-3 rounded-md 
                 transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg">
                 Aprende cómo funciona
               </button>
@@ -73,8 +73,8 @@ export default function Home() {
         </div>
 
         {/* Contenedor para el modelo 3D */}
-        <div className="flex-1 flex justify-center">
-          <div  className="w-full py-0" style={{height: '100vh', overflow: 'hidden', position: 'sticky', top:'0%' }}>
+        <div className="flex-1 flex flex-col ">
+          <div  className="h-screen w-full overflow-hidden sticky top-0 " >
             {/* Pasamos el scrollPos para modificar la posición del modelo */}
             <ThreeDScene scrollPos={scrollPos} />
           </div>

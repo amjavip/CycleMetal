@@ -9,6 +9,7 @@
     "three": "^0.174.0"
   },
   "devDependencies": {
+    "daisyui": "^5.0.28",
     "tailwindcss": "^4.1.4"
   }
 }

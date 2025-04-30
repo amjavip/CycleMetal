@@ -1,5 +1,9 @@
 export default function SellerAccount(){
     return(
-        <div>Hola</div>
+        <div className="p-6 min-h-screen ">
+           
+      <p>
+      </p>
+    </div>
     )
 };

@@ -39,22 +39,25 @@ const SellerNavbar = () => {
             className={`${menuOpen ? "flex" : "hidden"} flex-col md:flex md:flex-row items-start md:items-center space-y-2 md:space-y-0 md:space-x-6 w-full md:w-auto mt-4 md:mt-0`}
             id="navbar-default"
           >
-            <Link to="/seller-home" className="btn btn-primary hover:bg-[#404040] border-none text-black px-3 py-1 rounded-md 
+            <Link to="/seller-home" className="border-none text-black px-3 py-1 rounded-md 
           transition-all duration-300 ease-in-out transform hover:bg-[#e4e4e5] ">Inicio</Link>
-            <Link to="/seller-activity" className="btn btn-primary hover:bg-[#404040] border-none text-black px-3 py-1 rounded-md 
+            <Link to="/seller-activity" className="hover:bg-[#404040] border-none text-black px-3 py-1 rounded-md 
           transition-all duration-300 ease-in-out transform hover:bg-[#e4e4e5] ">Actividad</Link>
-            <Link to="/seller-services" className="btn btn-primary hover:bg-[#404040] border-none text-black px-3 py-1 rounded-md 
+            <Link to="/seller-services" className="hover:bg-[#404040] border-none text-black px-3 py-1 rounded-md 
           transition-all duration-300 ease-in-out transform hover:bg-[#e4e4e5] ">Servicios</Link>
-            <Link to="/seller-account" className="btn btn-primary hover:bg-[#404040] border-none text-black px-3 py-1 rounded-md 
+            <Link to="/seller-account" className="hover:bg-[#404040] border-none text-black px-3 py-1 rounded-md 
           transition-all duration-300 ease-in-out transform hover:bg-[#e4e4e5] ">Cuenta</Link>
-            <Logout />
-  
+            <Logout className="hover:bg-[#404040] border-none text-black px-3 py-1 rounded-md 
+          transition-all duration-300 ease-in-out transform hover:bg-[#e4e4e5] "/>
+          
             {user && (
               <div className="text-sm md:text-right mt-2 md:mt-0">
                 <p className="text-[#202020] font-semibold">{user.username}</p>
                 <p className="text-gray-600">{user.email}</p>
               </div>
+              
             )}
+           
           </div>
         </div>
       </nav>

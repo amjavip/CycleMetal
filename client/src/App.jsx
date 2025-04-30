@@ -18,11 +18,17 @@ import LoginPage from './pages/LoginPage';
 // Seller
 import SellerHome from './pages/Seller/SellerHome';
 import SellerAccount from './pages/Seller/SellerAccount';
+import SellerChangePassword from './pages/Seller/Account/SellerChangePassword';
+import SellerRecovery from './pages/Seller/Account/SellerRecovery';
+import SellerDetails from './pages/Seller/Account/SellerDetails';
+import SellerProfile from './pages/Seller/Account/SellerProfile';
 import SellerActivity from './pages/Seller/SellerActivity';
 import SellerServices from './pages/Seller/SellerServices';
+import AccountLayout from './components/Seller/SellerLayout';
 
 // Collector
 import CollectorHome from './pages/Collector/CollectorHome';
+
 
 function App() {
   const { user } = useAuth(); // Aquí ya tienes acceso a user.role y user.isAuthenticated
@@ -64,13 +70,20 @@ function App() {
           }
         />
         <Route
-          path="/seller-account"
-          element={
-            <ProtectedRoute role="Seller">
-              <SellerAccount />
-            </ProtectedRoute>
-          }
-        />
+  path="/seller-account"
+  element={
+    <ProtectedRoute role="Seller">
+      <AccountLayout />
+    </ProtectedRoute>
+  }
+>
+  <Route index element={<Navigate to="profile"/>} />
+  <Route path="profile" element={<SellerProfile />} />
+  <Route path="changepassword" element={<SellerChangePassword />} />
+  <Route path="Recovery" element={<SellerRecovery />} />
+  <Route path="details" element={<SellerDetails />} />
+</Route>
+
         <Route
           path="/seller-services"
           element={
