@@ -50,13 +50,6 @@ const SellerNavbar = () => {
             <Logout className="hover:bg-[#404040] border-none text-black px-3 py-1 rounded-md 
           transition-all duration-300 ease-in-out transform hover:bg-[#e4e4e5] "/>
           
-            {user && (
-              <div className="text-sm md:text-right mt-2 md:mt-0">
-                <p className="text-[#202020] font-semibold">{user.username}</p>
-                <p className="text-gray-600">{user.email}</p>
-              </div>
-              
-            )}
            
           </div>
         </div>

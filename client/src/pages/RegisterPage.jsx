@@ -1,7 +1,6 @@
 import { useState } from "react";
 import RegisterForm from "../components/Form/RegisterForm";
-import Alerts from "../components/Alert/SuccesAlert";
-
+import Alert from "../components/Alert/SuccesAlert";
 export default function RegisterPage() {
   const [message, setMessage] = useState(null); // Estado para la alerta
 

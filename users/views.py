@@ -4,7 +4,6 @@ from .models import Seller, Collector
 from .serializer import SellerSerializer, CollectorSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
-
 from rest_framework.authtoken.models import Token
 from rest_framework import status
 from django.contrib.auth import authenticate
@@ -12,10 +11,10 @@ from rest_framework.response import Response
 from .serializer import SellerSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from django.contrib.auth.models import User
+
 from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken
-
+from rest_framework.decorators import action
 
 
 class RegisterUserView(APIView):
@@ -56,22 +55,28 @@ def check_username(request):
         return Response({'exists': True})
     
     return Response({'exists': False})
+
 class SellerViewSet(viewsets.ModelViewSet):
     queryset = Seller.objects.all()
     serializer_class = SellerSerializer
-    permission_classes = [IsAuthenticated] 
+    permission_classes = [IsAuthenticated]
+
+    @action(detail=False, methods=['get'], url_path='seller_show_data')
+    def show_data(self, request):
+        try:
+            seller = Seller.objects.get(user=request.user)
+        except Seller.DoesNotExist:
+            return Response({'error': 'No existe un perfil de vendedor para este usuario'}, status=404)
+        
+        serializer = self.get_serializer(seller)
+        return Response(serializer.data)
 
 class CollectorViewSet(viewsets.ModelViewSet):
     queryset = Collector.objects.all()
     serializer_class = CollectorSerializer
     permission_classes = [IsAuthenticated] 
 
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from django.contrib.auth.hashers import check_password
-from .models import Seller, Collector
-from rest_framework_simplejwt.tokens import RefreshToken
+
 class LoginView(APIView):
     def post(self, request):
         username_or_email = request.data.get("usernameOrEmail")
@@ -102,6 +107,7 @@ class LoginView(APIView):
                 "id": user.id_seller if role == "Seller" else user.id_collector,
                 "username": user.sellerUsername if role == "Seller" else user.collectorUsername,
                 "email": user.sellerEmail if role == "Seller" else user.collectorEmail,
+                "phone": user.sellerPhone if role == "Seller" else user.collectorPhone,
                 "role": role
             }, status=status.HTTP_200_OK)
 

@@ -15,24 +15,26 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('access');
     const role = localStorage.getItem('role');
-
-    if (token && role) {
-      setUser({ token, role });
+    const profileString = localStorage.getItem('profile');
+    const profile = profileString ? JSON.parse(profileString) : null;
+    if (token && role && profile) {
+      setUser({ token, role, profile});
     }
-    
     setLoading(false); // Terminamos de cargar después de revisar localStorage
   }, []);
 
-  const login = (token, role) => {
+  const login = (token, role, profile) => {
+    localStorage.setItem('profile', JSON.stringify(profile)); // <- importante
     localStorage.setItem('access', token);
     localStorage.setItem('role', role);
-    setUser({ token, role });
-    console.log(token, role, " . from AuthContext");
+    setUser({ token, role, profile });
+    console.log(token, role, profile,  " . from AuthContext");
   };
 
   const logout = () => {
     localStorage.removeItem('access');
     localStorage.removeItem('role');
+    localStorage.removeItem('profile')
     setUser(null);
   };
 

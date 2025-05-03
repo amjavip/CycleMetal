@@ -32,26 +32,26 @@ const LoginForm = () => {
       const data = await response.json();
 
       if (response.ok) {
-        // Guardamos los datos en localStorage
+        // Guardamos los tokens y rol
         localStorage.setItem('access', data.access);
         localStorage.setItem('refresh', data.refresh);
         localStorage.setItem('role', data.role);
-
-        // Actualizamos el contexto
-        login(data.access, data.role);
-
+      
         // Guardamos información adicional según el rol
-        if (data.role === 'Seller') {
-          localStorage.setItem('username', data.username);
-          localStorage.setItem('email', data.email);
-          localStorage.setItem('phone', data.phone);
-          navigate("/seller-home"); // Redirigimos a la página correspondiente
-        } else if (data.role === 'Collector') {
-          localStorage.setItem('collector_username', data.username);
-          localStorage.setItem('collector_email', data.email);
-          localStorage.setItem('collector_phone', data.phone);
-          navigate("/collector-home");
+        if (data.role === 'Seller' || data.role === 'Collector') {
+          const userProfile = {
+            username: data.username,
+            email: data.email,
+            phone: data.phone,
+            id: data.id,
+          };
+      
+          localStorage.setItem('profile', JSON.stringify(userProfile));  // Guardamos primero el perfil
+          login(data.access, data.role, userProfile); // Luego actualizamos el contexto con todo
+          console.log(userProfile);
+          navigate(`/${data.role.toLowerCase()}-home`); // Redirigimos con la ruta en minúsculas
         }
+        
       } else {
         setError(data.error || 'Error al iniciar sesión');
       }

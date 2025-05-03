@@ -31,8 +31,7 @@ import CollectorHome from './pages/Collector/CollectorHome';
 
 
 function App() {
-  const { user } = useAuth(); // Aquí ya tienes acceso a user.role y user.isAuthenticated
-
+  
   return (
     <>
       <NavbarSelector />

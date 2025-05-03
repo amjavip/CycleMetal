@@ -1,7 +1,19 @@
 import React from "react";
 import Noticias from "../../components/Seller/SellerNews";
 import ActividadSemanal from "../../components/Seller/SellerWeeklyActivity";
+import { useAuth } from "../../context/AuthContext";
+
 export default function SellerHome(){
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <div className="bg-white">Cargando...</div>;
+  }
+
+  if (!user || !user.profile) {
+    return <div className="bg-white">Algo salió mal. No se pudo cargar el perfil.</div>;
+  }
+  
     return(
         <div className="min-h-screen bg-opacity-60 bg-gradient-to-t from-[#909090] to-[#FFF] p-6 top-0">
         
@@ -15,7 +27,7 @@ export default function SellerHome(){
 />
 <br />
 
-            <p className="text-black text-3xl font-semibold">Javier</p><p className="text-[#202020] ">(nombre de usuario)</p>
+            <p className="text-black text-3xl font-semibold">{user.profile.username}</p><p className="text-[#202020] ">({user.profile.email})</p>
             <br />
           <button className="btn btn-primary bg-[#303030] hover:bg-[#404040] border-none text-white w-full py-3 self-center rounded-md 
                 transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg ">
