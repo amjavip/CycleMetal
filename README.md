@@ -9,10 +9,10 @@
 ###  Software Mínimo
 | Componente       | Versión  | Verificación en terminal           |
 |------------------|----------|------------------------------------|
-| Node.js          | v18.x+   | `node --version`                   |
-| Python           | 3.10.x+  | `python --version`                 |
-| npm              | 9.x+     | `npm --version`                    |
-| Git              | 2.40.x+  | `git --version`                    |
+| Node.js          | v22.14.0.x+   | `node --version`                   |
+| Python           | 3.10.10.x+  | `python --version`                 |
+| npm              | 10.9.2.x+     | `npm --version`                    |
+| Git              | 2.46.0.windows.1.x+  | `git --version`                    |
 
 ---
 
