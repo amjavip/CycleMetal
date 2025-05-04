@@ -1,10 +1,14 @@
 import { NavLink, Outlet } from "react-router-dom";
-
+import SearchBar from "../SearchBar";
 export default function AccountLayout() {
   return (
     <div className="flex min-h-screen ">
-      {/* Sidebar */}
-      <nav className="w-64 bg-white  p-6 space-y-4">
+      
+  
+      <nav className="sticky top-16 h-screen w-64 bg-white border-r-2  p-6 space-y-4 w-1/8">
+      <SearchBar></SearchBar>
+     
+
       <NavLink
   to="profile"
   className={({ isActive }) =>

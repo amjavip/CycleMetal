@@ -20,7 +20,7 @@ const Alert = ({ message, onClose }) => {
 
   return (
     <motion.div
-      className="fixed top-5 left-1/2 transform -translate-x-1/2 w-96 rounded-md border border-gray-300 bg-white p-4 shadow-lg 
+      className="fixed top-5 z-100 left-1/2 transform -translate-x-1/2 w-96 rounded-md border border-gray-300 bg-white p-4 shadow-lg 
       "
       initial={{ opacity: 0, y: -20 }} // Aparece desde arriba con opacidad 0
       animate={{ opacity: 1, y: 0 }} // Se desliza hacia abajo y se hace visible

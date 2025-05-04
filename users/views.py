@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from .serializer import SellerSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
+from rest_framework import status, permissions
 from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.decorators import action
@@ -61,21 +61,52 @@ class SellerViewSet(viewsets.ModelViewSet):
     serializer_class = SellerSerializer
     permission_classes = [IsAuthenticated]
 
-    @action(detail=False, methods=['get'], url_path='seller_show_data')
-    def show_data(self, request):
-        try:
-            seller = Seller.objects.get(user=request.user)
-        except Seller.DoesNotExist:
-            return Response({'error': 'No existe un perfil de vendedor para este usuario'}, status=404)
-        
-        serializer = self.get_serializer(seller)
-        return Response(serializer.data)
-
+  
 class CollectorViewSet(viewsets.ModelViewSet):
     queryset = Collector.objects.all()
     serializer_class = CollectorSerializer
     permission_classes = [IsAuthenticated] 
+from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .models import Seller, Collector
+from .serializer import SellerSerializer, CollectorSerializer
 
+from rest_framework_simplejwt.tokens import RefreshToken
+
+class UpdateUserView(APIView):
+    def put(self, request):
+        user_id = request.data.get('id')
+        role = request.data.get('role')
+        user = None
+
+        if role == 'Seller':
+            user = Seller.objects.filter(id_seller=user_id).first()
+        elif role == 'Collector':
+            user = Collector.objects.filter(id_collector=user_id).first()
+
+        if user:
+            serializer = SellerSerializer(user, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+
+                # Regenerar el token después de actualizar los datos
+                refresh = RefreshToken.for_user(user)
+               
+
+                return Response({
+                "refresh": str(refresh),
+                "access": str(refresh.access_token),
+                "id": user.id_seller if role == "Seller" else user.id_collector,
+                "username": user.sellerUsername if role == "Seller" else user.collectorUsername,
+                "email": user.sellerEmail if role == "Seller" else user.collectorEmail,
+                "phone": user.sellerPhone if role == "Seller" else user.collectorPhone,
+                "role": role
+                })
+
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
 
 class LoginView(APIView):
     def post(self, request):

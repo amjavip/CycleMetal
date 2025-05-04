@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Logout from "../Form/LogoutForm";
-
+import SearchBar from "../SearchBar";
 const SellerNavbar = () => {
     const { user } = useAuth();
     const [menuOpen, setMenuOpen] = useState(false); // ✅ Estado para el menú
@@ -49,7 +49,8 @@ const SellerNavbar = () => {
           transition-all duration-300 ease-in-out transform hover:bg-[#e4e4e5] ">Cuenta</Link>
             <Logout className="hover:bg-[#404040] border-none text-black px-3 py-1 rounded-md 
           transition-all duration-300 ease-in-out transform hover:bg-[#e4e4e5] "/>
-          
+           
+
            
           </div>
         </div>

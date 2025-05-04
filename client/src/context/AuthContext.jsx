@@ -19,7 +19,9 @@ export const AuthProvider = ({ children }) => {
     const profile = profileString ? JSON.parse(profileString) : null;
     if (token && role && profile) {
       setUser({ token, role, profile});
+      console.log(profile, "ahora estos son los datos");
     }
+    
     setLoading(false); // Terminamos de cargar después de revisar localStorage
   }, []);
 

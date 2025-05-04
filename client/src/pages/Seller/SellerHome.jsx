@@ -4,15 +4,8 @@ import ActividadSemanal from "../../components/Seller/SellerWeeklyActivity";
 import { useAuth } from "../../context/AuthContext";
 
 export default function SellerHome(){
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
 
-  if (loading) {
-    return <div className="bg-white">Cargando...</div>;
-  }
-
-  if (!user || !user.profile) {
-    return <div className="bg-white">Algo salió mal. No se pudo cargar el perfil.</div>;
-  }
   
     return(
         <div className="min-h-screen bg-opacity-60 bg-gradient-to-t from-[#909090] to-[#FFF] p-6 top-0">
