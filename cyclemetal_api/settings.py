@@ -49,6 +49,14 @@ INSTALLED_APPS = [
 
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # Usa SMTP para enviar correos
+EMAIL_HOST = 'smtp.gmail.com'  # Servidor de Gmail
+EMAIL_PORT = 587  # Puerto seguro de salida para TLS
+EMAIL_USE_TLS = True  # Usa cifrado TLS
+EMAIL_HOST_USER = 'nonreply.cyclemetal@gmail.com'  # El correo que enviará los mensajes
+EMAIL_HOST_PASSWORD = 'hypz dzjj tlhv jbcu'  # La contraseña (NO la normal)
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # Aparece como el remitente del correo
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

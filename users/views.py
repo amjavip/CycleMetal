@@ -1,51 +1,103 @@
+'''
+Autor: Javier -amjavip
 
+Notas:
+
+Recuerda que puedes encontrar informacion mas resumida en la documentacion del proyecto
+puedes encontrarla en http://127.0.0.1:8000/users/api/docs/ esta la encontraras al momento
+de iniciar el servidor del backend.
+
+Si estas usando una version de python igual o superior a la 3.12 es importante que algunas
+librerias no estan disponibles debido a que se consideran obsoletas, para evitar estos problemas
+de recomienda usar la version 3.10 ya que con esta versionha sido desarrollado este programa.
+
+Para cualquier aclaracion especifica visita la documentacion de django consultala en este link
+https://www.django-rest-framework.org/
+
+'''
 from rest_framework import viewsets
 from .models import Seller, Collector
 from .serializer import SellerSerializer, CollectorSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
-from rest_framework.authtoken.models import Token
 from rest_framework import status
-from django.contrib.auth import authenticate
-from rest_framework.response import Response
 from .serializer import SellerSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import status, permissions
+from rest_framework import status
 from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.decorators import action
+
 
 
 class RegisterUserView(APIView):
+    
+    """Registro del usuario
+    
+    Para manejar el registro del usuario de usa una clase la cual puede
+    almacenar fucnciones y de esta manera generar funciones avanzadas
+    y mas faciles de escalar
+    """
+    #esta funcion hace una petición POST
     def post(self, request):
-        role = request.data.get('role')
-
+        role = request.data.get('role') #por medio de una peticion get se obtiene la informacion del rol
+        
         if role == 'seller':
+            
             serializer = SellerSerializer(data=request.data)
-            print(request.data)
+            print(request.data) #Verificacion en la terminar (solo para desarrollo)
+            """Si el rol es de vendedor se llama el 
+            serializadordel collector y guarda en una
+            variable la cual llamaremos serializer"""
+            
         elif role == 'collector':
+            
             serializer = CollectorSerializer(data=request.data)
-            print(request.data)
+            
+            print(request.data) #Verificacion en la terminar (solo para desarrollo)
+            
+            """Si el rol es de recolector se llama el 
+            serializador del collector y guarda en una
+            variable la cual llamaremos serializer"""
+            
         else:
             return Response({"error": "Role must be either 'seller' or 'collector'"}, status=status.HTTP_400_BAD_REQUEST)
+        """De cualquier otro modo se manda una 
+        respuesta explicando que no se detecto 
+        el rol en el formulario"""
 
-        if serializer.is_valid():
+        if serializer.is_valid(): # Se comprueba que el serializador sea válido
+            
             user = serializer.save()
+            """El serializador guardado se guarda en una variable user"""
+            
             return Response({
                 "message": f"User registered as {role} successfully",
                 
             }, status=status.HTTP_201_CREATED)
+            """Se devuelve un status de la operacion la cual confirma si
+            el usuario ha sido guardado en la base datos exitosamente o 
+            de lo contrario no"""
+            
         else:
-            print("Errores de validación:", serializer.errors)  
+            
+            print("Errores de validación:", serializer.errors) 
+            """imprime los valores de validacion detectados por el serializador"""
+             
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['POST'])
+
+
+
+@api_view(['POST']) #Esta Vista(funcion) solo recibe peticiones del tipo POST
 def check_username(request):
-    # Obtener username y email desde request.data (ya que es una solicitud POST)
+    """Dentro de esta vista se verifica la disponibilidad 
+    en la base de datos, esto para mantener la integridad
+    de los datos y mantener datos unicos.
+    """
     username = request.data.get('username')
     email = request.data.get('email')
-
+    """Se declaran las variables por medio de una peticion get al cuestionario de registro"""
     # Verificar si el nombre de usuario ya existe en los modelos Seller o Collector
     if Seller.objects.filter(sellerUsername=username).exists() or Collector.objects.filter(collectorUsername=username).exists():
         return Response({'exists': True})
@@ -143,3 +195,39 @@ class LoginView(APIView):
             }, status=status.HTTP_200_OK)
 
         return Response({"error": "Credenciales incorrectas"}, status=status.HTTP_401_UNAUTHORIZED)
+
+from django.core.mail import send_mail
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.models import User
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.urls import reverse
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+@csrf_exempt
+def send_reset_email(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        email = data.get("email")
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return JsonResponse({"error": "No existe un usuario con ese correo"}, status=404)
+
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+        token = default_token_generator.make_token(user)
+
+        reset_url = f"http://localhost:5173/reset-password/{uid}/{token}/"
+
+        send_mail(
+            "Restablecer tu contraseña",
+            f"Haz clic en el siguiente enlace para restablecer tu contraseña:\n\n{reset_url}",
+            'tu_correo@gmail.com',
+            [email],
+            fail_silently=False,
+        )
+
+        return JsonResponse({"message": "Correo enviado correctamente"})

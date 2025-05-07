@@ -4,12 +4,12 @@ import DefaultNavbar from './DefaultNavbar';
 import SellerNavbar from './Seller/SellerNavbar';
 import { useAuth } from '../context/AuthContext';
 import LoadingAlert from './Alert/LoadingAlert';
-
+import CollectorNavbar from './Collector/CollectorNavbar';
 
 const NavbarSelector = () => {
   const { user, loading } = useAuth();
   if (loading) {
-    return <LoadingAlert></LoadingAlert> // O podrías usar un spinner de carga
+    return <LoadingAlert></LoadingAlert> 
   }
   if (!user) {
     console.log("Esta utilizando el def");
@@ -26,7 +26,7 @@ const NavbarSelector = () => {
     return <CollectorNavbar />;
   }
 
-  return <DefaultNavbar />; // fallback por si el rol es raro
+  return <DefaultNavbar />; 
 };
 
 export default NavbarSelector;
