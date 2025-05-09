@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
-
+import HolographicCard from "../../../components/TiltCardShine";
+import TiltCard from "../../../components/TiltCard";
 export default function SellerProfile() {
   const { user, login } = useAuth();  // Obtiene los datos del usuario desde el contexto
 
@@ -98,9 +99,13 @@ export default function SellerProfile() {
       <hr className="w-full text-gray-300 py-2" />
       <br />
       <div className="w-full flex flex-row">
-        <div className="w-1/2 px-6 border-black text-black">
-          <div className="bg-[#f8f8f8] p-5 shadow-md p-2 w-full rounded-xl flex flex-col justify-center text-black">
+        <div className="w-1/2 p-5 text-black ">
+       
+          <TiltCard>
+        
+          <div className="p-5 bg-[#f8f8f8] shadow-xl p-2 w-full rounded-xl flex flex-col justify-center text-black">
             <p className="self-center pb-6">Ficha de perfil</p>
+            
             <img
               src="/12694.jpg"
               alt="Foto de perfil"
@@ -112,6 +117,9 @@ export default function SellerProfile() {
             <br />
             <p className="border-1 border-primary text-primary rounded-lg self-center px-3">Subscripción activa</p>
           </div>
+     
+          </TiltCard>
+          
         </div>
         <div className="w-1/2 text-xl font-semibold text-black px-5 flex flex-row">
           <div className="p-5 p-2 w-full flex flex-col text-black ">

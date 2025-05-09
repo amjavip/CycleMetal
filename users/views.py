@@ -1,4 +1,5 @@
 '''
+
 Autor: Javier -amjavip
 
 Notas:
@@ -9,7 +10,7 @@ de iniciar el servidor del backend.
 
 Si estas usando una version de python igual o superior a la 3.12 es importante que algunas
 librerias no estan disponibles debido a que se consideran obsoletas, para evitar estos problemas
-de recomienda usar la version 3.10 ya que con esta versionha sido desarrollado este programa.
+de recomienda usar la version 3.10 ya que con esta versiona sido desarrollado este programa.
 
 Para cualquier aclaracion especifica visita la documentacion de django consultala en este link
 https://www.django-rest-framework.org/
@@ -27,8 +28,24 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.core.mail import send_mail
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.models import User
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.contrib.auth.hashers import make_password
+from django.core.exceptions import ValidationError
 
+#TODO falta que el usuario no pueda recibir la contraseña que inicie con "pbkdf2_sha256$
+"""posibles soluciones:
+    1.-validar si la contraseña viene con esto si es el caso rechazar
+    2.-hacer un make_password desde antes y ya que solo por seguridad llega sin hasear a la base de datos ahi se actualiza
+"""
 
+def validate_password(newpassword):
+    if newpassword.startswith("pbkdf2_sha256$"):
+        raise ValidationError("La contraseña no puede comenzar con 'pbkdf2_sha256$'.")
+    return newpassword
 
 class RegisterUserView(APIView):
     
@@ -108,24 +125,22 @@ def check_username(request):
     
     return Response({'exists': False})
 
+
+
 class SellerViewSet(viewsets.ModelViewSet):
     queryset = Seller.objects.all()
     serializer_class = SellerSerializer
     permission_classes = [IsAuthenticated]
 
   
+  
 class CollectorViewSet(viewsets.ModelViewSet):
     queryset = Collector.objects.all()
     serializer_class = CollectorSerializer
     permission_classes = [IsAuthenticated] 
-from rest_framework import status
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from .models import Seller, Collector
-from .serializer import SellerSerializer, CollectorSerializer
 
-from rest_framework_simplejwt.tokens import RefreshToken
 
+#TODO falta verificar la disponibilidad del usuario en la DB con def check_username
 class UpdateUserView(APIView):
     def put(self, request):
         user_id = request.data.get('id')
@@ -159,6 +174,9 @@ class UpdateUserView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
         return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+
 
 class LoginView(APIView):
     def post(self, request):
@@ -196,38 +214,70 @@ class LoginView(APIView):
 
         return Response({"error": "Credenciales incorrectas"}, status=status.HTTP_401_UNAUTHORIZED)
 
-from django.core.mail import send_mail
-from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.models import User
-from django.utils.http import urlsafe_base64_encode
-from django.utils.encoding import force_bytes
-from django.urls import reverse
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-import json
 
-@csrf_exempt
-def send_reset_email(request):
-    if request.method == "POST":
-        data = json.loads(request.body)
-        email = data.get("email")
-
+class SendResetEmailView(APIView):
+    def post(self, request):
+        email = request.data.get("email")
+        if not email:
+            return Response({"error": "Email requerido"}, status=status.HTTP_400_BAD_REQUEST)
+        
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            return JsonResponse({"error": "No existe un usuario con ese correo"}, status=404)
+            return Response({"error": "No existe un usuario con ese correo"}, status=status.HTTP_404_NOT_FOUND)
 
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         token = default_token_generator.make_token(user)
-
         reset_url = f"http://localhost:5173/reset-password/{uid}/{token}/"
 
         send_mail(
-            "Restablecer tu contraseña",
-            f"Haz clic en el siguiente enlace para restablecer tu contraseña:\n\n{reset_url}",
-            'tu_correo@gmail.com',
+            "Restablece tu contraseña",
+            f"Haz clic en el siguiente enlace para cambiar tu contraseña:\n\n{reset_url}",
+            None,  # Usa DEFAULT_FROM_EMAIL de settings
             [email],
             fail_silently=False,
         )
 
-        return JsonResponse({"message": "Correo enviado correctamente"})
+        return Response({"message": "Correo enviado correctamente"}, status=status.HTTP_200_OK)
+    
+class ChangePassword(APIView):
+    def post(self, request):
+        newpassword = request.data.get("newpassword")
+        user_id = request.data.get("id")
+        role = request.data.get("role")  # Asegúrate de recibir también el rol
+
+        if not newpassword:
+            return Response({"error": "Se requiere una nueva contraseña"}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            validate_password(newpassword)
+        except ValidationError as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+        if role == "Seller":
+            user = Seller.objects.filter(id_seller=user_id).first()
+            if not user:
+                return Response({"error": "Usuario no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+            if check_password(newpassword, user.sellerpassword):
+                return Response({"error": "La nueva contraseña no puede ser igual a la anterior"}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+            user.sellerpassword = make_password(newpassword)
+            user.save()
+            return Response({"message": "Contraseña actualizada correctamente"}, status=status.HTTP_200_OK)
+
+        elif role == "Collector":
+            user = Collector.objects.filter(id_collector=user_id).first()
+            if not user:
+                return Response({"error": "Usuario no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+
+            if check_password(newpassword, user.collectorpassword):
+                return Response({"error": "La nueva contraseña no puede ser igual a la anterior"}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+            user.collectorpassword = make_password(newpassword)
+            user.save()
+            return Response({"message": "Contraseña actualizada correctamente"}, status=status.HTTP_200_OK)
+
+        else:
+            return Response({"error": "Rol no válido"}, status=status.HTTP_400_BAD_REQUEST)
+
+        
