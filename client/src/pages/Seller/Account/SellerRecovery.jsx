@@ -37,6 +37,9 @@ export default function SellerRecovery() {
   
     return (
       <div className="px-5 flex flex-col justify-between gap-3">
+         <p className="text-2xl text-black py-2">Recuperar Contraseña</p>
+      <hr className="w-full text-gray-300 py-2 mt-3" />
+      <br />
         <div className="px-3 rounded-xl w-full h-auto text-center text-[#202020] font-light text-xl">
           ¿Has olvidado tu contraseña?
         </div>
@@ -60,9 +63,10 @@ export default function SellerRecovery() {
                 className="w-3/4 px-4 py-3 rounded-xl bg-white border border-gray-300 focus:outline-none focus:ring focus:ring-primary mb-10"
                 required
               />
+              <br />
               <button
                 type="submit"
-                className="bg-[#202020] text-white py-2 px-6 rounded-xl hover:bg-[#202020]/90 transition "
+                className="bg-[#404040] text-white py-2 px-6 rounded-xl hover:bg-[#202020]/90 transition "
               >
                 Enviar correo
               </button>

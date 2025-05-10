@@ -2,9 +2,12 @@ import { useAuth } from "../../../context/AuthContext"
 export default function SellerDetails() {
     const { user } = useAuth();
     return(
-        <div>
-<p className="text-xl font-semibold text-black">Detalles del perfil</p>
-        <div className="w-full mt-10 border-t border-gray-300 pt-6">
+        <div className="px-5">
+<p className="text-2xl text-black py-2">Datos del Perfil</p>
+  <br />
+      <hr className="w-full text-gray-300 py-2" />
+      <br />
+        <div className="w-full mt-10  border-gray-300">
   
   <div className="text-[#202020] space-y-4 text-lg font-light ">
     <div className="flex justify-between w-full">

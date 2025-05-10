@@ -17,6 +17,7 @@ https://www.django-rest-framework.org/
 
 '''
 from rest_framework import viewsets
+from datetime import timedelta
 from .models import Seller, Collector
 from .serializer import SellerSerializer, CollectorSerializer
 from rest_framework.permissions import IsAuthenticated
@@ -27,21 +28,20 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.hashers import check_password
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken, AccessToken, TokenError
 from django.core.mail import send_mail
-from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.models import User
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.hashers import make_password
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, ObjectDoesNotExist
 
 #TODO falta que el usuario no pueda recibir la contraseña que inicie con "pbkdf2_sha256$
 """posibles soluciones:
     1.-validar si la contraseña viene con esto si es el caso rechazar
     2.-hacer un make_password desde antes y ya que solo por seguridad llega sin hasear a la base de datos ahi se actualiza
 """
-
+#Esta solucion es momentanea y se puede mejorar en un futuro
 def validate_password(newpassword):
     if newpassword.startswith("pbkdf2_sha256$"):
         raise ValidationError("La contraseña no puede comenzar con 'pbkdf2_sha256$'.")
@@ -215,69 +215,157 @@ class LoginView(APIView):
         return Response({"error": "Credenciales incorrectas"}, status=status.HTTP_401_UNAUTHORIZED)
 
 
+def generate_temporaly_token(user):
+    token = AccessToken.for_user(user)
+    token.set_exp(lifetime=timedelta(minutes=15))
+    return token
+
+def generate_reset_url(user):
+    uid = urlsafe_base64_encode(force_bytes(user.pk))
+    token = generate_temporaly_token(user)
+    return f"http://localhost:5173/changepassword/{uid}/{token}/", str(token)
+
+def change_password(role, user_id, new_password):
+    if role == "Seller":
+            user = Seller.objects.filter(id_seller=user_id).first()
+            if not user:
+                return Response({"error": "Usuario no encontrado"}, status=404)
+            if check_password(new_password, user.sellerpassword):
+                return Response({"error": "La nueva contraseña no puede ser igual a la anterior"}, status=422)
+            user.sellerpassword = make_password(new_password)
+            user.save()
+    elif role == "Collector":
+            user = Collector.objects.filter(id_collector=user_id).first()
+            if not user:
+                return Response({"error": "Usuario no encontrado"}, status=404)
+            if check_password(new_password, user.collectorpassword):
+                return Response({"error": "La nueva contraseña no puede ser igual a la anterior"}, status=422)
+            user.collectorpassword = make_password(new_password)
+            user.save()
+    else:
+            return Response({"error": "Rol inválido"}, status=400)
+class no_data:
+    def no_rol(email):
+      user = Seller.objects.filter(sellerEmail=email).first()
+      if not user:
+           user = Collector.objects.filter(collectorEmail=email).first()
+           if user:
+               role = "Collector"
+               return role
+           else:
+               return Response({"error":"No se detectno ningun usuario"}, status=status.HTTP_400_BAD_REQUEST)
+      elif user:
+          role = "Seller"
+          return role
+      else:
+        return Response({"error":"No se detectno ningun email"}, status=status.HTTP_400_BAD_REQUEST)
+    def no_id(email):
+        seller = Seller.objects.filter(sellerEmail=email).first()
+        if not seller:
+            collector = Collector.objects.filter(collectorEmail=email).first()
+            if collector:
+                return collector.id
+            else:
+                return Response({"error":"No se detectno ningun usuario"}, status=status.HTTP_400_BAD_REQUEST)
+        elif seller:
+            return seller.id
+        else:
+            return  Response({"error":"No se detectno ningun email"}, status=status.HTTP_400_BAD_REQUEST)
+        
+
+@api_view(['POST']) #Esta Vista(funcion) solo recibe peticiones del tipo POST
+def check_pass(request):
+    role = request.data.get("role")
+    user_id = request.data.get("id")
+    password = request.data.get("password")
+    if not role or not password:
+        return Response({"error":"se necesitan toods los campos"}, status=status.HTTP_400_BAD_REQUEST)
+    elif role == "Seller":
+        user = Seller.objects.get(id_seller=user_id)
+        if check_password(password, user.sellerpassword):
+            reset_url, token = generate_reset_url(user, role)
+            return Response({
+            "url": reset_url,
+            "token": token
+            }, status=200)
+        else:
+            return Response({"error": "Contraseña incorrecta"}, status=400)
+
+        
+    elif role == "Collector":
+        user = Collector.objects.get(id_collector=user_id)
+        if check_password(password, user.collectorpassword):
+            reset_url, token = generate_reset_url(user, role)
+            return Response({
+            "url": reset_url,
+            "token": token
+            }, status=200)
+        else:
+            return Response({"error": "Contraseña incorrecta"}, status=400)
+
+        
+    else:
+        return Response({"error":"No se detectno ningun usuario"}, status=status.HTTP_400_BAD_REQUEST)
+        
+
+
+
 class SendResetEmailView(APIView):
     def post(self, request):
+        role = request.data.get("role")
         email = request.data.get("email")
         if not email:
-            return Response({"error": "Email requerido"}, status=status.HTTP_400_BAD_REQUEST)
-        
-        try:
-            user = User.objects.get(email=email)
-        except User.DoesNotExist:
-            return Response({"error": "No existe un usuario con ese correo"}, status=status.HTTP_404_NOT_FOUND)
-
-        uid = urlsafe_base64_encode(force_bytes(user.pk))
-        token = default_token_generator.make_token(user)
-        reset_url = f"http://localhost:5173/reset-password/{uid}/{token}/"
+            return Response({"error": "Email y Rol requeridos"}, status=status.HTTP_400_BAD_REQUEST)
+        if not role:
+            role = no_data.no_rol(email)
+        if role:
+            if role == "Seller":
+                user = Seller.objects.get(sellerEmail=email)
+            elif role == "Collector":
+                user = Collector.objects.get(collectorEmail=email)
+            else:
+                return Response({"error": "Rol no reconocido"}, status=400)
+        else:
+            return Response({"error": "No existe un usuario "}, status=404)
+        reset_url, token = generate_reset_url(user, role)
 
         send_mail(
             "Restablece tu contraseña",
             f"Haz clic en el siguiente enlace para cambiar tu contraseña:\n\n{reset_url}",
-            None,  # Usa DEFAULT_FROM_EMAIL de settings
+            None,
             [email],
             fail_silently=False,
         )
 
-        return Response({"message": "Correo enviado correctamente"}, status=status.HTTP_200_OK)
-    
-class ChangePassword(APIView):
-    def post(self, request):
-        newpassword = request.data.get("newpassword")
-        user_id = request.data.get("id")
-        role = request.data.get("role")  # Asegúrate de recibir también el rol
-
-        if not newpassword:
-            return Response({"error": "Se requiere una nueva contraseña"}, status=status.HTTP_400_BAD_REQUEST)
-        try:
-            validate_password(newpassword)
-        except ValidationError as e:
-            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-        if role == "Seller":
-            user = Seller.objects.filter(id_seller=user_id).first()
-            if not user:
-                return Response({"error": "Usuario no encontrado"}, status=status.HTTP_404_NOT_FOUND)
-
-            if check_password(newpassword, user.sellerpassword):
-                return Response({"error": "La nueva contraseña no puede ser igual a la anterior"}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
-
-            user.sellerpassword = make_password(newpassword)
-            user.save()
-            return Response({"message": "Contraseña actualizada correctamente"}, status=status.HTTP_200_OK)
-
-        elif role == "Collector":
-            user = Collector.objects.filter(id_collector=user_id).first()
-            if not user:
-                return Response({"error": "Usuario no encontrado"}, status=status.HTTP_404_NOT_FOUND)
-
-            if check_password(newpassword, user.collectorpassword):
-                return Response({"error": "La nueva contraseña no puede ser igual a la anterior"}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
-
-            user.collectorpassword = make_password(newpassword)
-            user.save()
-            return Response({"message": "Contraseña actualizada correctamente"}, status=status.HTTP_200_OK)
-
-        else:
-            return Response({"error": "Rol no válido"}, status=status.HTTP_400_BAD_REQUEST)
-
+        return Response({
+            "message": "Correo enviado correctamente",
+            "url": reset_url,
+            "token": token
+        }, status=200)
         
+class ChangePasswordView(APIView):
+    def post(self, request):
+        new_password = request.data.get("new_password")
+        email = request.data.get("email")
+        user_id = request.data.get("id")
+        role = request.data.get("role")
+        token = request.data.get("t_token")
+        if not role: 
+            role = no_data.no_rol(email)
+        if not user_id:
+            user_id = no_data.no_id(email)                
+        if not all([new_password, token, user_id, role]):
+            return Response({"error": "Todos los campos son requeridos"}, status=400)
+        try:
+            AccessToken(token)  # valida expiración
+        except TokenError:
+            return Response({"error": "El acceso ha expirado, solicita otro enlace"}, status=400)
+
+        try:
+            validate_password(new_password)
+        except ValidationError as e:
+            return Response({"error": str(e)}, status=400)
+
+        change_password(role, user_id, new_password)
+
+        return Response({"message": "Contraseña actualizada correctamente"}, status=200)
