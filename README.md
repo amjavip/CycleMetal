@@ -13,7 +13,7 @@
 | Python           | 3.10.10.x+  | `python --version`                 |
 | npm              | 10.9.2.x+     | `npm --version`                    |
 | Git              | 2.46.0.windows.1.x+  | `git --version`                    |
-
+> se recomienda usar la version de python 3.10 ya que esta fue con la que se desarrollo este software
 ---
 
 ##  Instalación Paso a Paso
