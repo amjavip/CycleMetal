@@ -189,6 +189,7 @@ class LoginView(APIView):
         # Buscar en Sellers
         seller = Seller.objects.filter(sellerUsername=username_or_email).first() or Seller.objects.filter(sellerEmail=username_or_email).first()
         if seller and check_password(password, seller.sellerpassword):
+          
             user = seller
             role = "Seller"
 
@@ -196,8 +197,11 @@ class LoginView(APIView):
         if not user:
             collector = Collector.objects.filter(collectorUsername=username_or_email).first() or Collector.objects.filter(collectorEmail=username_or_email).first()
             if collector and check_password(password, collector.collectorpassword):
+               
                 user = collector
                 role = "Collector"
+            else:
+                  return Response({"error": "Credenciales incorrectas"}, status=status.HTTP_401_UNAUTHORIZED)  
 
         # Si el usuario es válido, generar tokens
         if user:
@@ -223,25 +227,32 @@ def generate_temporaly_token(user):
 def generate_reset_url(user):
     uid = urlsafe_base64_encode(force_bytes(user.pk))
     token = generate_temporaly_token(user)
-    return f"http://localhost:5173/changepassword/{uid}/{token}/", str(token)
+    return f"/changepassword/{uid}/{token}/", str(token), str(uid)
 
 def change_password(role, user_id, new_password):
+    print("Nueva contraseña:", repr(new_password))
     if role == "Seller":
             user = Seller.objects.filter(id_seller=user_id).first()
+            print(user.sellerpassword)
             if not user:
                 return Response({"error": "Usuario no encontrado"}, status=404)
             if check_password(new_password, user.sellerpassword):
-                return Response({"error": "La nueva contraseña no puede ser igual a la anterior"}, status=422)
-            user.sellerpassword = make_password(new_password)
-            user.save()
+                print("no puede ser iguales las contraseñas")
+                return True
+            else:
+                user.sellerpassword = make_password(new_password)
+                user.save()
+                print("contraseña guardada")
+                return False
     elif role == "Collector":
             user = Collector.objects.filter(id_collector=user_id).first()
             if not user:
                 return Response({"error": "Usuario no encontrado"}, status=404)
             if check_password(new_password, user.collectorpassword):
                 return Response({"error": "La nueva contraseña no puede ser igual a la anterior"}, status=422)
-            user.collectorpassword = make_password(new_password)
-            user.save()
+            else:
+                user.collectorpassword = make_password(new_password)
+                user.save()
     else:
             return Response({"error": "Rol inválido"}, status=400)
 class no_data:
@@ -283,10 +294,11 @@ def check_pass(request):
     elif role == "Seller":
         user = Seller.objects.get(id_seller=user_id)
         if check_password(password, user.sellerpassword):
-            reset_url, token = generate_reset_url(user, role)
+            reset_url, token , uid= generate_reset_url(user)
             return Response({
             "url": reset_url,
-            "token": token
+            "token": token, 
+            "uid" : uid
             }, status=200)
         else:
             return Response({"error": "Contraseña incorrecta"}, status=400)
@@ -295,7 +307,7 @@ def check_pass(request):
     elif role == "Collector":
         user = Collector.objects.get(id_collector=user_id)
         if check_password(password, user.collectorpassword):
-            reset_url, token = generate_reset_url(user, role)
+            reset_url, token = generate_reset_url(user)
             return Response({
             "url": reset_url,
             "token": token
@@ -327,11 +339,11 @@ class SendResetEmailView(APIView):
                 return Response({"error": "Rol no reconocido"}, status=400)
         else:
             return Response({"error": "No existe un usuario "}, status=404)
-        reset_url, token = generate_reset_url(user, role)
+        reset_url, token, uid = generate_reset_url(user)
 
         send_mail(
             "Restablece tu contraseña",
-            f"Haz clic en el siguiente enlace para cambiar tu contraseña:\n\n{reset_url}",
+            f"Haz clic en el siguiente enlace para cambiar tu contraseña:\n\nhttp://localhost:5173{reset_url}",
             None,
             [email],
             fail_silently=False,
@@ -340,7 +352,8 @@ class SendResetEmailView(APIView):
         return Response({
             "message": "Correo enviado correctamente",
             "url": reset_url,
-            "token": token
+            "t_token": token, 
+            "uid": uid
         }, status=200)
         
 class ChangePasswordView(APIView):
@@ -366,6 +379,9 @@ class ChangePasswordView(APIView):
         except ValidationError as e:
             return Response({"error": str(e)}, status=400)
 
-        change_password(role, user_id, new_password)
-
-        return Response({"message": "Contraseña actualizada correctamente"}, status=200)
+        res = change_password(role, user_id, new_password)
+        if res:
+            return Response({"error": "La contraseña no puede ser igual a la antigua"}, status=400)
+        else:
+            return Response({"message": "Contraseña actualizada correctamente"}, status=200)
+        

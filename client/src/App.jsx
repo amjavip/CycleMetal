@@ -14,6 +14,7 @@ import RedirectIfAuth from './components/RedirectIfAuth'
 import Home from './pages/home';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
+import ConfirmNewPassword from './pages/ConfirmNewPassword';
 
 // Seller
 import SellerHome from './pages/Seller/SellerHome';
@@ -31,7 +32,8 @@ import CollectorHome from './pages/Collector/CollectorHome';
 
 
 function App() {
-  
+  const { t_user} = useAuth();
+
   return (
     <>
       <NavbarSelector />
@@ -49,6 +51,12 @@ function App() {
           <LoginPage /> 
           </RedirectIfAuth>
          } 
+        />
+         <Route
+          path="/changepassword/:uid/:token"
+          element={
+            <ConfirmNewPassword /> 
+          }
         />
 
         {/* Seller */}

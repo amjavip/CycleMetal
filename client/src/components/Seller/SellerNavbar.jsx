@@ -8,7 +8,7 @@ const SellerNavbar = () => {
     const [menuOpen, setMenuOpen] = useState(false); // ✅ Estado para el menú
   
     return (
-      <nav className="sticky top-0 z-50 bg-[#FFF]/80 backdrop-blur-md text-black p-4 border-gray-300">
+      <nav className="sticky top-0 z-50 bg-[#FFF]/60 backdrop-blur-md text-black p-4 border-gray-300">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 md:px-8">
           {/* Logo o nombre del sitio */}
           <Link to="/seller-home" className="text-2xl font-semibold text-[#202020]">

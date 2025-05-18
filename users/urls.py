@@ -20,7 +20,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import SellerViewSet, CollectorViewSet, RegisterUserView, LoginView, SendResetEmailView
 from rest_framework.documentation import include_docs_urls
-from .views import check_username, UpdateUserView
+from .views import check_username, UpdateUserView, check_pass, ChangePasswordView
 
 # Enrutador para los viewsets de Seller y Collector (CRUD)
 router = DefaultRouter()
@@ -33,12 +33,15 @@ urlpatterns = [
     
     # URL para la documentación de la API (si la tienes habilitada)
     path('api/docs/', include_docs_urls(title="Users API")),
+    #Verificacion de datos
     path('api/check-username/', check_username, name='check_username'),
+    path('api/verify-password/', check_pass, name='check_password'),
     # URL para el registro de un nuevo usuario (Seller o Collector)
     path('api/register/', RegisterUserView.as_view(), name='register_user'),
     path('api/login/', LoginView.as_view(), name='login'),
     #Urls para cambio de datos
     path('api/update/', UpdateUserView.as_view(), name='update'),
-    path('api/auth/send-reset-email/', SendResetEmailView.as_view(), name='send-reset-email')
+    path('api/auth/send-reset-email/', SendResetEmailView.as_view(), name='send-reset-email'),
+    path('api/auth/set-new-password/', ChangePasswordView.as_view(), name='set-new-password')
     
     ]

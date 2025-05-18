@@ -32,11 +32,12 @@ export default function SellerDetails() {
       <span className="font-medium">ID de usuario:</span>
       <span>{user.profile.id}</span>
     </div>
-    <div className="w-1/2  focus:">
+    <div className="w-1/2  ">
+    <br /><br />
     
-    <details class="rounded-none transition-all duration-300 ease-in-out hover:border-l-1 collapse hover:px-1 bg-white ">
-  <summary class="collapse-title font-semibold">¿por que no se muestra mi contraseña?</summary>
-  <div class="collapse-content text-sm ">
+    <details class="rounded-none transition-all duration-300 ease-in-out hover:scale-101 collapse hover:px-1 bg-white ">
+  <summary class="collapse-title font-semibold hover:none">¿por que no se muestra mi contraseña?</summary>
+  <div class="collapse-content text-sm hover:none">
    No mostramos contraseñas por cuestion de seguridad de tus datos, si gustas cambiar tu contraseña dirigete a ....
   </div>
  

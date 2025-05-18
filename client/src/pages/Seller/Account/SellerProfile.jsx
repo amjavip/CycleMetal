@@ -1,6 +1,6 @@
+//TODO falta la verificacion para ver si el usuario esta disponible dentro de la base de datos
 import { useEffect, useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
-import HolographicCard from "../../../components/TiltCardShine";
 import TiltCard from "../../../components/TiltCard";
 export default function SellerProfile() {
   const { user, login } = useAuth();  // Obtiene los datos del usuario desde el contexto
@@ -125,7 +125,7 @@ export default function SellerProfile() {
           <div className="p-5 p-2 w-full flex flex-col text-black ">
             <p className="w-full pb-5">Datos</p>
             <form onSubmit={handleSubmit} className="flex flex-col space-between gap-10">
-              <label className="outline-none focus:outline-none input input-lg bg-white w-3/4 rounded-none transition-all duration-300 ease-in-out hover:border-l-black outline-hidden">
+              <label className="outline-none focus:outline-none input input-lg bg-white w-3/4 rounded-none transition-all duration-300 ease-in-out hover:border-l-black justify-center outline-hidden">
                 <input
                   type="text"
                   name="username"
@@ -156,7 +156,7 @@ export default function SellerProfile() {
               {isModified && (
                 <button
                   type="submit"
-                  className="border-1 border-primary mx-auto text-primary font-light px-4 py-2 m-10 rounded hover:bg-primary/10 transition "
+                  className="self-center justify-center border-1 border-primary mx-auto px-3 text-primary font-light  py-2 rounded hover:bg-primary/10 transition "
                 >
                   Guardar cambios
                 </button>
