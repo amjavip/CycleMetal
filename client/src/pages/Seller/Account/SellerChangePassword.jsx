@@ -35,6 +35,7 @@ export default function SellerChangePassword() {
               const urlCambio = data.url;
              localStorage.setItem('t_token', data.token);
              localStorage.setItem('uid', data.uid)
+           
              setTToken(data.token, data.uid); // <- esta es la función correcta del contexto
              
              navigate(urlCambio);

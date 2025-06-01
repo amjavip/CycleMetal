@@ -11,7 +11,9 @@ export default function ConfirmNewPassword() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
    // <- los datos que vienen en la URL
-  const { t_user, setTToken } = useAuth();
+  const { t_user, setTToken, user, logout } = useAuth();
+
+
 
   useEffect(() => {
     // Si no están en contexto, los guardamos
@@ -37,11 +39,14 @@ export default function ConfirmNewPassword() {
     try {
       const response = await axios.post('http://localhost:8000/users/api/auth/set-new-password/', {
         new_password: newPassword,
-        uid: uid,
-        token: token,
+        id: user.profile.id,
+        uid: t_user.uid,
+        role: user.role,
+        t_token: t_user.t_token,
       });
 
       alert("Contraseña actualizada con éxito");
+      logout();
       navigate('/login'); // redirigir al login para que inicie sesión con la nueva contraseña
     } catch (err) {
       if (err.response?.data?.error) {

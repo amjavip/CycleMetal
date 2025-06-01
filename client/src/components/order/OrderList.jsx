@@ -1,17 +1,17 @@
 import React from "react";
 
-const OrderList = ({ pedidos }) => {
+const OrderList = ({ pedidos, onPedidoClick }) => {
   return (
-    <div className="space-y-4 ">
-      
-
+    <div className="space-y-4">
       {pedidos.length === 0 ? (
         <div className="text-gray-500">No hay pedidos aún.</div>
       ) : (
         pedidos.map((pedido, index) => (
           <div
             key={index}
-           className="mx-0 p-4 bg-white rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center">
+            onClick={() => onPedidoClick(pedido)} // ⬅️ Aquí se llama al callback
+            className="cursor-pointer mx-0 p-4 bg-white rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center hover:shadow-sm transition-shadow"
+          >
             <div>
               <p className="text-lg font-semibold">{pedido.material}</p>
               <p className="text-sm text-gray-600">
@@ -34,12 +34,9 @@ const OrderList = ({ pedidos }) => {
                 {pedido.estado.toUpperCase()}
               </span>
             </div>
-              
-              </div>
-              
+          </div>
         ))
       )}
-     
     </div>
   );
 };

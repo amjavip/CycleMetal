@@ -51,7 +51,7 @@ const SellerNavbar = () => {
           transition-all duration-300 ease-in-out transform hover:bg-[#e4e4e5] "/>
            
 
-           
+          
           </div>
         </div>
       </nav>

@@ -231,9 +231,10 @@ def generate_reset_url(user):
 
 def change_password(role, user_id, new_password):
     print("Nueva contraseña:", repr(new_password))
+    print("role:", role)
     if role == "Seller":
             user = Seller.objects.filter(id_seller=user_id).first()
-            print(user.sellerpassword)
+            print(user)
             if not user:
                 return Response({"error": "Usuario no encontrado"}, status=404)
             if check_password(new_password, user.sellerpassword):
@@ -249,6 +250,7 @@ def change_password(role, user_id, new_password):
             if not user:
                 return Response({"error": "Usuario no encontrado"}, status=404)
             if check_password(new_password, user.collectorpassword):
+                print("collector")
                 return Response({"error": "La nueva contraseña no puede ser igual a la anterior"}, status=422)
             else:
                 user.collectorpassword = make_password(new_password)
@@ -262,8 +264,10 @@ class no_data:
            user = Collector.objects.filter(collectorEmail=email).first()
            if user:
                role = "Collector"
+               
                return role
            else:
+               print("algo paso")
                return Response({"error":"No se detectno ningun usuario"}, status=status.HTTP_400_BAD_REQUEST)
       elif user:
           role = "Seller"
@@ -368,6 +372,7 @@ class ChangePasswordView(APIView):
         if not user_id:
             user_id = no_data.no_id(email)                
         if not all([new_password, token, user_id, role]):
+            print(token)
             return Response({"error": "Todos los campos son requeridos"}, status=400)
         try:
             AccessToken(token)  # valida expiración

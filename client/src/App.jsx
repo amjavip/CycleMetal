@@ -1,4 +1,5 @@
 import React from 'react';
+import 'leaflet/dist/leaflet.css';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 // Context
@@ -26,6 +27,7 @@ import SellerProfile from './pages/Seller/Account/SellerProfile';
 import SellerActivity from './pages/Seller/SellerActivity';
 import SellerServices from './pages/Seller/SellerServices';
 import AccountLayout from './components/Seller/SellerLayout';
+import SellerNewOrder from './pages/Seller/Services/SellerNewOrder';
 
 // Collector
 import CollectorHome from './pages/Collector/CollectorHome';
@@ -99,7 +101,15 @@ function App() {
             </ProtectedRoute>
           }
         />
-
+          <Route
+          path="/seller-neworder"
+          element={
+            <ProtectedRoute role="Seller">
+              <SellerNewOrder />
+            </ProtectedRoute>
+          }
+        />
+        
         {/* Collector */}
         <Route
           path="/collector-home"
