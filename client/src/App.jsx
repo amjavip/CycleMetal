@@ -25,9 +25,10 @@ import SellerRecovery from './pages/Seller/Account/SellerRecovery';
 import SellerDetails from './pages/Seller/Account/SellerDetails';
 import SellerProfile from './pages/Seller/Account/SellerProfile';
 import SellerActivity from './pages/Seller/SellerActivity';
-import SellerServices from './pages/Seller/SellerServices';
+import SellerServices from './pages/Seller/Services/SellerServices';
 import AccountLayout from './components/Seller/SellerLayout';
 import SellerNewOrder from './pages/Seller/Services/SellerNewOrder';
+import SellerUbication from './pages/Seller/Services/SellerUbication';
 
 // Collector
 import CollectorHome from './pages/Collector/CollectorHome';
@@ -94,21 +95,24 @@ function App() {
 </Route>
 
         <Route
-          path="/seller-services"
-          element={
-            <ProtectedRoute role="Seller">
-              <SellerServices />
-            </ProtectedRoute>
-          }
-        />
-          <Route
-          path="/seller-neworder"
-          element={
-            <ProtectedRoute role="Seller">
-              <SellerNewOrder />
-            </ProtectedRoute>
-          }
-        />
+  path="/seller-services"
+  element={
+    <ProtectedRoute role="Seller">
+      <SellerServices />
+    </ProtectedRoute>
+  }
+>
+  {/* 👇 Ruta hija visible dentro de <SellerServices /> gracias a <Outlet /> */}
+  <Route
+   path="neworder" 
+   element={
+   <SellerNewOrder />
+
+   } >
+<Route path="ubication" element={<SellerUbication />} />
+    </Route>
+</Route>
+
         
         {/* Collector */}
         <Route

@@ -10,7 +10,7 @@ const OrderList = ({ pedidos, onPedidoClick }) => {
           <div
             key={index}
             onClick={() => onPedidoClick(pedido)} // ⬅️ Aquí se llama al callback
-            className="cursor-pointer mx-0 p-4 bg-white rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center hover:shadow-sm transition-shadow"
+            className="cursor-pointer mx-0 p-4 bg-white rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center hover:shadow-sm transition-shadow "
           >
             <div>
               <p className="text-lg font-semibold">{pedido.material}</p>
