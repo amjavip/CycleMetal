@@ -9,7 +9,25 @@ export default function BotonAnimado() {
   const [rotate, setRotate] = useState(0);
 
   const isInForm = location.pathname === "/seller-services/neworder";
-
+  const [isPendingForm, setIsPendingForm] = useState(true);
+  const path = location.pathname.replace("/seller-services/neworder", "");
+  console.log(path);
+  const paths = [
+  '/ubication',
+  '/payment',
+  '/summary'
+  ]
+const handleBack = () => {
+  if  (isPendingForm){
+  if (paths.includes(path)){
+      navigate(-1)
+  }
+  if (path === "/ubication") {
+    setIsPendingForm[false]
+  }
+}
+};
+  console.log(paths[0])
   // Efecto para actualizar rotación cuando cambia la ruta
   useEffect(() => {
     setRotate(isInForm ? 45 : 0);
@@ -41,5 +59,6 @@ export default function BotonAnimado() {
     >
       <BsPlusLg className="h-full w-full" />
     </motion.div>
+
   );
 }
