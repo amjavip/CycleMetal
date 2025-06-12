@@ -73,7 +73,7 @@ useEffect(() => {
       (
         <div className="text-[#404040] h-20 w-20 btn flex-none btn bg-transparent transition duration-300 border-none shadow-none hover:scale-105
         ">
-          <IoIosArrowBack className="h-full w-full text-black" onClick={handleBack} />
+          <IoIosArrowBack className="h-full w-full text-black font-light" onClick={handleBack} />
         </div>
       )
 

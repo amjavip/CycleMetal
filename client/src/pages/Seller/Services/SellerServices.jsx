@@ -156,7 +156,7 @@ console.log('Índice actual:', currentIndex);
 
         <div
           className="self-end tooltip tooltip-left tooltip-[#fff] flex-none"
-          data-tip="Iniciar pedido"
+           data-tip={isNewOrderRoute ? "Iniciar pedido" : "Cancelar ruta"}
         >
           <div className="flex justify-center items-center h-full w-full">
             <BotonAnimado />
