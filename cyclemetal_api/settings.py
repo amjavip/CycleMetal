@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+from decouple import config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -54,8 +54,10 @@ EMAIL_HOST = 'smtp.gmail.com'  # Servidor de Gmail
 EMAIL_PORT = 587  # Puerto seguro de salida para TLS
 EMAIL_USE_TLS = True  # Usa cifrado TLS
 EMAIL_HOST_USER = 'nonreply.cyclemetal@gmail.com'  # El correo que enviará los mensajes
-EMAIL_HOST_PASSWORD = 'hypz dzjj tlhv jbcu'  # La contraseña (NO la normal)
+EMAIL_HOST_PASSWORD = config('EMAIL_SECRET_KEY')  # La contraseña (NO la normal)
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # Aparece como el remitente del correo
+
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

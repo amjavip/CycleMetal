@@ -62,7 +62,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="w-full max-w-md p-8 space-y-3 rounded-xl dark:bg-gray-50 dark:text-gray-800">
+    <div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-[#fff]/40  backdrop-blur-sm text-black ">
       <h1 className="text-2xl font-bold text-center">Login</h1>
       <form onSubmit={handleSubmit} noValidate className="space-y-6">
         {error && <p className="text-red-500 text-sm">{error}</p>}
@@ -76,7 +76,7 @@ const LoginForm = () => {
             placeholder="Correo electrónico o Usuario"
             value={emailOrUsername}
             onChange={(e) => setEmailOrUsername(e.target.value)}
-            className="w-full px-4 py-3 rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600"
+            className="w-full px-4 py-3 rounded-md dark:border-gray-300  bg-gray-50/30"
           />
         </div>
 
@@ -89,14 +89,14 @@ const LoginForm = () => {
             placeholder="Contraseña"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-4 py-3 rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600"
+            className="w-full px-4 py-3  bg-gray-50/30"
           />
           <div className="flex justify-end text-xs dark:text-gray-600">
             <a href="#">¿Olvidaste tu contraseña?</a>
           </div>
         </div>
 
-        <button type="submit" className="w-full px-8 py-3 btn btn-primary bg-[#303030] hover:bg-[#404040] border-none text-white px-6 py-3 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg">
+        <button type="submit" className="w-full px-8 py-3 btn btn-primary bg-primary/80 hover:bg-primary/100 border-none text-white px-6 py-3 rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg">
           Iniciar sesión
         </button>
       </form>

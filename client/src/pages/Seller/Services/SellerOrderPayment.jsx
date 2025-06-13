@@ -1,5 +1,203 @@
-export default function SellerOrderPayment(){
-    return(
-        <div></div>
-    )
+import React, { useState } from 'react';
+import {
+  loadStripe
+} from '@stripe/stripe-js';
+import {
+  CardElement,
+  Elements,
+  useStripe,
+  useElements
+} from '@stripe/react-stripe-js';
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+
+const CARD_ELEMENT_OPTIONS = {
+  style: {
+    base: {
+      color: '#1f2937',
+      fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+      fontSmoothing: 'antialiased',
+      fontSize: '16px',
+      '::placeholder': {
+        color: '#9ca3af',
+      },
+      iconColor: '#3b82f6',
+    },
+    invalid: {
+      color: '#ef4444',
+      iconColor: '#ef4444',
+    },
+  },
+  hidePostalCode: true,
+};
+
+function CheckoutForm({ orderSummary }) {
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const [paymentMethod, setPaymentMethod] = useState('card'); // 'card' o 'cash'
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+
+  const handlePaymentMethodChange = (e) => {
+    setPaymentMethod(e.target.value);
+    setErrorMessage(null);
+    setPaymentSuccess(false);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setErrorMessage(null);
+
+    if (paymentMethod === 'cash') {
+      // Simular pago al recolector (sin tarjeta)
+      setIsProcessing(true);
+      setTimeout(() => {
+        setIsProcessing(false);
+        setPaymentSuccess(true);
+      }, 1500);
+      return;
+    }
+
+    if (!stripe || !elements) {
+      return;
+    }
+
+    setIsProcessing(true);
+
+    const cardElement = elements.getElement(CardElement);
+
+    // Aquí normalmente llamarías a tu backend para crear el PaymentIntent,
+    // por simplicidad hacemos solo el token para el front.
+    const { error, paymentMethod: pm } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: cardElement,
+    });
+
+    if (error) {
+      setErrorMessage(error.message);
+      setIsProcessing(false);
+      return;
+    }
+
+    // Simular confirmación exitosa (en producción confirma con backend)
+    setTimeout(() => {
+      setIsProcessing(false);
+      setPaymentSuccess(true);
+    }, 1500);
+  };
+
+  return (
+     <div className="min-h-screen mx-auto bg-white w-screen">
+    <div className="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-lg ">
+      <h2 className="text-3xl font-bold mb-6 text-center text-gray-800">Finaliza tu pedido</h2>
+
+      {/* Resumen pedido */}
+      <section className="mb-8 text-black">
+        <h3 className="text-xl font-semibold mb-3">Resumen del pedido</h3>
+        <ul className="mb-2">
+          {orderSummary.items.map((item, i) => (
+            <li key={i} className="flex justify-between border-b py-2">
+              <span>{item.name} x {item.quantity}</span>
+              <span>${(item.price * item.quantity).toFixed(2)}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="flex justify-between font-semibold text-lg border-t pt-2">
+          <span>Total:</span>
+          <span>${orderSummary.total.toFixed(2)}</span>
+        </div>
+      </section>
+
+      {/* Método de pago */}
+      <section className="mb-8 text-black">
+        <h3 className="text-xl font-semibold mb-3">Método de pago</h3>
+
+        <div className="flex items-center mb-4">
+          <input
+            id="pay-card"
+            type="radio"
+            name="paymentMethod"
+            value="card"
+            checked={paymentMethod === 'card'}
+            onChange={handlePaymentMethodChange}
+            className="mr-2 cursor-pointer"
+          />
+          <label htmlFor="pay-card" className="cursor-pointer select-none">
+            Tarjeta de crédito/débito
+          </label>
+        </div>
+
+        <div className="flex items-center mb-4">
+          <input
+            id="pay-cash"
+            type="radio"
+            name="paymentMethod"
+            value="cash"
+            checked={paymentMethod === 'cash'}
+            onChange={handlePaymentMethodChange}
+            className="mr-2 cursor-pointer"
+          />
+          <label htmlFor="pay-cash" className="cursor-pointer select-none">
+            Pago al recolector (en efectivo)
+          </label>
+        </div>
+
+        {paymentMethod === 'card' && (
+          <div className="mb-6">
+            <label className="block mb-2 text-gray-700 font-medium">
+              Información de la tarjeta
+            </label>
+            <div className="border rounded-md p-3 bg-gray-50">
+              <CardElement options={CARD_ELEMENT_OPTIONS} />
+            </div>
+          </div>
+        )}
+      </section>
+
+      {/* Error */}
+      {errorMessage && (
+        <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">{errorMessage}</div>
+      )}
+
+      {/* Botón de pagar */}
+      <button
+        onClick={handleSubmit}
+        disabled={isProcessing || (!stripe && paymentMethod === 'card')}
+        className={`w-full py-3 rounded-md text-white font-semibold transition
+          ${isProcessing ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
+      >
+        {isProcessing ? 'Procesando...' : 'Pagar ahora'}
+      </button>
+
+      {/* Mensaje éxito */}
+      {paymentSuccess && (
+        <div className="mt-6 p-4 bg-green-100 text-green-700 rounded text-center font-semibold">
+          ¡Pago realizado con éxito! Gracias por tu pedido.
+        </div>
+      )}
+    </div>
+    </div>
+  );
+}
+
+export default function PaymentPage() {
+  // Ejemplo de resumen de pedido para mostrar
+  const exampleOrderSummary = {
+    items: [
+      { name: 'Recolección básica', quantity: 1, price: 350 },
+      { name: 'Servicio premium', quantity: 2, price: 150 },
+    ],
+    total: 650,
+  };
+
+  return (
+    <Elements stripe={stripePromise}>
+      <div className="min-h-screen bg-gray-100 flex justify-center">
+        <CheckoutForm orderSummary={exampleOrderSummary} />
+      </div>
+    </Elements>
+    
+  );
 }

@@ -30,6 +30,7 @@ import AccountLayout from './components/Seller/SellerLayout';
 import SellerNewOrder from './pages/Seller/Services/SellerNewOrder';
 import SellerUbication from './pages/Seller/Services/SellerUbication';
 import SellerOrderPayment from './pages/Seller/Services/SellerOrderPayment';
+import SellerOrderSumary from './pages/Seller/Services/SellerOrderData';
 
 // Collector
 import CollectorHome from './pages/Collector/CollectorHome';
@@ -112,6 +113,7 @@ function App() {
    } >
 <Route path="ubication" element={<SellerUbication />} />
 <Route path="payment" element={<SellerOrderPayment/>}/>
+<Route path="sumary" element={<SellerOrderSumary/>}/>
     </Route>
 </Route>
 

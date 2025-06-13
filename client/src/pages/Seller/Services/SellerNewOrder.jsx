@@ -35,12 +35,18 @@ export default function SellerNewOrder() {
 
     };
 
+    const total = selectedItems.reduce((sum, sel) => {
+  const item = catalog.find(i => i.id === sel.item);
+  return sum + (item?.precio || 0) * sel.cantidad;
+}, 0);
+
     const handleSelect = (item) => {
         const exists = selectedItems.find(i => i.item === item.id);
         if (exists) {
             // Aumentar cantidad
             setSelectedItems(selectedItems.map(i =>
                 i.item === item.id ? { ...i, cantidad: i.cantidad + 1 } : i
+                
             ));
         } else {
             setSelectedItems([...selectedItems, { item: item.id, cantidad: 1 }]);
@@ -52,19 +58,28 @@ export default function SellerNewOrder() {
             i.item === itemId ? { ...i, cantidad: value } : i
         ));
     };
+const handleSubmit = () => {
+    const token = localStorage.getItem("token"); // O donde tengas almacenado tu token
 
-    const handleSubmit = () => {
-        axios.post("/api/orders/create/", {
-            id_seller: user.profile.id,  // ← CAMBIA esto si el ID se debe tomar dinámicamente
-            items: selectedItems
-        }).then(res => {
-            alert("Orden creada con éxito: " + res.data.id_order);
-            setSelectedItems([]);
-        }).catch(err => {
-            console.error(err);
-            alert("Error al crear la orden");
-        });
-    };
+    axios.post("http://127.0.0.1:8000/orders/api/order/create/", {
+        id_seller: user.profile.id,
+        items: selectedItems,
+        total: total,
+    }, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    .then(res => {
+        alert("Orden creada con éxito: " + res.data.id_order);
+        setSelectedItems([]);
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Error al crear la orden");
+    });
+};
+
 
     return (
         <div className=" min-h-screen bg-white flex flex-col px-5">
@@ -125,11 +140,15 @@ export default function SellerNewOrder() {
                                 </ul>
                             </div>
                             {(selectedItems.length > 0) ? (
+                                 <div>
+                                  <p className="self-center text-center px-4 py-1  font-light ">  Total del pedido:         ${total} MXN</p>
                                 <div className="w-full flex flex-row">
+                                    
                                     <button onClick={handleSubmit} className="bg-[#303030] text-white px-4 py-2 rounded-xl hover:bg-[#202020] transition  w-3/4 max-h-[40px] self-center">
                                         Enviar Pedido
                                     </button>
                                     <button onClick={handleDeleteAll} className="bg-transparent text-white pl-4  rounded-xl  w-1/4 flex justify-center"><RxCross2 className="text-black w-15 h-15 p-2 hover:text-[#dc5550] transition transition-300" /></button>
+                                </div>
                                 </div>
                             )
                                 : (

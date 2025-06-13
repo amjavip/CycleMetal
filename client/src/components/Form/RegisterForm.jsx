@@ -68,41 +68,41 @@ const RegisterForm = ({ setMessage }) => {
   };
 
   return (
-    <div className="flex flex-col max-w-md py-8 rounded-md sm:p-10 bg-white shadow-lg text-gray-800">
-      <div className="mb-8 text-center">
+    <div className="flex flex-col max-w-md py-8 rounded-3xl sm:p-10 bg-[#fff]/40  backdrop-blur-sm  text-gray-800">
+      <div className="mb-8 text-center ">
         <h1 className="my-3 text-4xl font-bold">Registro de Usuario</h1>
         <p className="text-sm text-gray-600">Crea una cuenta para continuar</p>
       </div>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4 ">
         <div>
           <label className="block mb-2 text-sm">Username</label>
-          <input type="text" name="username" onChange={handleChange} required className="w-full px-3 py-2 border rounded-md bg-gray-50 text-gray-800" />
+          <input type="text" placeholder="Usuario" name="username" onChange={handleChange} required className="w-full px-3 py-2  rounded-md bg-gray-50/30 text-gray-800" />
         </div>
         <div>
           <label className="block mb-2 text-sm">Email</label>
-          <input type="email" name="email" onChange={handleChange} required className="w-full px-3 py-2 border rounded-md bg-gray-50 text-gray-800" />
+          <input type="email" name="email" placeholder="Correo electrónico" onChange={handleChange} required className="w-full px-3 py-2 rounded-md bg-gray-50/30 text-gray-800" />
         </div>
         <div>
           <label className="block mb-2 text-sm">Password</label>
-          <input type="password" name="password" onChange={handleChange} required className="w-full px-3 py-2 border rounded-md bg-gray-50 text-gray-800" />
+          <input type="password" placeholder="Contraseña" name="password" onChange={handleChange} required className="w-full px-3 py-2  rounded-md bg-gray-50/30 text-gray-800" />
         </div>
         <div>
           <label className="block mb-2 text-sm">Confirmar contraseña</label>
-          <input type="password" name="confirmPassword" onChange={handleChange} required className="w-full px-3 py-2 border rounded-md bg-gray-50 text-gray-800" />
+          <input type="password" name="confirmPassword" placeholder="Confirmar contraseña" onChange={handleChange} required className="w-full px-3 py-2  rounded-md bg-gray-50/30 text-gray-800" />
         </div>
         <div>
-          <label className="block mb-2 text-sm">Phone</label>
-          <input type="text" name="phone" onChange={handleChange} required className="w-full px-3 py-2 border rounded-md bg-gray-50 text-gray-800" />
+          <label className="block mb-2 text-sm">Telefono</label>
+          <input type="text" name="phone" placeholder="Telefono" onChange={handleChange} required className="w-full px-3 py-2  rounded-md bg-gray-50/30 text-gray-800" />
         </div>
         <div>
           <label className="block mb-2 text-sm">Role</label>
-          <select name="role" onChange={handleChange} className="w-full px-3 py-2 border rounded-md bg-gray-50 text-gray-800">
+          <select name="role" onChange={handleChange} className="w-full px-3 py-2  rounded-md bg-gray-50/30 text-gray-800">
             <option value="seller">Seller</option>
             <option value="collector">Collector</option>
           </select>
         </div>
         <div>
-          <button type="submit" className="w-full px-8 py-3 font-semibold rounded-md bg-violet-600 text-white hover:bg-violet-700">Registrarse</button>
+          <button type="submit" className="w-full px-8 py-3 font-semibold rounded-2xl bg-violet-600 text-white hover:bg-violet-700">Registrarse</button>
         </div>
       </form>
     </div>
