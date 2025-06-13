@@ -3,8 +3,9 @@ import { useAuth } from "../../../context/AuthContext";
 import { useState } from "react";
 import OrderList from "../../../components/order/OrderList";
 import BotonAnimado from "../../../components/Button/neworderbutton";
-
+import { useOrder } from "../../../context/OrderContext";
 export default function SellerServices() {
+  const { resetOrder } = useOrder();
   const location = useLocation();
   console.log(location);
   const isNewOrderRoute = location.pathname === "/seller-services";
@@ -78,7 +79,9 @@ const steps = [
 const path = location.pathname.replace('/seller-services', '');
 const currentIndex = steps.findIndex(step => step === path);
 
-
+const handleReset = () => {
+resetOrder();
+}
 console.log('Ruta limpia:', path);
 console.log('Índice actual:', currentIndex);
   return (
@@ -158,7 +161,7 @@ console.log('Índice actual:', currentIndex);
           className="self-end tooltip tooltip-left tooltip-[#fff] flex-none"
            data-tip={isNewOrderRoute ? "Iniciar pedido" : "Cancelar ruta"}
         >
-          <div className="flex justify-center items-center h-full w-full">
+          <div onClick={handleReset} className="flex justify-center items-center h-full w-full">
             <BotonAnimado />
           </div>
         </div>

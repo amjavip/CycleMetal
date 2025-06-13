@@ -4,8 +4,9 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { div } from "three/tsl";
 import { IoIosArrowBack } from "react-icons/io";
-
+import { useOrder } from "../../context/OrderContext";
 export default function BotonAnimado() {
+   const resetOrder = useOrder();
   const navigate = useNavigate();
   const location = useLocation();
   const [rotate, setRotate] = useState(0);

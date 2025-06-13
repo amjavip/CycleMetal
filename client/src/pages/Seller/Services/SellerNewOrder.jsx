@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useOrder } from "../../../context/OrderContext";
 import { Outlet, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../../../context/AuthContext";
@@ -6,10 +7,12 @@ import { NavLink } from "react-router-dom";
 import { BsPlusLg } from "react-icons/bs";
 import BotonAnimado from "../../../components/Button/neworderbutton";
 import { RxCross2 } from "react-icons/rx";
-import { div } from "three/tsl";
+import { useNavigate } from "react-router-dom";
+import { div, userData } from "three/tsl";
 
 export default function SellerNewOrder() {
     const isNewOrderRoute = location.pathname === "/seller-services/neworder";
+    const navigate = useNavigate();
     const { user } = useAuth();
     const [catalog, setCatalog] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
@@ -35,11 +38,13 @@ export default function SellerNewOrder() {
 
     };
 
-    const total = selectedItems.reduce((sum, sel) => {
+  const total = selectedItems.reduce((sum, sel) => {
   const item = catalog.find(i => i.id === sel.item);
-  return sum + (item?.precio || 0) * sel.cantidad;
+  const precio = Number(item?.precio) || 0;
+  const cantidad = Number(sel.cantidad) || 0;
+  return sum + precio * cantidad;
 }, 0);
-
+console.log(total);
     const handleSelect = (item) => {
         const exists = selectedItems.find(i => i.item === item.id);
         if (exists) {
@@ -58,26 +63,15 @@ export default function SellerNewOrder() {
             i.item === itemId ? { ...i, cantidad: value } : i
         ));
     };
-const handleSubmit = () => {
-    const token = localStorage.getItem("token"); // O donde tengas almacenado tu token
+const { updateOrder } = useOrder();
 
-    axios.post("http://127.0.0.1:8000/orders/api/order/create/", {
-        id_seller: user.profile.id,
-        items: selectedItems,
-        total: total,
-    }, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
-    .then(res => {
-        alert("Orden creada con éxito: " + res.data.id_order);
-        setSelectedItems([]);
-    })
-    .catch(err => {
-        console.error(err);
-        alert("Error al crear la orden");
-    });
+const handleSubmit = () => {
+ 
+  updateOrder("sellerId", user?.profile?.id);
+  updateOrder("items", selectedItems);
+  updateOrder("total", total);
+  // Navegar al siguiente paso si quieres, por ejemplo:
+  navigate("/seller-services/neworder/ubication");
 };
 
 

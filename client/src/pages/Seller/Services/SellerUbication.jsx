@@ -2,8 +2,11 @@ import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { TiLocationOutline } from "react-icons/ti";
+import { useOrder } from '../../../context/OrderContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function SellerUbication() {
+    const navigate = useNavigate();
     const [latlon, setLatlon] = useState(null); // CDMX por defecto
     const [search, setSearch] = useState('');
     const [suggestions, setSuggestions] = useState([]);
@@ -46,6 +49,17 @@ export default function SellerUbication() {
             }
         );
     }, []);
+    
+const { updateOrder } = useOrder();
+
+const handleSubmit = () => {
+ 
+  updateOrder("location", latlon);
+  
+  // Navegar al siguiente pasosi quieres, por ejemplo:
+  navigate("/seller-services/neworder/payment");
+};
+
     const handleCurrentPosition = () => {
         navigator.geolocation.getCurrentPosition(
             async (pos) => {
@@ -113,7 +127,7 @@ export default function SellerUbication() {
                     />
                 </label>
               {latlon && latlon.length === 2 && (
-  <button className='btn btn-primary self-center text-[12px] p-3 m-3'>Usar esta ubicación</button>
+  <button onClick={handleSubmit} className='btn btn-primary self-center text-[12px] p-3 m-3'>Usar esta ubicación</button>
 )}
 
                 </div> 

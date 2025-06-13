@@ -10,11 +10,13 @@ import './index.css'; // ✅ tus estilos deben importarse aquí
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthProvider>
-        <OrderProvider>
+     <OrderProvider>
+       <AuthProvider>
+       
           <App />
-        </OrderProvider>
-      </AuthProvider>
+       
+       </AuthProvider>
+      </OrderProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

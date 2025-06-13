@@ -6,7 +6,9 @@ const OrderContext = createContext();
 export function OrderProvider({ children }) {
   const [orderData, setOrderData] = useState(() => {
     const saved = localStorage.getItem("orderData");
+  
     return saved
+  
       ? JSON.parse(saved)
       : {
           sellerId: null,
@@ -16,6 +18,7 @@ export function OrderProvider({ children }) {
           paymentMethod: null,
           notes: "",
         };
+        
   });
 
   useEffect(() => {
@@ -45,7 +48,9 @@ export function OrderProvider({ children }) {
       notes: "",
     });
     localStorage.removeItem("orderData");
+    console.log("data borrada")
   };
+console.log("esta es la info",orderData)
 
   return (
     <OrderContext.Provider value={{ orderData, updateOrder, resetOrder }}>
