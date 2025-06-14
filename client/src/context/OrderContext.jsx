@@ -1,9 +1,11 @@
 // context/OrderContext.jsx
 import { createContext, useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const OrderContext = createContext();
 
 export function OrderProvider({ children }) {
+  
   const [orderData, setOrderData] = useState(() => {
     const saved = localStorage.getItem("orderData");
   
@@ -15,10 +17,13 @@ export function OrderProvider({ children }) {
           location: null,
           items: [],
           total: 0,
+          subtotal: 0,
           paymentMethod: null,
+          step: 0,
+          token: null,
           notes: "",
         };
-        
+
   });
 
   useEffect(() => {
@@ -31,7 +36,7 @@ export function OrderProvider({ children }) {
 
       // Recalcula el total si se actualizan los items
       if (key === "items") {
-        updated.total = value.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
+        updated.subtotal = value.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
       }
 
       return updated;
@@ -43,14 +48,14 @@ export function OrderProvider({ children }) {
       sellerId: null,
       location: null,
       items: [],
+      subtotal: 0,
       total: 0,
       paymentMethod: null,
       notes: "",
     });
     localStorage.removeItem("orderData");
-    console.log("data borrada")
+
   };
-console.log("esta es la info",orderData)
 
   return (
     <OrderContext.Provider value={{ orderData, updateOrder, resetOrder }}>

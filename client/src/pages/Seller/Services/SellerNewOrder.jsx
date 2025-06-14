@@ -64,13 +64,22 @@ console.log(total);
         ));
     };
 const { updateOrder } = useOrder();
+// Agrega esto justo antes de handleSubmit
+const orderItems = selectedItems.map(sel => {
+  const item = catalog.find(i => i.id === sel.item);
+  return {
+    id: sel.item,
+    cantidad: sel.cantidad,
+    nombre: item?.nombre || "",
+    precio: item?.precio || 0
+  };
+});
 
 const handleSubmit = () => {
  
   updateOrder("sellerId", user?.profile?.id);
-  updateOrder("items", selectedItems);
-  updateOrder("total", total);
-  // Navegar al siguiente paso si quieres, por ejemplo:
+  updateOrder("items", orderItems);
+  updateOrder("subtotal", total);
   navigate("/seller-services/neworder/ubication");
 };
 

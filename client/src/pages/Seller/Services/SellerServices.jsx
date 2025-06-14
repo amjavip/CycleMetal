@@ -7,7 +7,7 @@ import { useOrder } from "../../../context/OrderContext";
 export default function SellerServices() {
   const { resetOrder } = useOrder();
   const location = useLocation();
-  console.log(location);
+
   const isNewOrderRoute = location.pathname === "/seller-services";
 
   const [pedidoActual, setPedidoActual] = useState(null);
@@ -71,19 +71,15 @@ export default function SellerServices() {
 const steps = [
   '/neworder',
   '/neworder/ubication',
-  '/neworder/payment',
-  '/neworder/summary'
+  '/neworder/summary',
+  '/neworder/payment'
 ];
 
   const { user } = useAuth();
 const path = location.pathname.replace('/seller-services', '');
 const currentIndex = steps.findIndex(step => step === path);
 
-const handleReset = () => {
-resetOrder();
-}
-console.log('Ruta limpia:', path);
-console.log('Índice actual:', currentIndex);
+
   return (
     <div className="min-h-screen bg-white flex flex-col px-5">
       <div className="flex">
@@ -150,8 +146,9 @@ console.log('Índice actual:', currentIndex);
     >
       {step === '/neworder' && 'Artículos'}
       {step === '/neworder/ubication' && 'Ubicación de recolección'}
-      {step === '/neworder/payment' && 'Método de pago'}
       {step === '/neworder/summary' && 'Info. del pedido'}
+      {step === '/neworder/payment' && 'Método de pago'}
+      
     </li>
   ))}
 </ul>
@@ -161,7 +158,7 @@ console.log('Índice actual:', currentIndex);
           className="self-end tooltip tooltip-left tooltip-[#fff] flex-none"
            data-tip={isNewOrderRoute ? "Iniciar pedido" : "Cancelar ruta"}
         >
-          <div onClick={handleReset} className="flex justify-center items-center h-full w-full">
+          <div className="flex justify-center items-center h-full w-full">
             <BotonAnimado />
           </div>
         </div>

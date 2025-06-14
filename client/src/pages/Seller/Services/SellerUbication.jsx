@@ -57,7 +57,7 @@ const handleSubmit = () => {
   updateOrder("location", latlon);
   
   // Navegar al siguiente pasosi quieres, por ejemplo:
-  navigate("/seller-services/neworder/payment");
+  navigate("/seller-services/neworder/summary");
 };
 
     const handleCurrentPosition = () => {

@@ -2,11 +2,11 @@ import { BsPlusLg } from "react-icons/bs";
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { div } from "three/tsl";
+import { div, step } from "three/tsl";
 import { IoIosArrowBack } from "react-icons/io";
 import { useOrder } from "../../context/OrderContext";
 export default function BotonAnimado() {
-   const resetOrder = useOrder();
+   const { resetOrder, updateOrder } = useOrder();
   const navigate = useNavigate();
   const location = useLocation();
   const [rotate, setRotate] = useState(0);
@@ -17,21 +17,29 @@ export default function BotonAnimado() {
   console.log(path);
   const paths = [
     '/ubication',
+    '/summary',
     '/payment',
-    '/summary'
   ]
+console.log("/seller-services/neworder"+(paths[(paths.indexOf(path))]));
 useEffect(() => {
   if (paths.includes(path)) {
+    updateOrder("step", (paths.indexOf(path)+1));
     setIsPendingForm(true);
   }
 }, [path]);
-
   const handleBack = () => {
    
       if (paths.includes(path)) {
-        navigate(-1)
+        console.log("ola")
+        if (paths.indexOf(path)===0){
+          navigate("/seller-services/neworder");
+          setIsPendingForm(false)
+        }
+      else {
+          navigate("/seller-services/neworder"+(paths[(paths.indexOf(path)-1)]))
         
-        setIsPendingForm(false)
+        
+      }
      
     }
   };
@@ -43,6 +51,9 @@ useEffect(() => {
 
   const handleClick = () => {
     if (isInForm) {
+      
+      resetOrder();
+
       // 1. Animar de regreso
       setRotate(0);
       // 2. Esperar a que termine la animación

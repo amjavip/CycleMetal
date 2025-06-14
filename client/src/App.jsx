@@ -113,7 +113,7 @@ function App() {
    } >
 <Route path="ubication" element={<SellerUbication />} />
 <Route path="payment" element={<SellerOrderPayment/>}/>
-<Route path="sumary" element={<SellerOrderSumary/>}/>
+<Route path="summary" element={<SellerOrderSumary/>}/>
     </Route>
 </Route>
 
