@@ -12,17 +12,14 @@ const NavbarSelector = () => {
     return <LoadingAlert></LoadingAlert> 
   }
   if (!user) {
-    console.log("Esta utilizando el def");
     return <DefaultNavbar />;
   }
 
   if (user.role === 'Seller') {
-    console.log("Esta utilizando el sell");
     return <SellerNavbar />;
   }
 
   if (user.role === 'Collector') {
-    console.log("Esta utilizando el coll");
     return <CollectorNavbar />;
   }
 

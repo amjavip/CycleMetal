@@ -21,7 +21,6 @@ export const AuthProvider = ({ children }) => {
     const uid = localStorage.getItem('uid')
     if (token && role && profile) {
       setUser({ token, role, profile});
-      console.log(profile, "ahora estos son los datos");
     if (t_token) {
       setT_user({t_token, uid});
     }

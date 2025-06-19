@@ -14,13 +14,12 @@ export default function BotonAnimado() {
   const isInForm = location.pathname === "/seller-services/neworder";
   const [isPendingForm, setIsPendingForm] = useState(false);
   const path = location.pathname.replace("/seller-services/neworder", "");
-  console.log(path);
+
   const paths = [
     '/ubication',
     '/summary',
     '/payment',
   ]
-console.log("/seller-services/neworder"+(paths[(paths.indexOf(path))]));
 useEffect(() => {
   if (paths.includes(path)) {
     updateOrder("step", (paths.indexOf(path)+1));
@@ -30,7 +29,7 @@ useEffect(() => {
   const handleBack = () => {
    
       if (paths.includes(path)) {
-        console.log("ola")
+       
         if (paths.indexOf(path)===0){
           navigate("/seller-services/neworder");
           setIsPendingForm(false)
@@ -69,7 +68,6 @@ useEffect(() => {
       }, 100);
     }
   };
-  console.log(isPendingForm)
   return (
     !isPendingForm ? (
       <motion.div

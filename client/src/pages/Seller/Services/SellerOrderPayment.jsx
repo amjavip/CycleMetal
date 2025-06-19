@@ -106,8 +106,19 @@ function CheckoutForm() {
               <li key={i} className="flex justify-between border-b py-2">
                 <span>{item.nombre} x {item.cantidad}</span>
                 <span>${(item.precio * item.cantidad).toFixed(2)}</span>
+            
               </li>
             ))}
+          
+             <li className="flex justify-between border-b py-2">
+              <span>Comision</span>
+              <span>${orderData.comision}</span>
+            </li>
+              {orderData.tip>0 &&<li className="flex justify-between border-b py-2">
+              <span>Propina</span>
+              <span>${orderData.tip}</span>
+            </li>
+            }
           </ul>
           <div className="flex justify-between font-semibold text-lg border-t pt-2">
             <span>Total:</span>

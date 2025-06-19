@@ -44,7 +44,6 @@ export default function SellerNewOrder() {
   const cantidad = Number(sel.cantidad) || 0;
   return sum + precio * cantidad;
 }, 0);
-console.log(total);
     const handleSelect = (item) => {
         const exists = selectedItems.find(i => i.item === item.id);
         if (exists) {

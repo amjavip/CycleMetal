@@ -5,24 +5,27 @@ import { useNavigate } from "react-router-dom";
 const OrderContext = createContext();
 
 export function OrderProvider({ children }) {
-  
+
   const [orderData, setOrderData] = useState(() => {
     const saved = localStorage.getItem("orderData");
-  
+
     return saved
-  
+
       ? JSON.parse(saved)
       : {
-          sellerId: null,
-          location: null,
-          items: [],
-          total: 0,
-          subtotal: 0,
-          paymentMethod: null,
-          step: 0,
-          token: null,
-          notes: "",
-        };
+        sellerId: null,
+        location: null,
+        items: [],
+        tip: 0,
+        comision: 0,
+        total: 0,
+        subtotal: 0,
+        torder: null,
+        paymentMethod: null,
+        step: 0,
+        token: null,
+        notes: "",
+      };
 
   });
 
@@ -48,9 +51,14 @@ export function OrderProvider({ children }) {
       sellerId: null,
       location: null,
       items: [],
-      subtotal: 0,
+      tip: 0,
+      comision: 0,
       total: 0,
+      subtotal: 0,
+      torder: null,
       paymentMethod: null,
+      step: 0,
+      token: null,
       notes: "",
     });
     localStorage.removeItem("orderData");
