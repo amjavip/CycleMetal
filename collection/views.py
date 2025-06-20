@@ -13,8 +13,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Order, OrderItem, Item
-from .serializer import OrderSerializer
+from .serializer import OrderSerializer, OrderItemSerializer
 from users.models import Seller
+
+from rest_framework import viewsets
 
 
 def createToken():
@@ -23,33 +25,67 @@ def createToken():
 
 class CreateTempOrderView(APIView):
     def post(self, request):
+        id = request.data.get("sellerId")
         items = request.data.get("items")
         tip = float(request.data.get("tip"))
+        location = request.data.get("location")
+        lat = location[0]
+        lon = location[1]
+        print(lat, lon)
+
         if items:
             subtotal = 0.00
             sum = 0.00
-            item_info = []
+
+            orderItem = []
             for item in items:
-                item_obj = Item.objects.get(id=item["id"])
-                precio = item_obj.precio
-                sum = sum + (float(precio) * item["cantidad"])
-                item_info.append({"item_id": item_obj.id, "cantidad": item["cantidad"]})
+                try:
+                    item_obj = Item.objects.get(id=item["id"])
+                    precio = item_obj.precio
+                    sum += float(precio) * item["cantidad"]
+                    orderItem.append(
+                        {
+                            "item": item_obj,
+                            "cantidad": item["cantidad"],
+                        }
+                    )
+                except Item.DoesNotExist:
+                    return Response(
+                        {"error": f"Item ID {item['id']} inválido"}, status=400
+                    )
+
             comision = sum * 0.10
             subtotal = sum + comision
             total = subtotal + tip
 
-            receipt_info = {
-                "comision": float(comision),
-                "subtotal": float(subtotal),
-                "tip": float(tip),
-                "total": float(total),
-            }
-            resultado = {"items": item_info, "receipt": receipt_info}
+            order = Order.objects.create(
+                id_seller_id=id,
+                metodo_pago=None,
+                status="pending",
+                tip=tip,
+                lon=lon,
+                lat=lat,
+                subtotal=subtotal,
+                comision=comision,
+                total=total,
+            )
+            print(order.id_order)
+            for item in orderItem:
+                print("bien")
+                serializer = OrderItemSerializer(
+                    data={
+                        "order": order.id,
+                        "item": item["item"].id,
+                        "cantidad": item["cantidad"],
+                    }
+                )
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
 
-            print("resultado:", resultado)
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response({"order_id": order.id_order}, status=201)
 
         else:
+            print("mal")
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -83,3 +119,9 @@ class ItemCatalogView(APIView):
         items = Item.objects.all()
         serializer = ItemSerializer(items, many=True)
         return Response(serializer.data)
+
+
+class OrderItemViewSet(viewsets.ModelViewSet):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
+    permission_classes = [IsAuthenticated]
