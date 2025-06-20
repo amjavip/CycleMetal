@@ -13,6 +13,7 @@ export function OrderProvider({ children }) {
 
       ? JSON.parse(saved)
       : {
+        id: null,
         sellerId: null,
         location: null,
         items: [],
@@ -20,11 +21,10 @@ export function OrderProvider({ children }) {
         comision: 0,
         total: 0,
         subtotal: 0,
-        torder: null,
+        token: null,
         paymentMethod: null,
         step: 0,
-        token: null,
-        notes: "",
+
       };
 
   });
@@ -48,6 +48,7 @@ export function OrderProvider({ children }) {
 
   const resetOrder = () => {
     setOrderData({
+      id: null,
       sellerId: null,
       location: null,
       items: [],
@@ -55,16 +56,14 @@ export function OrderProvider({ children }) {
       comision: 0,
       total: 0,
       subtotal: 0,
-      torder: null,
+      token: null,
       paymentMethod: null,
       step: 0,
-      token: null,
-      notes: "",
     });
     localStorage.removeItem("orderData");
 
   };
-
+console.log(orderData);
   return (
     <OrderContext.Provider value={{ orderData, updateOrder, resetOrder }}>
       {children}

@@ -12,7 +12,7 @@ router.register(r"orderitem", OrderItemViewSet)
 urlpatterns = [
     path("api/order/", include(router.urls)),
     # URL para la documentación de la API (si la tienes habilitada)
-    path("api/docs/", include_docs_urls(title="Users API")),
+    path("api/docs/", include_docs_urls(title="Orders API")),
     path("api/catalog/", ItemCatalogView.as_view(), name="item-catalog"),
     path("api/create/", CreateTempOrderView.as_view(), name="neworder"),
 ]

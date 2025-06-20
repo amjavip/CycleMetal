@@ -1,5 +1,6 @@
 # orders/views.py
 from rest_framework.views import APIView
+from datetime import timedelta
 from .models import Item
 from .serializer import ItemSerializer
 from rest_framework.permissions import IsAuthenticated
@@ -15,15 +16,21 @@ from rest_framework import status
 from .models import Order, OrderItem, Item
 from .serializer import OrderSerializer, OrderItemSerializer
 from users.models import Seller
-
 from rest_framework import viewsets
+from rest_framework_simplejwt.tokens import RefreshToken, AccessToken, TokenError
 
 
-def createToken():
-    return
+class AuthService:
+    def generate_token_for_order(user):
+        token = AccessToken.for_user(user)
+        token.set_exp(lifetime=timedelta(minutes=15))
+        return str(token)
 
 
 class CreateTempOrderView(APIView):
+
+    permission_classes = [IsAuthenticated]
+
     def post(self, request):
         id = request.data.get("sellerId")
         items = request.data.get("items")
@@ -31,12 +38,14 @@ class CreateTempOrderView(APIView):
         location = request.data.get("location")
         lat = location[0]
         lon = location[1]
-        print(lat, lon)
+        try:
+            user = Seller.objects.get(id_seller=id)
+        except Seller.DoesNotExist:
+            return Response({"error": "Vendedor no encontrado"}, status=404)
 
         if items:
             subtotal = 0.00
             sum = 0.00
-
             orderItem = []
             for item in items:
                 try:
@@ -59,7 +68,7 @@ class CreateTempOrderView(APIView):
             total = subtotal + tip
 
             order = Order.objects.create(
-                id_seller_id=id,
+                id_seller_id=user.id,
                 metodo_pago=None,
                 status="pending",
                 tip=tip,
@@ -81,11 +90,23 @@ class CreateTempOrderView(APIView):
                 )
                 serializer.is_valid(raise_exception=True)
                 serializer.save()
+                orderToken = AuthService.generate_token_for_order(user)
 
-            return Response({"order_id": order.id_order}, status=201)
+            return Response(
+                {
+                    "id": order.id_order,
+                    "location": location,
+                    "total": total,
+                    "comision": comision,
+                    "subtotal": subtotal,
+                    "token": orderToken,
+                    "tip": tip,
+                    "items": items,
+                },
+                status=201,
+            )
 
         else:
-            print("mal")
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 

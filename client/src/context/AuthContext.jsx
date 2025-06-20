@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
     setT_user({ t_token: token, uid });
   };
 
-
+console.log(user);
   return (
     <AuthContext.Provider value={{ user, login, logout, loading, t_user, setTToken }}>
       {children}

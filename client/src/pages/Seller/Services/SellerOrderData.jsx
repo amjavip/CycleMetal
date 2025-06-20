@@ -1,4 +1,5 @@
 import { useOrder } from "../../../context/OrderContext";
+import { useAuth } from "../../../context/AuthContext";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
@@ -6,6 +7,7 @@ import axios from "axios";
 import 'leaflet/dist/leaflet.css';
 import { damp } from "three/src/math/MathUtils.js";
 export default function SummaryPage() {
+    const { user } = useAuth();
     const VALIDATE_ORDER_URL = "http://127.0.0.1:8000/orders/api/create/";
     const { orderData } = useOrder();
     const { updateOrder } = useOrder();
@@ -33,12 +35,24 @@ export default function SummaryPage() {
         updateOrder("comision", comision);
         updateOrder("tip", propina);
         console.log("los datos se enviar");
-
+        console.log(user.token)
         const validateOrder = async () => {
             try {
-                const response = await axios.post(VALIDATE_ORDER_URL, orderData );
-
-                console.log("respuesta del servidor: ", response)
+                const response = await axios.post(VALIDATE_ORDER_URL, orderData, {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`, // el token del vendedor logueado
+                    },
+                });
+                
+                updateOrder("id", response.data.id);
+                updateOrder("token", response.data.token);
+                updateOrder("location", response.data.location);
+                updateOrder("comision", response.data.comision);
+                updateOrder("tip", response.data.tip);
+                updateOrder("total", response.data.total);
+                updateOrder("subtotal", response.data.subtotal);
+                updateOrder("items", response.data.items);
+                
             }
             catch (error) {
                 console.log("hubo un error", error);

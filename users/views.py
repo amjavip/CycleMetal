@@ -173,6 +173,11 @@ class UpdateUserView(APIView):
 
                 # Regenerar el token después de actualizar los datos
                 refresh = RefreshToken.for_user(user)
+                access_token = refresh.access_token
+                access_token["role"] = role
+                access_token["user_id"] = (
+                    user.id_seller if role == "Seller" else user.id_collector
+                )
 
                 return Response(
                     {
@@ -240,6 +245,12 @@ class LoginView(APIView):
         # Si el usuario es válido, generar tokens
         if user:
             refresh = RefreshToken.for_user(user)
+            access_token = refresh.access_token
+            access_token["role"] = role
+            access_token["user_id"] = (
+                user.id_seller if role == "Seller" else user.id_collector
+            )
+
             return Response(
                 {
                     "refresh": str(refresh),
@@ -321,7 +332,6 @@ class no_data:
 
                 return role
             else:
-                print("algo paso")
                 return Response(
                     {"error": "No se detectno ningun usuario"},
                     status=status.HTTP_400_BAD_REQUEST,
