@@ -1,8 +1,7 @@
-# serializers.py
-
 from rest_framework import serializers
 from .models import Order, OrderItem, Item
-from users.models import Seller, Collector  # Asumiendo que ya tienes esto
+from django.conf import settings
+from users.models import User  # tu modelo personalizado User
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
@@ -12,11 +11,21 @@ class OrderItemSerializer(serializers.ModelSerializer):
         read_only_fields = ["total"]  # total se calcula en save()
 
 
+class UserPrimaryKeyRelatedField(serializers.PrimaryKeyRelatedField):
+    def get_queryset(self):
+        role = self.context.get("role")
+        if role:
+            return User.objects.filter(role=role)
+        return User.objects.all()
+
+
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True)
-    id_seller = serializers.PrimaryKeyRelatedField(queryset=Seller.objects.all())
+    id_seller = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.filter(role="seller")
+    )
     id_collector = serializers.PrimaryKeyRelatedField(
-        queryset=Collector.objects.all(), allow_null=True, required=False
+        queryset=User.objects.filter(role="collector"), allow_null=True, required=False
     )
 
     class Meta:
@@ -40,10 +49,6 @@ class OrderSerializer(serializers.ModelSerializer):
         for item_data in items_data:
             OrderItem.objects.create(order=order, **item_data)
         return order
-
-
-from rest_framework import serializers
-from .models import Item
 
 
 class ItemSerializer(serializers.ModelSerializer):

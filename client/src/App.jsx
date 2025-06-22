@@ -68,7 +68,7 @@ function App() {
         <Route
           path="/seller-home"
           element={
-            <ProtectedRoute role="Seller">
+            <ProtectedRoute role="seller">
               <SellerHome />
             </ProtectedRoute>
           }
@@ -76,7 +76,7 @@ function App() {
         <Route
           path="/seller-activity"
           element={
-            <ProtectedRoute role="Seller">
+            <ProtectedRoute role="seller">
               <SellerActivity />
             </ProtectedRoute>
           }
@@ -84,7 +84,7 @@ function App() {
         <Route
   path="/seller-account"
   element={
-    <ProtectedRoute role="Seller">
+    <ProtectedRoute role="seller">
       <AccountLayout />
     </ProtectedRoute>
   }
@@ -99,7 +99,7 @@ function App() {
         <Route
   path="/seller-services"
   element={
-    <ProtectedRoute role="Seller">
+    <ProtectedRoute role="seller">
       <SellerServices />
     </ProtectedRoute>
   }
@@ -122,7 +122,7 @@ function App() {
         <Route
           path="/collector-home"
           element={
-            <ProtectedRoute role="Collector">
+            <ProtectedRoute role="sollector">
               <CollectorHome />
             </ProtectedRoute>
           }

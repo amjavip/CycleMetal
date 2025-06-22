@@ -29,8 +29,6 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -49,6 +47,8 @@ INSTALLED_APPS = [
     "api",
 ]
 
+# Application definition
+AUTH_USER_MODEL = "users.User"
 EMAIL_BACKEND = (
     "django.core.mail.backends.smtp.EmailBackend"  # Usa SMTP para enviar correos
 )
@@ -60,7 +60,6 @@ EMAIL_HOST_PASSWORD = config("EMAIL_SECRET_KEY")  # La contraseña (NO la normal
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # Aparece como el remitente del correo
 
 STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
-
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -148,4 +147,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }

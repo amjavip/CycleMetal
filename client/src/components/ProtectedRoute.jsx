@@ -4,11 +4,10 @@ import { useAuth } from '../context/AuthContext';
 
 const ProtectedRoute = ({ children, role }) => {
   const { user, loading } = useAuth();
-
+  console.log(user);
   if (loading) {
     return <div>Loading...</div>;
   }
-
   if (!user) {
     return <Navigate to="/login" replace />;
   }
@@ -19,5 +18,4 @@ const ProtectedRoute = ({ children, role }) => {
 
   return children;
 };
-
 export default ProtectedRoute;

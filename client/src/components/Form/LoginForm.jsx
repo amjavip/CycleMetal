@@ -30,7 +30,7 @@ const LoginForm = () => {
       });
 
       const data = await response.json();
-
+console.log("gg",data);
       if (response.ok) {
         // Guardamos los tokens y rol
         localStorage.setItem('access', data.access);
@@ -38,16 +38,19 @@ const LoginForm = () => {
         localStorage.setItem('role', data.role);
       
         // Guardamos información adicional según el rol
-        if (data.role === 'Seller' || data.role === 'Collector') {
+        if (data.role === 'seller' || data.role === 'collector') {
+          
           const userProfile = {
             username: data.username,
             email: data.email,
             phone: data.phone,
             id: data.id,
           };
-      
+          console.log(userProfile)
           localStorage.setItem('profile', JSON.stringify(userProfile));  // Guardamos primero el perfil
-          login(data.access, data.role, userProfile); // Luego actualizamos el contexto con todo
+         
+          login(data.access, data.role, userProfile, data.refresh); // Luego actualizamos el contexto con todo
+          console.log(login)
           console.log(userProfile);
           navigate(`/${data.role.toLowerCase()}-home`); // Redirigimos con la ruta en minúsculas
         }

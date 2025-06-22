@@ -1,5 +1,10 @@
 from django.contrib import admin
-from .models import Seller, Collector
 
-admin.site.register(Seller)
-admin.site.register(Collector) 
+# De esto:
+
+# A esto (si usas el modelo User y perfiles)
+from .models import User, SellerProfile, CollectorProfile
+
+admin.site.register(User)
+admin.site.register(SellerProfile)
+admin.site.register(CollectorProfile)

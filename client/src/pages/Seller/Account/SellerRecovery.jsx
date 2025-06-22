@@ -19,7 +19,9 @@ export default function SellerRecovery() {
       try {
         const response = await fetch("http://127.0.0.1:8000/users/api/auth/send-reset-email/", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json",
+             'Authorization': `Bearer ${user.token}`
+           },
           body: JSON.stringify({ email }),
         });
   

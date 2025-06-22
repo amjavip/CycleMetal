@@ -1,26 +1,17 @@
-# orders/views.py
 from rest_framework.views import APIView
 from datetime import timedelta
-from .models import Item
-from .serializer import ItemSerializer
+from .models import Item, Order, OrderItem
+from .serializer import ItemSerializer, OrderSerializer, OrderItemSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
-from .serializer import OrderSerializer
-from .models import Order
-from .serializer import Order
-from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from rest_framework import status
-from .models import Order, OrderItem, Item
-from .serializer import OrderSerializer, OrderItemSerializer
-from users.models import Seller
+from users.models import User  # Modelo único User con roles
 from rest_framework import viewsets
-from rest_framework_simplejwt.tokens import RefreshToken, AccessToken, TokenError
+from rest_framework_simplejwt.tokens import AccessToken
 
 
 class AuthService:
+    @staticmethod
     def generate_token_for_order(user):
         token = AccessToken.for_user(user)
         token.set_exp(lifetime=timedelta(minutes=15))
@@ -28,86 +19,79 @@ class AuthService:
 
 
 class CreateTempOrderView(APIView):
-
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        id = request.data.get("sellerId")
+        seller_id = request.data.get("sellerId")
         items = request.data.get("items")
-        tip = float(request.data.get("tip"))
-        location = request.data.get("location")
+        tip = float(request.data.get("tip", 0))
+        location = request.data.get("location", [None, None])
         lat = location[0]
         lon = location[1]
+
+        # Obtener usuario seller validando rol
         try:
-            user = Seller.objects.get(id_seller=id)
-        except Seller.DoesNotExist:
+            user = User.objects.get(id=seller_id, role="seller")
+        except User.DoesNotExist:
             return Response({"error": "Vendedor no encontrado"}, status=404)
 
-        if items:
-            subtotal = 0.00
-            sum = 0.00
-            orderItem = []
-            for item in items:
-                try:
-                    item_obj = Item.objects.get(id=item["id"])
-                    precio = item_obj.precio
-                    sum += float(precio) * item["cantidad"]
-                    orderItem.append(
-                        {
-                            "item": item_obj,
-                            "cantidad": item["cantidad"],
-                        }
-                    )
-                except Item.DoesNotExist:
-                    return Response(
-                        {"error": f"Item ID {item['id']} inválido"}, status=400
-                    )
+        if not items:
+            return Response({"error": "No se recibieron items"}, status=400)
 
-            comision = sum * 0.10
-            subtotal = sum + comision
-            total = subtotal + tip
+        subtotal = 0.00
+        order_items = []
+        for item in items:
+            try:
+                item_obj = Item.objects.get(id=item["id"])
+                subtotal += float(item_obj.precio) * item["cantidad"]
+                order_items.append({"item": item_obj, "cantidad": item["cantidad"]})
+            except Item.DoesNotExist:
+                return Response({"error": f"Item ID {item['id']} inválido"}, status=400)
 
-            order = Order.objects.create(
-                id_seller_id=user.id,
-                metodo_pago=None,
-                status="pending",
-                tip=tip,
-                lon=lon,
-                lat=lat,
-                subtotal=subtotal,
-                comision=comision,
-                total=total,
+        comision = subtotal * 0.10
+        subtotal_with_comision = subtotal + comision
+        total = subtotal_with_comision + tip
+
+        # Crear orden
+        order = Order.objects.create(
+            id_seller=user,
+            metodo_pago=None,
+            status="pending",
+            tip=tip,
+            lon=lon,
+            lat=lat,
+            subtotal=subtotal_with_comision,
+            comision=comision,
+            total=total,
+        )
+
+        # Crear OrderItems
+        for item in order_items:
+            serializer = OrderItemSerializer(
+                data={
+                    "order": order.id,
+                    "item": item["item"].id,
+                    "cantidad": item["cantidad"],
+                }
             )
-            print(order.id_order)
-            for item in orderItem:
-                print("bien")
-                serializer = OrderItemSerializer(
-                    data={
-                        "order": order.id,
-                        "item": item["item"].id,
-                        "cantidad": item["cantidad"],
-                    }
-                )
-                serializer.is_valid(raise_exception=True)
-                serializer.save()
-                orderToken = AuthService.generate_token_for_order(user)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
 
-            return Response(
-                {
-                    "id": order.id_order,
-                    "location": location,
-                    "total": total,
-                    "comision": comision,
-                    "subtotal": subtotal,
-                    "token": orderToken,
-                    "tip": tip,
-                    "items": items,
-                },
-                status=201,
-            )
+        order_token = AuthService.generate_token_for_order(user)
 
-        else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            {
+                "id": order.id_order,
+                "location": location,
+                "total": total,
+                "comision": comision,
+                "subtotal": subtotal_with_comision,
+                "token": order_token,
+                "tip": tip,
+                "items": items,
+            },
+            status=201,
+        )
 
 
 class AcceptOrderView(APIView):
@@ -124,10 +108,14 @@ class AcceptOrderView(APIView):
                 {"error": "Orden ya ha sido aceptada o cancelada"}, status=400
             )
 
+        # Verificar que el usuario tenga rol collector antes de asignar
+        if request.user.role != "collector":
+            return Response(
+                {"error": "Solo recolectores pueden aceptar ordenes"}, status=403
+            )
+
         # Asigna al recolector que hace la petición
-        order.id_collector = (
-            request.user.collector
-        )  # Asumiendo que recolector está relacionado con usuario
+        order.id_collector = request.user
         order.status = "ontheway"
         order.save()
 
@@ -135,7 +123,6 @@ class AcceptOrderView(APIView):
 
 
 class ItemCatalogView(APIView):
-
     def get(self, request):
         items = Item.objects.all()
         serializer = ItemSerializer(items, many=True)

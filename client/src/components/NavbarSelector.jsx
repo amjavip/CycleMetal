@@ -15,11 +15,11 @@ const NavbarSelector = () => {
     return <DefaultNavbar />;
   }
 
-  if (user.role === 'Seller') {
+  if (user.role === 'seller') {
     return <SellerNavbar />;
   }
 
-  if (user.role === 'Collector') {
+  if (user.role === 'collector') {
     return <CollectorNavbar />;
   }
 

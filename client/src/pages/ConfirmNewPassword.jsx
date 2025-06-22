@@ -43,7 +43,11 @@ export default function ConfirmNewPassword() {
         uid: t_user.uid,
         role: user.role,
         t_token: t_user.t_token,
-      });
+      }, {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`, // el token del vendedor logueado
+                    },
+                });
 
       alert("Contraseña actualizada con éxito");
       logout();

@@ -1,5 +1,4 @@
 """
-
 Autor: Javier -amjavip
 
 Notas:
@@ -17,27 +16,27 @@ https://www.django-rest-framework.org/
 
 """
 
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from datetime import timedelta
-from .models import Seller, Collector
-from .serializer import SellerSerializer, CollectorSerializer
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
-from rest_framework import status
-from .serializer import SellerSerializer
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from rest_framework import status
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import check_password, make_password
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken, TokenError
 from django.core.mail import send_mail
-from django.contrib.auth.models import User
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
-from django.contrib.auth.hashers import make_password
-from django.core.exceptions import ValidationError, ObjectDoesNotExist
+from django.core.exceptions import ValidationError
 
-# TODO falta que el usuario no pueda recibir la contraseña que inicie con "pbkdf2_sha256$
+from .models import User, SellerProfile, CollectorProfile
+from .serializer import (
+    SellerProfileSerializer,
+    CollectorProfileSerializer,
+    UserSerializer,
+)
+
+# TODO falta que el usuario no pueda recibir la contraseña que inicie con "pbkdf2_sha256$"
 """posibles soluciones:
     1.-validar si la contraseña viene con esto si es el caso rechazar
     2.-hacer un make_password desde antes y ya que solo por seguridad llega sin hasear a la base de datos ahi se actualiza
@@ -51,72 +50,55 @@ def validate_password(newpassword):
     return newpassword
 
 
-class RegisterUserView(APIView):
-    """Registro del usuario
-    \n
-    Para manejar el registro del usuario de usa una clase la cual puede
-    almacenar fucnciones y de esta manera generar funciones avanzadas
-    y mas faciles de escalar
-    """
-
-    # esta funcion hace una petición POST
-    def post(self, request):
-        role = request.data.get(
-            "role"
-        )  # por medio de una peticion get se obtiene la informacion del rol
-
-        if role == "seller":
-
-            serializer = SellerSerializer(data=request.data)
-            print(serializer)
-            print(request.data)  # Verificacion en la terminar (solo para desarrollo)
-            """Si el rol es de vendedor se llama el 
-            serializadordel collector y guarda en una
-            variable la cual llamaremos serializer"""
-
-        elif role == "collector":
-
-            serializer = CollectorSerializer(data=request.data)
-
-            print(request.data)  # Verificacion en la terminar (solo para desarrollo)
-
-            """Si el rol es de recolector se llama el 
-            serializador del collector y guarda en una
-            variable la cual llamaremos serializer"""
-
+class no_data:
+    def no_rol(email):
+        user = User.objects.filter(email=email).first()
+        if user:
+            return user.role
         else:
+            return Response(
+                {"error": "No se detectó ningún usuario con ese email"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+    def no_id(email):
+        user = User.objects.filter(email=email).first()
+        if user:
+            return user.id
+        else:
+            return Response(
+                {"error": "No se detectó ningún usuario con ese email"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+
+class RegisterUserView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        role = request.data.get("role")
+
+        if role not in ["seller", "collector"]:
             return Response(
                 {"error": "Role must be either 'seller' or 'collector'"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        """De cualquier otro modo se manda una 
-        respuesta explicando que no se detecto 
-        el rol en el formulario"""
 
-        if serializer.is_valid():  # Se comprueba que el serializador sea válido
-
-            user = serializer.save()
-            """El serializador guardado se guarda en una variable user"""
+        # Crear usuario base
+        user_serializer = UserSerializer(data=request.data)
+        if user_serializer.is_valid():
+            user = user_serializer.save()
 
             return Response(
-                {
-                    "message": f"User registered as {role} successfully",
-                },
+                {"message": f"User registered as {role} successfully"},
                 status=status.HTTP_201_CREATED,
             )
-            """Se devuelve un status de la operacion la cual confirma si
-            el usuario ha sido guardado en la base datos exitosamente o 
-            de lo contrario no"""
-
         else:
-
-            print("Errores de validación:", serializer.errors)
-            """imprime los valores de validacion detectados por el serializador"""
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(["POST"])  # Esta Vista(funcion) solo recibe peticiones del tipo POST
+@permission_classes([AllowAny])
 def check_username(request):
     """Dentro de esta vista se verifica la disponibilidad
     en la base de datos, esto para mantener la integridad
@@ -125,155 +107,114 @@ def check_username(request):
     username = request.data.get("username")
     email = request.data.get("email")
     """Se declaran las variables por medio de una peticion get al cuestionario de registro"""
-    # Verificar si el nombre de usuario ya existe en los modelos Seller o Collector
+    # Verificar si el nombre de usuario o email ya existe en el modelo User
     if (
-        Seller.objects.filter(sellerUsername=username).exists()
-        or Collector.objects.filter(collectorUsername=username).exists()
-    ):
-        return Response({"exists": True})
-
-    # Verificar si el email ya existe en los modelos Seller o Collector
-    if (
-        Seller.objects.filter(sellerEmail=email).exists()
-        or Collector.objects.filter(collectorEmail=email).exists()
+        User.objects.filter(username=username).exists()
+        or User.objects.filter(email=email).exists()
     ):
         return Response({"exists": True})
 
     return Response({"exists": False})
 
 
-class SellerViewSet(viewsets.ModelViewSet):
-    queryset = Seller.objects.all()
-    serializer_class = SellerSerializer
-    permission_classes = [IsAuthenticated]
-
-
-class CollectorViewSet(viewsets.ModelViewSet):
-    queryset = Collector.objects.all()
-    serializer_class = CollectorSerializer
-    permission_classes = [IsAuthenticated]
-
-
-# TODO falta verificar la disponibilidad del usuario en la DB con def check_username
 class UpdateUserView(APIView):
     def put(self, request):
         user_id = request.data.get("id")
         role = request.data.get("role")
-        user = None
 
-        if role == "Seller":
-            user = Seller.objects.filter(id_seller=user_id).first()
-        elif role == "Collector":
-            user = Collector.objects.filter(id_collector=user_id).first()
-
-        if user:
-            serializer = SellerSerializer(user, data=request.data, partial=True)
-            if serializer.is_valid():
-                serializer.save()
-
-                # Regenerar el token después de actualizar los datos
-                refresh = RefreshToken.for_user(user)
-                access_token = refresh.access_token
-                access_token["role"] = role
-                access_token["user_id"] = (
-                    user.id_seller if role == "Seller" else user.id_collector
-                )
-
-                return Response(
-                    {
-                        "refresh": str(refresh),
-                        "access": str(refresh.access_token),
-                        "id": user.id_seller if role == "Seller" else user.id_collector,
-                        "username": (
-                            user.sellerUsername
-                            if role == "Seller"
-                            else user.collectorUsername
-                        ),
-                        "email": (
-                            user.sellerEmail
-                            if role == "Seller"
-                            else user.collectorEmail
-                        ),
-                        "phone": (
-                            user.sellerPhone
-                            if role == "Seller"
-                            else user.collectorPhone
-                        ),
-                        "role": role,
-                    }
-                )
-
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
-
-
-class LoginView(APIView):
-    def post(self, request):
-        username_or_email = request.data.get("usernameOrEmail")
-        password = request.data.get("password")
-
-        user = None
-        role = None
-
-        # Buscar en Sellers
-        seller = (
-            Seller.objects.filter(sellerUsername=username_or_email).first()
-            or Seller.objects.filter(sellerEmail=username_or_email).first()
-        )
-        if seller and check_password(password, seller.sellerpassword):
-
-            user = seller
-            role = "Seller"
-
-        # Buscar en Collectors si no se encontró en Sellers
-        if not user:
-            collector = (
-                Collector.objects.filter(collectorUsername=username_or_email).first()
-                or Collector.objects.filter(collectorEmail=username_or_email).first()
+        try:
+            user = User.objects.get(id=user_id, role=role)
+        except User.DoesNotExist:
+            return Response(
+                {"error": "User not found"}, status=status.HTTP_404_NOT_FOUND
             )
-            if collector and check_password(password, collector.collectorpassword):
 
-                user = collector
-                role = "Collector"
-            else:
-                return Response(
-                    {"error": "Credenciales incorrectas"},
-                    status=status.HTTP_401_UNAUTHORIZED,
-                )
+        # Dependiendo del rol, usar el perfil correspondiente para serializar
+        if role == "seller":
+            profile = getattr(user, "sellerprofile", None)
+            serializer = SellerProfileSerializer(
+                profile, data=request.data, partial=True
+            )
+        elif role == "collector":
+            profile = getattr(user, "collectorprofile", None)
+            serializer = CollectorProfileSerializer(
+                profile, data=request.data, partial=True
+            )
+        else:
+            return Response(
+                {"error": "Invalid role"}, status=status.HTTP_400_BAD_REQUEST
+            )
 
-        # Si el usuario es válido, generar tokens
-        if user:
+        if serializer.is_valid():
+            serializer.save()
+
+            # Regenerar el token después de actualizar los datos
             refresh = RefreshToken.for_user(user)
             access_token = refresh.access_token
             access_token["role"] = role
-            access_token["user_id"] = (
-                user.id_seller if role == "Seller" else user.id_collector
-            )
+            access_token["user_id"] = str(user.id)
 
             return Response(
                 {
                     "refresh": str(refresh),
                     "access": str(refresh.access_token),
-                    "id": user.id_seller if role == "Seller" else user.id_collector,
-                    "username": (
-                        user.sellerUsername
-                        if role == "Seller"
-                        else user.collectorUsername
-                    ),
-                    "email": (
-                        user.sellerEmail if role == "Seller" else user.collectorEmail
-                    ),
-                    "phone": (
-                        user.sellerPhone if role == "Seller" else user.collectorPhone
-                    ),
+                    "id": str(user.id),
+                    "username": user.username,
+                    "email": user.email,
+                    "phone": user.phone,
                     "role": role,
-                },
-                status=status.HTTP_200_OK,
+                }
             )
 
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LoginView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        username_or_email = request.data.get("usernameOrEmail")
+        password = request.data.get("password")
+
+        user = None
+
+        # Buscar usuario por username
+        try:
+            user = User.objects.get(username=username_or_email)
+        except User.DoesNotExist:
+            # Si no existe, buscar por email
+            try:
+                user = User.objects.get(email=username_or_email)
+            except User.DoesNotExist:
+                return Response(
+                    {"error": "Credenciales incorrectas"},
+                    status=status.HTTP_401_UNAUTHORIZED,
+                )
+
+        # Validar contraseña
+        if not check_password(password, user.password):
+            return Response(
+                {"error": "Credenciales incorrectas"},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+
+        # Si el usuario es válido, generar tokens
+        refresh = RefreshToken.for_user(user)
+        access_token = refresh.access_token
+        access_token["role"] = user.role
+        access_token["user_id"] = str(user.id)
+
         return Response(
-            {"error": "Credenciales incorrectas"}, status=status.HTTP_401_UNAUTHORIZED
+            {
+                "refresh": str(refresh),
+                "access": str(refresh.access_token),
+                "id": str(user.id),
+                "username": user.username,
+                "email": user.email,
+                "phone": user.phone,
+                "role": user.role,
+            },
+            status=status.HTTP_200_OK,
         )
 
 
@@ -292,77 +233,19 @@ def generate_reset_url(user):
 def change_password(role, user_id, new_password):
     print("Nueva contraseña:", repr(new_password))
     print("role:", role)
-    if role == "Seller":
-        user = Seller.objects.filter(id_seller=user_id).first()
-        print(user)
-        if not user:
-            return Response({"error": "Usuario no encontrado"}, status=404)
-        if check_password(new_password, user.sellerpassword):
-            print("no puede ser iguales las contraseñas")
-            return True
-        else:
-            user.sellerpassword = make_password(new_password)
-            user.save()
-            print("contraseña guardada")
-            return False
-    elif role == "Collector":
-        user = Collector.objects.filter(id_collector=user_id).first()
-        if not user:
-            return Response({"error": "Usuario no encontrado"}, status=404)
-        if check_password(new_password, user.collectorpassword):
-            print("collector")
-            return Response(
-                {"error": "La nueva contraseña no puede ser igual a la anterior"},
-                status=422,
-            )
-        else:
-            user.collectorpassword = make_password(new_password)
-            user.save()
-    else:
-        return Response({"error": "Rol inválido"}, status=400)
+    try:
+        user = User.objects.get(id=user_id, role=role)
+    except User.DoesNotExist:
+        return Response({"error": "Usuario no encontrado"}, status=404)
 
+    if check_password(new_password, user.password):
+        print("no puede ser iguales las contraseñas")
+        return True  # La nueva contraseña es igual a la antigua
 
-class no_data:
-    def no_rol(email):
-        user = Seller.objects.filter(sellerEmail=email).first()
-        if not user:
-            user = Collector.objects.filter(collectorEmail=email).first()
-            if user:
-                role = "Collector"
-
-                return role
-            else:
-                return Response(
-                    {"error": "No se detectno ningun usuario"},
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
-        elif user:
-            role = "Seller"
-            return role
-        else:
-            return Response(
-                {"error": "No se detectno ningun email"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-    def no_id(email):
-        seller = Seller.objects.filter(sellerEmail=email).first()
-        if not seller:
-            collector = Collector.objects.filter(collectorEmail=email).first()
-            if collector:
-                return collector.id
-            else:
-                return Response(
-                    {"error": "No se detectno ningun usuario"},
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
-        elif seller:
-            return seller.id
-        else:
-            return Response(
-                {"error": "No se detectno ningun email"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
+    user.password = make_password(new_password)
+    user.save()
+    print("contraseña guardada")
+    return False
 
 
 @api_view(["POST"])  # Esta Vista(funcion) solo recibe peticiones del tipo POST
@@ -375,48 +258,49 @@ def check_pass(request):
             {"error": "se necesitan toods los campos"},
             status=status.HTTP_400_BAD_REQUEST,
         )
-    elif role == "Seller":
-        user = Seller.objects.get(id_seller=user_id)
-        if check_password(password, user.sellerpassword):
-            reset_url, token, uid = generate_reset_url(user)
-            return Response({"url": reset_url, "token": token, "uid": uid}, status=200)
-        else:
-            return Response({"error": "Contraseña incorrecta"}, status=400)
 
-    elif role == "Collector":
-        user = Collector.objects.get(id_collector=user_id)
-        if check_password(password, user.collectorpassword):
-            reset_url, token = generate_reset_url(user)
-            return Response({"url": reset_url, "token": token}, status=200)
-        else:
-            return Response({"error": "Contraseña incorrecta"}, status=400)
-
-    else:
+    try:
+        user = User.objects.get(id=user_id, role=role)
+    except User.DoesNotExist:
         return Response(
-            {"error": "No se detectno ningun usuario"},
-            status=status.HTTP_400_BAD_REQUEST,
+            {"error": "Usuario no encontrado"}, status=status.HTTP_404_NOT_FOUND
         )
+
+    if check_password(password, user.password):
+        reset_url, token, uid = generate_reset_url(user)
+        return Response({"url": reset_url, "token": token, "uid": uid}, status=200)
+    else:
+        return Response({"error": "Contraseña incorrecta"}, status=400)
 
 
 class SendResetEmailView(APIView):
     def post(self, request):
         role = request.data.get("role")
         email = request.data.get("email")
+
         if not email:
             return Response(
                 {"error": "Email y Rol requeridos"}, status=status.HTTP_400_BAD_REQUEST
             )
+
         if not role:
-            role = no_data.no_rol(email)
-        if role:
-            if role == "Seller":
-                user = Seller.objects.get(sellerEmail=email)
-            elif role == "Collector":
-                user = Collector.objects.get(collectorEmail=email)
-            else:
-                return Response({"error": "Rol no reconocido"}, status=400)
+            # Si no hay rol, buscarlo por email
+            try:
+                user = User.objects.get(email=email)
+                role = user.role
+            except User.DoesNotExist:
+                return Response(
+                    {"error": "No existe un usuario con ese email"},
+                    status=status.HTTP_404_NOT_FOUND,
+                )
         else:
-            return Response({"error": "No existe un usuario "}, status=404)
+            try:
+                user = User.objects.get(email=email, role=role)
+            except User.DoesNotExist:
+                return Response(
+                    {"error": "Usuario no encontrado"}, status=status.HTTP_404_NOT_FOUND
+                )
+
         reset_url, token, uid = generate_reset_url(user)
 
         send_mail(
@@ -445,13 +329,31 @@ class ChangePasswordView(APIView):
         user_id = request.data.get("id")
         role = request.data.get("role")
         token = request.data.get("t_token")
+
         if not role:
-            role = no_data.no_rol(email)
+            try:
+                user = User.objects.get(email=email)
+                role = user.role
+            except User.DoesNotExist:
+                return Response(
+                    {"error": "No existe un usuario con ese email"},
+                    status=status.HTTP_404_NOT_FOUND,
+                )
+
         if not user_id:
-            user_id = no_data.no_id(email)
+            try:
+                user = User.objects.get(email=email)
+                user_id = str(user.id)
+            except User.DoesNotExist:
+                return Response(
+                    {"error": "No existe un usuario con ese email"},
+                    status=status.HTTP_404_NOT_FOUND,
+                )
+
         if not all([new_password, token, user_id, role]):
             print(token)
             return Response({"error": "Todos los campos son requeridos"}, status=400)
+
         try:
             AccessToken(token)  # valida expiración
         except TokenError:
@@ -473,3 +375,15 @@ class ChangePasswordView(APIView):
             return Response(
                 {"message": "Contraseña actualizada correctamente"}, status=200
             )
+
+
+class SellerViewSet(viewsets.ModelViewSet):
+    queryset = SellerProfile.objects.all()
+    serializer_class = SellerProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class CollectorViewSet(viewsets.ModelViewSet):
+    queryset = CollectorProfile.objects.all()
+    serializer_class = CollectorProfileSerializer
+    permission_classes = [IsAuthenticated]
