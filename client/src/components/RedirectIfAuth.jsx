@@ -8,9 +8,9 @@ const RedirectIfAuth = ({ children }) => {
 
   // Si el usuario está autenticado, redirigimos según el rol
   if (user) {
-    if (user.role === 'Seller') {
+    if (user.role === 'seller') {
       return <Navigate to="/seller-home" />;
-    } else if (user.role === 'Collector') {
+    } else if (user.role === 'collector') {
       return <Navigate to="/collector-home" />;
     }
   }

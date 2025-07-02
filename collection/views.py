@@ -2,12 +2,13 @@ from rest_framework.views import APIView
 from datetime import timedelta
 from .models import Item, Order, OrderItem
 from .serializer import ItemSerializer, OrderSerializer, OrderItemSerializer
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 from users.models import User  # Modelo único User con roles
 from rest_framework import viewsets
-from rest_framework_simplejwt.tokens import AccessToken
+from rest_framework_simplejwt.tokens import AccessToken, TokenError
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class AuthService:
@@ -89,6 +90,7 @@ class CreateTempOrderView(APIView):
                 "token": order_token,
                 "tip": tip,
                 "items": items,
+                "date": order.orderCreationDay,
             },
             status=201,
         )
@@ -123,10 +125,75 @@ class AcceptOrderView(APIView):
 
 
 class ItemCatalogView(APIView):
+    permission_classes = [AllowAny]
+
     def get(self, request):
         items = Item.objects.all()
         serializer = ItemSerializer(items, many=True)
         return Response(serializer.data)
+
+
+# TODO debo de verificar el pago si se realizo con tarjeta, para que pase su status a on the way
+class CheckOrderPayment(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        cardMethod = request.data.get("paymentMethod")
+        token = request.data.get("token")
+        idorder = request.data.get("id")
+        try:
+            AccessToken(token)  # valida expiración
+        except TokenError:
+            return Response(
+                {"error": "El acceso ha expirado, solicita de nuevo el pedido"},
+                status=400,
+            )
+        if cardMethod == "card":
+            return Response(
+                {"error": "card"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        elif cardMethod == "cash":
+            try:
+                order = Order.objects.get(id_order=idorder)
+                order.status = "ontheway"
+                order.metodo_pago = "cash"
+                order.save()
+                return Response({"paymentMethod": order.metodo_pago}, status=200)
+            except ObjectDoesNotExist:
+                return Response(
+                    {
+                        "error": "La informacion de pago no ha sido actualizada correctamente, porfavor vuelve e intentar"
+                    },
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+        else:
+            return Response(
+                {
+                    "error": "La informacion de pago no ha sido actualizada correctamente, porfavor vuelve e intentar"
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+
+class ShowPreviousOrders(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, id_seller):
+        if not id:
+            return Response(
+                {"error": "La informacion que se necesita no ha sido proporcionada"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        try:
+            orders = Order.objects.filter(id_seller=id_seller)
+            serializer = OrderSerializer(orders, many=True)
+            print(serializer.data)
+            return Response(serializer.data, status=200)
+        except ObjectDoesNotExist:
+            return Response(
+                {"error": "No se logro encontrar algun pedido para esta cuenta"}
+            )
 
 
 class OrderItemViewSet(viewsets.ModelViewSet):

@@ -108,19 +108,26 @@ def check_username(request):
     email = request.data.get("email")
     """Se declaran las variables por medio de una peticion get al cuestionario de registro"""
     # Verificar si el nombre de usuario o email ya existe en el modelo User
-    if (
-        User.objects.filter(username=username).exists()
-        or User.objects.filter(email=email).exists()
-    ):
+    if username_or_email_exists(username, email):
         return Response({"exists": True})
 
     return Response({"exists": False})
+
+
+def username_or_email_exists(username, email):
+    return (
+        User.objects.filter(username=username).exists()
+        or User.objects.filter(email=email).exists()
+    )
 
 
 class UpdateUserView(APIView):
     def put(self, request):
         user_id = request.data.get("id")
         role = request.data.get("role")
+        username = request.data.get("username")
+        email = request.data.get("email")
+        print(request.data.get("username"))
 
         try:
             user = User.objects.get(id=user_id, role=role)
@@ -128,18 +135,12 @@ class UpdateUserView(APIView):
             return Response(
                 {"error": "User not found"}, status=status.HTTP_404_NOT_FOUND
             )
+        print(user.username)
 
-        # Dependiendo del rol, usar el perfil correspondiente para serializar
-        if role == "seller":
-            profile = getattr(user, "sellerprofile", None)
-            serializer = SellerProfileSerializer(
-                profile, data=request.data, partial=True
-            )
-        elif role == "collector":
-            profile = getattr(user, "collectorprofile", None)
-            serializer = CollectorProfileSerializer(
-                profile, data=request.data, partial=True
-            )
+        if role == "seller" or role == "collector":
+
+            serializer = UserSerializer(user, data=request.data, partial=True)
+
         else:
             return Response(
                 {"error": "Invalid role"}, status=status.HTTP_400_BAD_REQUEST
@@ -148,12 +149,10 @@ class UpdateUserView(APIView):
         if serializer.is_valid():
             serializer.save()
 
-            # Regenerar el token después de actualizar los datos
             refresh = RefreshToken.for_user(user)
             access_token = refresh.access_token
             access_token["role"] = role
             access_token["user_id"] = str(user.id)
-
             return Response(
                 {
                     "refresh": str(refresh),
@@ -163,9 +162,11 @@ class UpdateUserView(APIView):
                     "email": user.email,
                     "phone": user.phone,
                     "role": role,
-                }
+                },
+                status=status.HTTP_200_OK,
             )
 
+        print("no es valido")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -249,6 +250,7 @@ def change_password(role, user_id, new_password):
 
 
 @api_view(["POST"])  # Esta Vista(funcion) solo recibe peticiones del tipo POST
+@permission_classes([AllowAny])
 def check_pass(request):
     role = request.data.get("role")
     user_id = request.data.get("id")

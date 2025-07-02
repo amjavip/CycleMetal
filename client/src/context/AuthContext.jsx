@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-
+import { setUpdateTokenCallback } from './tokenService';
 
 // Creamos el contexto de autenticación
 export const AuthContext = createContext();
@@ -31,26 +31,14 @@ export const AuthProvider = ({ children }) => {
     setLoading(false); // Terminamos de cargar después de revisar localStorage
   }, []);
 
-const refreshAccessToken = async () => {
-  try {
-    const res = await axios.post("http://127.0.0.1:8000/users/api/token/refresh/", {
-      refresh: localStorage.getItem("refresh"),
-    });
-
-    const newAccessToken = res.data.access; // ✅ el nuevo token
-    localStorage.setItem("access", newAccessToken);
-
-    setUser((prev) => ({
-      ...prev,
-      token: newAccessToken,
-    }));
-
-    return newAccessToken;
-  } catch (err) {
-    logout(); // Si ya caducó el refresh, saca al usuario
-    return null;
-  }
-};
+useEffect(() => {
+  setUpdateTokenCallback(updateAccessToken);
+}, []);
+ const updateAccessToken = (newToken) => {
+    console.log("gg");
+    localStorage.setItem("access", newToken);
+    setUser((prev) => (prev ? { ...prev, token: newToken } : null));
+  };
 
   const login = (token, role, profile, refresh) => {
     localStorage.setItem('profile', JSON.stringify(profile)); // <- importante
@@ -77,9 +65,8 @@ const refreshAccessToken = async () => {
     setT_user({ t_token: token, uid });
   };
 
-  console.log("xd", user);
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading, t_user, setTToken, refreshAccessToken }}>
+    <AuthContext.Provider value={{ user, login, logout, loading, t_user, setTToken, updateAccessToken }}>
       {children}
     </AuthContext.Provider>
   );

@@ -30,17 +30,8 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = [
-            "id_order",
-            "id_seller",
-            "id_collector",
-            "orderCreationDay",
-            "items",
-            "status",
-            "lat",
-            "lon",
-            "total",
-        ]
+        fields = "__all__"
+
         read_only_fields = ["id_order", "orderCreationDay"]
 
     def create(self, validated_data):

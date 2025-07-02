@@ -143,7 +143,7 @@ const handleSubmit = () => {
                             </div>
                             {(selectedItems.length > 0) ? (
                                  <div>
-                                  <p className="self-center text-center px-4 py-1  font-light ">  Total del pedido:         ${total} MXN</p>
+                                  <p className="self-center text-center px-4 py-1  font-light ">  Total del pedido:         ${total.toFixed(2)} MXN</p>
                                 <div className="w-full flex flex-row">
                                     
                                     <button onClick={handleSubmit} className="bg-[#303030] text-white px-4 py-2 rounded-xl hover:bg-[#202020] transition  w-3/4 max-h-[40px] self-center">

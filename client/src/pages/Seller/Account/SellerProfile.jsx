@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import TiltCard from "../../../components/TiltCard";
+import { DataArrayTexture } from "three";
 export default function SellerProfile() {
   const { user, login } = useAuth();  // Obtiene los datos del usuario desde el contexto
 
@@ -72,11 +73,13 @@ export default function SellerProfile() {
         };
       
         // Guardar nueva token y perfil actualizado
+        localStorage.setItem('refresh', data.refresh)
         localStorage.setItem('access', data.access);
+    
         localStorage.setItem('profile', JSON.stringify(newProfile));
         
         // Actualizar AuthContext
-        login(data.access, data.role, newProfile);
+        login(data.access, data.role, newProfile, data.refresh);
         
         setIsModified(false);        // Oculta el botón otra vez
         setFormData(updatedData); // Resetea formData

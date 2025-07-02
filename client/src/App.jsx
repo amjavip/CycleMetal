@@ -4,6 +4,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 // Context
 import { useAuth } from './context/AuthContext';
+import { useOrder } from './context/OrderContext';
 
 // Componentes
 import NavbarSelector from './components/NavbarSelector';
@@ -38,7 +39,6 @@ import CollectorHome from './pages/Collector/CollectorHome';
 
 function App() {
   const { t_user} = useAuth();
-
   return (
     <>
       <NavbarSelector />

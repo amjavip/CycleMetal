@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../context/AuthContext';
+
 import {
   loadStripe
 } from '@stripe/stripe-js';
@@ -11,6 +13,7 @@ import {
   useElements
 } from '@stripe/react-stripe-js';
 import { useOrder } from '../../../context/OrderContext';
+import axios from 'axios';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
@@ -35,10 +38,12 @@ const CARD_ELEMENT_OPTIONS = {
 };
 
 function CheckoutForm() {
+ 
   const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
   const { orderData, updateOrder } = useOrder();
+   const { user }= useAuth();
 
   const [paymentMethod, setPaymentMethod] = useState('card' || 'cash');
   const [errorMessage, setErrorMessage] = useState(null);
@@ -54,45 +59,79 @@ function CheckoutForm() {
   if (!orderData.step || orderData.step < 2) {
     navigate("/seller-services/neworder/summary");
   }
+if (!orderData.token){
+  navigate("/seller-services/neworder/summary");
+}
+console.log(orderData.token);
 }, []);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setErrorMessage(null);
-  
-    if (paymentMethod === 'cash') {
-      setIsProcessing(true);
-      setTimeout(() => {
-        setIsProcessing(false);
-        updateOrder("paymentMethod", paymentMethod);
-        setPaymentSuccess(true);
-      }, 1500);
-      return;
+  e.preventDefault();
+  setErrorMessage(null);
+  setIsProcessing(true);
+
+  if (paymentMethod === 'cash') {
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/orders/api/checkout/", {
+        ...orderData,
+        paymentMethod: "cash",
+      }, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+
+      console.log("Respuesta CASH:", response.data);
+      updateOrder("paymentMethod", response.data.paymentMethod)
+      setPaymentSuccess(true);
+    } catch (error) {
+      setErrorMessage("Error al procesar el pago en efectivo");
+    } finally {
+      setIsProcessing(false);
     }
+    return;
+  }
 
-    if (!stripe || !elements) return;
+  // Si es pago con tarjeta
+  if (!stripe || !elements) {
+    setErrorMessage("Stripe no está disponible");
+    setIsProcessing(false);
+    return;
+  }
 
-    setIsProcessing(true);
+  const cardElement = elements.getElement(CardElement);
+  const { error, paymentMethod: pm } = await stripe.createPaymentMethod({
+    type: 'card',
+    card: cardElement,
+  });
 
-    const cardElement = elements.getElement(CardElement);
-    const { error, paymentMethod: pm } = await stripe.createPaymentMethod({
-      type: 'card',
-      card: cardElement,
+  if (error) {
+    setErrorMessage(error.message);
+    setIsProcessing(false);
+    return;
+  }
+
+  try {
+    const response = await axios.post("http://127.0.0.1:8000/orders/api/checkout/", {
+      ...orderData,
+      paymentMethod: "card",
+      payment_method_id: pm.id,
+    }, {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
     });
 
-    if (error) {
-      setErrorMessage(error.message);
-      setIsProcessing(false);
-      return;
-    }
+    console.log("Respuesta CARD:", response.data);
+    setPaymentSuccess(true);
+  } catch (error) {
+    setErrorMessage("Error al procesar el pago con tarjeta");
+  } finally {
+    setIsProcessing(false);
+  }
+};
 
-    // Aquí iría la llamada real al backend
-    setTimeout(() => {
-      setIsProcessing(false);
-      updateOrder("paymentMethod", paymentMethod);
-      setPaymentSuccess(true);
-    }, 1500);
-  };
+
   return (
     <div className="min-h-screen mx-auto bg-white w-screen">
       <div className="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-lg">

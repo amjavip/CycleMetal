@@ -30,7 +30,9 @@ class Order(models.Model):
         related_name="orders_as_collector",  # nombre único para la relación inversa
         limit_choices_to={"role": "collector"},
     )
-    status = models.CharField(max_length=20, null=True, blank=True)
+    status = models.CharField(
+        max_length=20, choices=STATUS_CHOICES, null=True, blank=True
+    )
     subtotal = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     comision = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     tip = models.DecimalField(max_digits=10, decimal_places=2, default=0)
@@ -38,7 +40,7 @@ class Order(models.Model):
     lat = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     lon = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
 
-    METODO_PAGO_CHOICES = [("efectivo", "Efectivo"), ("tarjeta", "Tarjeta")]
+    METODO_PAGO_CHOICES = [("cash", "Cash"), ("card", "Card")]
     metodo_pago = models.CharField(
         max_length=20, choices=METODO_PAGO_CHOICES, null=True, blank=True
     )
@@ -51,7 +53,7 @@ class Order(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.id_order} - {self.id_collector}"
+        return f"{self.id_order} - {self.id_collector} - {self.orderCreationDay}"
 
 
 class Item(models.Model):

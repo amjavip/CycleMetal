@@ -9,6 +9,7 @@ from django.utils import timezone
 from django.contrib.auth.hashers import make_password
 
 
+# todo usamos este controlador de usuaruis para evitar usar esto: User.objects.create_user(...)
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, username, password=None, role=None, **extra_fields):
         if not email:
@@ -49,7 +50,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ["username", "role"]
 
     def __str__(self):
-        return f"{self.email} ({self.role})"
+        return f"{self.email} ({self.role}) {self.id}"
 
 
 # Perfiles específicos para datos extra

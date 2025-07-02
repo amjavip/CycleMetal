@@ -23,6 +23,7 @@ export function OrderProvider({ children }) {
         subtotal: 0,
         token: null,
         paymentMethod: null,
+        date: null,
         step: 0,
 
       };
@@ -58,12 +59,13 @@ export function OrderProvider({ children }) {
       subtotal: 0,
       token: null,
       paymentMethod: null,
+      date: null,
       step: 0,
     });
     localStorage.removeItem("orderData");
 
   };
-console.log(orderData);
+  console.log(orderData);
   return (
     <OrderContext.Provider value={{ orderData, updateOrder, resetOrder }}>
       {children}

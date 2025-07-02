@@ -52,6 +52,10 @@ export default function SummaryPage() {
                 updateOrder("total", response.data.total);
                 updateOrder("subtotal", response.data.subtotal);
                 updateOrder("items", response.data.items);
+                updateOrder("date", response.data.orderCreationDay)
+                if (orderData.token){
+                    navigate("/seller-services/neworder/payment")
+                }
                 
             }
             catch (error) {

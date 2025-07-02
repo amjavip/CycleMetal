@@ -1,5 +1,11 @@
 from django.urls import path
-from .views import ItemCatalogView, CreateTempOrderView, OrderItemViewSet
+from .views import (
+    ItemCatalogView,
+    CreateTempOrderView,
+    OrderItemViewSet,
+    CheckOrderPayment,
+    ShowPreviousOrders,
+)
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from rest_framework.documentation import include_docs_urls
@@ -20,4 +26,8 @@ urlpatterns = [
     ),
     path("api/catalog/", ItemCatalogView.as_view(), name="item-catalog"),
     path("api/create/", CreateTempOrderView.as_view(), name="neworder"),
+    path("api/checkout/", CheckOrderPayment.as_view(), name="checkout"),
+    path(
+        "api/showPrev/<str:id_seller>/", ShowPreviousOrders.as_view(), name="showPrev"
+    ),
 ]

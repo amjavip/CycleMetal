@@ -1,0 +1,3002 @@
+[
+  {
+    "nombre": "Bicicleta infantil dañada",
+    "descripcion": "Bicicleta infantil dañada hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 793.75,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Puerta oxidada",
+    "descripcion": "Puerta oxidada hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 67.78,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tanque de agua roto",
+    "descripcion": "Tanque de agua roto hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 698.13,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Alambre de acero",
+    "descripcion": "Alambre de acero hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 760.55,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Mesa metálica usada",
+    "descripcion": "Mesa metálica usada hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 678.95,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cables pelados",
+    "descripcion": "Cables pelados hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 592.46,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Aire acondicionado dañado",
+    "descripcion": "Aire acondicionado dañado hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 734.25,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tubo de cobre",
+    "descripcion": "Tubo de cobre hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 514.66,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tina de baño vieja",
+    "descripcion": "Tina de baño vieja hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 109.65,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Chasis de moto",
+    "descripcion": "Chasis de moto hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 165.93,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Alambre de acero",
+    "descripcion": "Alambre de acero hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 503.44,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Alambre de acero",
+    "descripcion": "Alambre de acero hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 510.06,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Rines usados",
+    "descripcion": "Rines usados hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 193.04,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Chasis de moto",
+    "descripcion": "Chasis de moto hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 460.22,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Radiador de coche",
+    "descripcion": "Radiador de coche hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 46.19,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Aire acondicionado dañado",
+    "descripcion": "Aire acondicionado dañado hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 654.62,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 276.23,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Mesa metálica usada",
+    "descripcion": "Mesa metálica usada hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 299.37,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Silla metálica vieja",
+    "descripcion": "Silla metálica vieja hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 671.97,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Batería de auto vieja",
+    "descripcion": "Batería de auto vieja hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 424.87,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Batería de auto vieja",
+    "descripcion": "Batería de auto vieja hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 735.36,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Televisor antiguo",
+    "descripcion": "Televisor antiguo hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 648.05,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Llantas usadas",
+    "descripcion": "Llantas usadas hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 129.64,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventana rota",
+    "descripcion": "Ventana rota hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 426.54,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cables pelados",
+    "descripcion": "Cables pelados hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 235.96,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tanque de agua roto",
+    "descripcion": "Tanque de agua roto hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 118.79,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tubo de cobre",
+    "descripcion": "Tubo de cobre hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 293.24,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cama oxidada",
+    "descripcion": "Cama oxidada hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 44.09,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Alambre de acero",
+    "descripcion": "Alambre de acero hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 528.6,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Lavadora vieja",
+    "descripcion": "Lavadora vieja hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 474.27,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tina de baño vieja",
+    "descripcion": "Tina de baño vieja hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 358.05,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventana rota",
+    "descripcion": "Ventana rota hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 798.86,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Llantas usadas",
+    "descripcion": "Llantas usadas hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 139.95,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Puerta oxidada",
+    "descripcion": "Puerta oxidada hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 420.74,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Radiador de coche",
+    "descripcion": "Radiador de coche hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 770.11,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Motor de lavadora",
+    "descripcion": "Motor de lavadora hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 498.16,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Sillón con resortes",
+    "descripcion": "Sillón con resortes hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 167.98,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Escritorio roto",
+    "descripcion": "Escritorio roto hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 87.37,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Horno eléctrico usado",
+    "descripcion": "Horno eléctrico usado hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 466.26,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Batería de auto vieja",
+    "descripcion": "Batería de auto vieja hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 342.72,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cilindro de gas vacío",
+    "descripcion": "Cilindro de gas vacío hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 366.89,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Llantas usadas",
+    "descripcion": "Llantas usadas hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 469.79,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cama oxidada",
+    "descripcion": "Cama oxidada hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 766.53,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Partes de licuadora",
+    "descripcion": "Partes de licuadora hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 153.14,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta infantil dañada",
+    "descripcion": "Bicicleta infantil dañada hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 17.48,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 674.22,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Chasis de moto",
+    "descripcion": "Chasis de moto hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 156.13,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Cilindro de gas vacío",
+    "descripcion": "Cilindro de gas vacío hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 449.79,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Rines usados",
+    "descripcion": "Rines usados hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 716.95,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tina de baño vieja",
+    "descripcion": "Tina de baño vieja hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 156.47,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Televisor antiguo",
+    "descripcion": "Televisor antiguo hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 70.87,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Lavadora vieja",
+    "descripcion": "Lavadora vieja hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 734.36,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Batería de auto vieja",
+    "descripcion": "Batería de auto vieja hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 152.38,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Chasis de moto",
+    "descripcion": "Chasis de moto hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 597.83,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Partes de licuadora",
+    "descripcion": "Partes de licuadora hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 599.38,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Batería de auto vieja",
+    "descripcion": "Batería de auto vieja hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 89.41,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Puerta oxidada",
+    "descripcion": "Puerta oxidada hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 239.08,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 44.51,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta rota",
+    "descripcion": "Bicicleta rota hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 775.71,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Chasis de moto",
+    "descripcion": "Chasis de moto hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 612.69,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Chasis de moto",
+    "descripcion": "Chasis de moto hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 503.81,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cilindro de gas vacío",
+    "descripcion": "Cilindro de gas vacío hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 789.52,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Televisor antiguo",
+    "descripcion": "Televisor antiguo hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 254.49,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Batería de auto vieja",
+    "descripcion": "Batería de auto vieja hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 336.78,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Partes de licuadora",
+    "descripcion": "Partes de licuadora hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 657.07,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Puerta oxidada",
+    "descripcion": "Puerta oxidada hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 531.28,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Puerta oxidada",
+    "descripcion": "Puerta oxidada hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 796.41,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cilindro de gas vacío",
+    "descripcion": "Cilindro de gas vacío hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 305.97,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tina de baño vieja",
+    "descripcion": "Tina de baño vieja hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 470.56,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cables pelados",
+    "descripcion": "Cables pelados hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 218.83,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tina de baño vieja",
+    "descripcion": "Tina de baño vieja hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 175.13,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Moto oxidada",
+    "descripcion": "Moto oxidada hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 506.72,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Moto oxidada",
+    "descripcion": "Moto oxidada hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 51.51,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Sillón con resortes",
+    "descripcion": "Sillón con resortes hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 324.93,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cables pelados",
+    "descripcion": "Cables pelados hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 437.12,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 412.96,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Rines usados",
+    "descripcion": "Rines usados hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 347.18,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cama oxidada",
+    "descripcion": "Cama oxidada hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 705.2,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tanque de agua roto",
+    "descripcion": "Tanque de agua roto hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 510.24,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Estufa inservible",
+    "descripcion": "Estufa inservible hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 323.73,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Sillón con resortes",
+    "descripcion": "Sillón con resortes hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 617.55,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tanque de agua roto",
+    "descripcion": "Tanque de agua roto hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 700.04,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Triciclo viejo",
+    "descripcion": "Triciclo viejo hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 222.68,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Chatarra diversa",
+    "descripcion": "Chatarra diversa hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 48.81,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta infantil dañada",
+    "descripcion": "Bicicleta infantil dañada hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 270.38,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta rota",
+    "descripcion": "Bicicleta rota hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 547.47,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Aire acondicionado dañado",
+    "descripcion": "Aire acondicionado dañado hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 455.81,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tina de baño vieja",
+    "descripcion": "Tina de baño vieja hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 219.25,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tubo de cobre",
+    "descripcion": "Tubo de cobre hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 342.04,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Sillón con resortes",
+    "descripcion": "Sillón con resortes hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 498.33,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 431.33,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Radiador de coche",
+    "descripcion": "Radiador de coche hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 542.9,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Batería de auto vieja",
+    "descripcion": "Batería de auto vieja hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 91.06,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tina de baño vieja",
+    "descripcion": "Tina de baño vieja hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 381.78,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Triciclo viejo",
+    "descripcion": "Triciclo viejo hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 334.68,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventana rota",
+    "descripcion": "Ventana rota hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 389.0,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta infantil dañada",
+    "descripcion": "Bicicleta infantil dañada hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 469.56,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Motor de lavadora",
+    "descripcion": "Motor de lavadora hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 426.98,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Silla metálica vieja",
+    "descripcion": "Silla metálica vieja hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 468.4,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Rines usados",
+    "descripcion": "Rines usados hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 127.58,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tina de baño vieja",
+    "descripcion": "Tina de baño vieja hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 252.42,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventilador sin aspas",
+    "descripcion": "Ventilador sin aspas hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 166.62,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 267.47,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Lavadora vieja",
+    "descripcion": "Lavadora vieja hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 664.15,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Televisor antiguo",
+    "descripcion": "Televisor antiguo hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 585.6,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tubo de cobre",
+    "descripcion": "Tubo de cobre hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 261.7,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Motor de lavadora",
+    "descripcion": "Motor de lavadora hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 743.7,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Microondas quemado",
+    "descripcion": "Microondas quemado hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 617.08,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Chatarra diversa",
+    "descripcion": "Chatarra diversa hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 143.94,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cilindro de gas vacío",
+    "descripcion": "Cilindro de gas vacío hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 177.47,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Motor de lavadora",
+    "descripcion": "Motor de lavadora hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 642.0,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Llantas usadas",
+    "descripcion": "Llantas usadas hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 83.82,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Radiador de coche",
+    "descripcion": "Radiador de coche hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 124.7,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Chasis de moto",
+    "descripcion": "Chasis de moto hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 297.18,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tubo de cobre",
+    "descripcion": "Tubo de cobre hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 74.84,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Triciclo viejo",
+    "descripcion": "Triciclo viejo hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 644.67,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 282.62,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Sillón con resortes",
+    "descripcion": "Sillón con resortes hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 27.41,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventana rota",
+    "descripcion": "Ventana rota hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 668.13,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cama oxidada",
+    "descripcion": "Cama oxidada hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 339.75,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Aire acondicionado dañado",
+    "descripcion": "Aire acondicionado dañado hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 388.95,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Rines usados",
+    "descripcion": "Rines usados hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 139.05,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tina de baño vieja",
+    "descripcion": "Tina de baño vieja hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 220.76,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Horno eléctrico usado",
+    "descripcion": "Horno eléctrico usado hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 242.89,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta infantil dañada",
+    "descripcion": "Bicicleta infantil dañada hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 136.02,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cilindro de gas vacío",
+    "descripcion": "Cilindro de gas vacío hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 198.35,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Sillón con resortes",
+    "descripcion": "Sillón con resortes hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 110.92,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Radiador de coche",
+    "descripcion": "Radiador de coche hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 516.25,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Silla metálica vieja",
+    "descripcion": "Silla metálica vieja hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 507.14,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Rines usados",
+    "descripcion": "Rines usados hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 166.12,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cables pelados",
+    "descripcion": "Cables pelados hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 793.86,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Radiador de coche",
+    "descripcion": "Radiador de coche hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 643.74,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Alambre de acero",
+    "descripcion": "Alambre de acero hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 89.2,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 761.4,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventilador sin aspas",
+    "descripcion": "Ventilador sin aspas hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 761.18,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 789.16,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta infantil dañada",
+    "descripcion": "Bicicleta infantil dañada hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 687.43,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta infantil dañada",
+    "descripcion": "Bicicleta infantil dañada hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 743.62,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Estufa inservible",
+    "descripcion": "Estufa inservible hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 484.92,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 451.92,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Rines usados",
+    "descripcion": "Rines usados hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 217.16,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tina de baño vieja",
+    "descripcion": "Tina de baño vieja hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 53.26,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Triciclo viejo",
+    "descripcion": "Triciclo viejo hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 727.19,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventilador sin aspas",
+    "descripcion": "Ventilador sin aspas hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 633.32,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Batería de auto vieja",
+    "descripcion": "Batería de auto vieja hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 133.06,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Batería de auto vieja",
+    "descripcion": "Batería de auto vieja hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 539.7,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Horno eléctrico usado",
+    "descripcion": "Horno eléctrico usado hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 437.61,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Escritorio roto",
+    "descripcion": "Escritorio roto hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 561.51,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta infantil dañada",
+    "descripcion": "Bicicleta infantil dañada hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 506.15,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Alambre de acero",
+    "descripcion": "Alambre de acero hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 716.25,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Partes de licuadora",
+    "descripcion": "Partes de licuadora hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 794.03,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cilindro de gas vacío",
+    "descripcion": "Cilindro de gas vacío hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 777.31,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta infantil dañada",
+    "descripcion": "Bicicleta infantil dañada hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 86.12,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Llantas usadas",
+    "descripcion": "Llantas usadas hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 571.1,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Alambre de acero",
+    "descripcion": "Alambre de acero hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 73.05,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventana rota",
+    "descripcion": "Ventana rota hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 411.25,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cables pelados",
+    "descripcion": "Cables pelados hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 454.91,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Chatarra diversa",
+    "descripcion": "Chatarra diversa hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 265.67,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Radiador de coche",
+    "descripcion": "Radiador de coche hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 342.76,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Lavadora vieja",
+    "descripcion": "Lavadora vieja hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 203.62,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Lavadora vieja",
+    "descripcion": "Lavadora vieja hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 562.01,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cama oxidada",
+    "descripcion": "Cama oxidada hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 191.71,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta rota",
+    "descripcion": "Bicicleta rota hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 760.91,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Rines usados",
+    "descripcion": "Rines usados hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 306.31,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Moto oxidada",
+    "descripcion": "Moto oxidada hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 371.53,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 637.15,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Horno eléctrico usado",
+    "descripcion": "Horno eléctrico usado hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 233.98,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Lavadora vieja",
+    "descripcion": "Lavadora vieja hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 147.65,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cilindro de gas vacío",
+    "descripcion": "Cilindro de gas vacío hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 488.84,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Rines usados",
+    "descripcion": "Rines usados hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 250.04,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Aire acondicionado dañado",
+    "descripcion": "Aire acondicionado dañado hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 138.19,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Horno eléctrico usado",
+    "descripcion": "Horno eléctrico usado hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 372.28,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tina de baño vieja",
+    "descripcion": "Tina de baño vieja hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 428.35,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Radiador de coche",
+    "descripcion": "Radiador de coche hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 247.06,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Triciclo viejo",
+    "descripcion": "Triciclo viejo hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 749.35,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Partes de licuadora",
+    "descripcion": "Partes de licuadora hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 453.2,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Triciclo viejo",
+    "descripcion": "Triciclo viejo hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 301.72,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Horno eléctrico usado",
+    "descripcion": "Horno eléctrico usado hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 673.6,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta infantil dañada",
+    "descripcion": "Bicicleta infantil dañada hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 66.15,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Horno eléctrico usado",
+    "descripcion": "Horno eléctrico usado hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 706.73,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Partes de licuadora",
+    "descripcion": "Partes de licuadora hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 567.11,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Televisor antiguo",
+    "descripcion": "Televisor antiguo hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 512.14,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Mesa metálica usada",
+    "descripcion": "Mesa metálica usada hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 150.92,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventilador sin aspas",
+    "descripcion": "Ventilador sin aspas hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 173.56,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Puerta oxidada",
+    "descripcion": "Puerta oxidada hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 132.63,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Silla metálica vieja",
+    "descripcion": "Silla metálica vieja hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 86.29,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Microondas quemado",
+    "descripcion": "Microondas quemado hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 443.69,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cama oxidada",
+    "descripcion": "Cama oxidada hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 62.55,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tubo de cobre",
+    "descripcion": "Tubo de cobre hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 370.76,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tubo de cobre",
+    "descripcion": "Tubo de cobre hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 262.53,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Puerta oxidada",
+    "descripcion": "Puerta oxidada hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 734.39,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Puerta oxidada",
+    "descripcion": "Puerta oxidada hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 415.07,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventana rota",
+    "descripcion": "Ventana rota hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 172.19,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Moto oxidada",
+    "descripcion": "Moto oxidada hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 572.09,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Rines usados",
+    "descripcion": "Rines usados hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 369.67,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Rines usados",
+    "descripcion": "Rines usados hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 258.18,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Microondas quemado",
+    "descripcion": "Microondas quemado hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 355.12,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Microondas quemado",
+    "descripcion": "Microondas quemado hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 13.13,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tanque de agua roto",
+    "descripcion": "Tanque de agua roto hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 459.96,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Sillón con resortes",
+    "descripcion": "Sillón con resortes hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 126.11,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventilador sin aspas",
+    "descripcion": "Ventilador sin aspas hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 409.71,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cables pelados",
+    "descripcion": "Cables pelados hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 783.93,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Triciclo viejo",
+    "descripcion": "Triciclo viejo hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 229.65,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Mesa metálica usada",
+    "descripcion": "Mesa metálica usada hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 101.65,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Moto oxidada",
+    "descripcion": "Moto oxidada hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 671.41,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tubo de cobre",
+    "descripcion": "Tubo de cobre hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 74.43,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Sillón con resortes",
+    "descripcion": "Sillón con resortes hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 353.37,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tanque de agua roto",
+    "descripcion": "Tanque de agua roto hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 624.77,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Aire acondicionado dañado",
+    "descripcion": "Aire acondicionado dañado hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 377.68,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Ventana rota",
+    "descripcion": "Ventana rota hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 783.31,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Partes de licuadora",
+    "descripcion": "Partes de licuadora hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 210.33,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tina de baño vieja",
+    "descripcion": "Tina de baño vieja hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 141.49,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Silla metálica vieja",
+    "descripcion": "Silla metálica vieja hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 208.93,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tanque de agua roto",
+    "descripcion": "Tanque de agua roto hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 539.72,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Alambre de acero",
+    "descripcion": "Alambre de acero hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 190.36,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Triciclo viejo",
+    "descripcion": "Triciclo viejo hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 520.68,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Partes de licuadora",
+    "descripcion": "Partes de licuadora hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 672.57,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Moto oxidada",
+    "descripcion": "Moto oxidada hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 352.18,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Moto oxidada",
+    "descripcion": "Moto oxidada hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 771.41,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Llantas usadas",
+    "descripcion": "Llantas usadas hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 536.14,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Lavadora vieja",
+    "descripcion": "Lavadora vieja hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 663.07,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Radiador de coche",
+    "descripcion": "Radiador de coche hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 334.03,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Radiador de coche",
+    "descripcion": "Radiador de coche hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 678.21,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cama oxidada",
+    "descripcion": "Cama oxidada hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 372.88,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Televisor antiguo",
+    "descripcion": "Televisor antiguo hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 775.98,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Estufa inservible",
+    "descripcion": "Estufa inservible hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 168.85,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta infantil dañada",
+    "descripcion": "Bicicleta infantil dañada hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 59.63,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Motor de lavadora",
+    "descripcion": "Motor de lavadora hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 210.77,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Aire acondicionado dañado",
+    "descripcion": "Aire acondicionado dañado hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 409.98,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Sillón con resortes",
+    "descripcion": "Sillón con resortes hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 208.99,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventana rota",
+    "descripcion": "Ventana rota hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 562.62,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta infantil dañada",
+    "descripcion": "Bicicleta infantil dañada hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 382.96,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Estufa inservible",
+    "descripcion": "Estufa inservible hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 17.92,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventana rota",
+    "descripcion": "Ventana rota hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 195.21,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Radiador de coche",
+    "descripcion": "Radiador de coche hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 465.86,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Escritorio roto",
+    "descripcion": "Escritorio roto hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 194.57,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventana rota",
+    "descripcion": "Ventana rota hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 756.08,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cama oxidada",
+    "descripcion": "Cama oxidada hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 358.62,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Chasis de moto",
+    "descripcion": "Chasis de moto hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 235.44,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tubo de cobre",
+    "descripcion": "Tubo de cobre hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 645.64,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventana rota",
+    "descripcion": "Ventana rota hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 449.47,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Lavadora vieja",
+    "descripcion": "Lavadora vieja hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 576.65,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventana rota",
+    "descripcion": "Ventana rota hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 733.72,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Mesa metálica usada",
+    "descripcion": "Mesa metálica usada hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 294.84,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Escritorio roto",
+    "descripcion": "Escritorio roto hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 296.97,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tina de baño vieja",
+    "descripcion": "Tina de baño vieja hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 179.19,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cilindro de gas vacío",
+    "descripcion": "Cilindro de gas vacío hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 34.57,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Sillón con resortes",
+    "descripcion": "Sillón con resortes hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 439.26,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Alambre de acero",
+    "descripcion": "Alambre de acero hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 415.65,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Chatarra diversa",
+    "descripcion": "Chatarra diversa hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 337.56,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Mesa metálica usada",
+    "descripcion": "Mesa metálica usada hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 758.24,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Motor de lavadora",
+    "descripcion": "Motor de lavadora hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 716.12,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Escritorio roto",
+    "descripcion": "Escritorio roto hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 692.63,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Rines usados",
+    "descripcion": "Rines usados hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 36.98,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cilindro de gas vacío",
+    "descripcion": "Cilindro de gas vacío hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 408.97,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tubo de cobre",
+    "descripcion": "Tubo de cobre hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 762.04,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Horno eléctrico usado",
+    "descripcion": "Horno eléctrico usado hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 157.73,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventilador sin aspas",
+    "descripcion": "Ventilador sin aspas hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 610.46,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Alambre de acero",
+    "descripcion": "Alambre de acero hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 675.33,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Llantas usadas",
+    "descripcion": "Llantas usadas hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 775.62,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Radiador de coche",
+    "descripcion": "Radiador de coche hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 711.04,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Chatarra diversa",
+    "descripcion": "Chatarra diversa hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 338.9,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Triciclo viejo",
+    "descripcion": "Triciclo viejo hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 707.86,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tina de baño vieja",
+    "descripcion": "Tina de baño vieja hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 404.8,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Cilindro de gas vacío",
+    "descripcion": "Cilindro de gas vacío hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 626.18,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Llantas usadas",
+    "descripcion": "Llantas usadas hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 295.32,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Triciclo viejo",
+    "descripcion": "Triciclo viejo hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 533.76,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Sillón con resortes",
+    "descripcion": "Sillón con resortes hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 525.56,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cilindro de gas vacío",
+    "descripcion": "Cilindro de gas vacío hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 674.44,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Televisor antiguo",
+    "descripcion": "Televisor antiguo hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 330.01,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Radiador de coche",
+    "descripcion": "Radiador de coche hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 85.91,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Horno eléctrico usado",
+    "descripcion": "Horno eléctrico usado hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 119.45,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cables pelados",
+    "descripcion": "Cables pelados hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 783.27,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Aire acondicionado dañado",
+    "descripcion": "Aire acondicionado dañado hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 522.87,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Silla metálica vieja",
+    "descripcion": "Silla metálica vieja hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 422.53,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventana rota",
+    "descripcion": "Ventana rota hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 25.09,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 597.51,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cilindro de gas vacío",
+    "descripcion": "Cilindro de gas vacío hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 440.1,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Motor de lavadora",
+    "descripcion": "Motor de lavadora hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 361.84,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tanque de agua roto",
+    "descripcion": "Tanque de agua roto hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 93.43,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Motor de lavadora",
+    "descripcion": "Motor de lavadora hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 292.96,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventana rota",
+    "descripcion": "Ventana rota hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 14.67,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Moto oxidada",
+    "descripcion": "Moto oxidada hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 137.93,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Radiador de coche",
+    "descripcion": "Radiador de coche hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 262.66,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Radiador de coche",
+    "descripcion": "Radiador de coche hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 265.62,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 685.27,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Partes de licuadora",
+    "descripcion": "Partes de licuadora hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 426.86,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tina de baño vieja",
+    "descripcion": "Tina de baño vieja hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 668.63,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Mesa metálica usada",
+    "descripcion": "Mesa metálica usada hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 249.03,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Partes de licuadora",
+    "descripcion": "Partes de licuadora hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 772.67,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Mesa metálica usada",
+    "descripcion": "Mesa metálica usada hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 444.45,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 129.61,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Puerta oxidada",
+    "descripcion": "Puerta oxidada hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 363.12,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cilindro de gas vacío",
+    "descripcion": "Cilindro de gas vacío hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 574.1,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Televisor antiguo",
+    "descripcion": "Televisor antiguo hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 33.62,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tina de baño vieja",
+    "descripcion": "Tina de baño vieja hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 268.02,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cables pelados",
+    "descripcion": "Cables pelados hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 473.21,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Partes de licuadora",
+    "descripcion": "Partes de licuadora hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 54.01,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Batería de auto vieja",
+    "descripcion": "Batería de auto vieja hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 432.91,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Triciclo viejo",
+    "descripcion": "Triciclo viejo hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 342.64,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Moto oxidada",
+    "descripcion": "Moto oxidada hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 244.53,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Sillón con resortes",
+    "descripcion": "Sillón con resortes hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 64.99,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Rines usados",
+    "descripcion": "Rines usados hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 613.9,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Mesa metálica usada",
+    "descripcion": "Mesa metálica usada hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 603.63,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Sillón con resortes",
+    "descripcion": "Sillón con resortes hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 638.84,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Alambre de acero",
+    "descripcion": "Alambre de acero hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 529.22,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Batería de auto vieja",
+    "descripcion": "Batería de auto vieja hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 104.96,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 219.13,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Aire acondicionado dañado",
+    "descripcion": "Aire acondicionado dañado hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 368.14,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Chatarra diversa",
+    "descripcion": "Chatarra diversa hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 369.77,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 337.78,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Batería de auto vieja",
+    "descripcion": "Batería de auto vieja hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 370.81,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Moto oxidada",
+    "descripcion": "Moto oxidada hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 334.05,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Puerta oxidada",
+    "descripcion": "Puerta oxidada hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 591.03,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Tanque de agua roto",
+    "descripcion": "Tanque de agua roto hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 710.25,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventana rota",
+    "descripcion": "Ventana rota hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 139.41,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta infantil dañada",
+    "descripcion": "Bicicleta infantil dañada hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 583.82,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Llantas usadas",
+    "descripcion": "Llantas usadas hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 88.94,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Triciclo viejo",
+    "descripcion": "Triciclo viejo hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 485.91,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Estufa inservible",
+    "descripcion": "Estufa inservible hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 344.11,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta rota",
+    "descripcion": "Bicicleta rota hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 614.21,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Puerta oxidada",
+    "descripcion": "Puerta oxidada hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 282.31,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Silla metálica vieja",
+    "descripcion": "Silla metálica vieja hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 507.34,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cama oxidada",
+    "descripcion": "Cama oxidada hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 460.25,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cilindro de gas vacío",
+    "descripcion": "Cilindro de gas vacío hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 651.24,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cama oxidada",
+    "descripcion": "Cama oxidada hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 238.73,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cables pelados",
+    "descripcion": "Cables pelados hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 379.07,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventana rota",
+    "descripcion": "Ventana rota hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 77.22,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Televisor antiguo",
+    "descripcion": "Televisor antiguo hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 527.47,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Alambre de acero",
+    "descripcion": "Alambre de acero hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 228.49,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cilindro de gas vacío",
+    "descripcion": "Cilindro de gas vacío hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 154.1,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta infantil dañada",
+    "descripcion": "Bicicleta infantil dañada hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 729.02,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Radiador de coche",
+    "descripcion": "Radiador de coche hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 716.17,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Tina de baño vieja",
+    "descripcion": "Tina de baño vieja hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 522.89,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Microondas quemado",
+    "descripcion": "Microondas quemado hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 774.03,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Chasis de moto",
+    "descripcion": "Chasis de moto hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 225.98,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Triciclo viejo",
+    "descripcion": "Triciclo viejo hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 758.98,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cama oxidada",
+    "descripcion": "Cama oxidada hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 507.9,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cilindro de gas vacío",
+    "descripcion": "Cilindro de gas vacío hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 155.57,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 634.08,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tanque de agua roto",
+    "descripcion": "Tanque de agua roto hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 667.83,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Televisor antiguo",
+    "descripcion": "Televisor antiguo hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 716.86,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Puerta oxidada",
+    "descripcion": "Puerta oxidada hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 388.74,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Triciclo viejo",
+    "descripcion": "Triciclo viejo hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 79.55,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Aire acondicionado dañado",
+    "descripcion": "Aire acondicionado dañado hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 729.81,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Moto oxidada",
+    "descripcion": "Moto oxidada hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 741.99,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Microondas quemado",
+    "descripcion": "Microondas quemado hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 130.19,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Estufa inservible",
+    "descripcion": "Estufa inservible hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 75.64,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Partes de licuadora",
+    "descripcion": "Partes de licuadora hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 283.91,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tubo de cobre",
+    "descripcion": "Tubo de cobre hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 711.03,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Partes de licuadora",
+    "descripcion": "Partes de licuadora hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 356.92,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Moto oxidada",
+    "descripcion": "Moto oxidada hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 771.34,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta rota",
+    "descripcion": "Bicicleta rota hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 33.84,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Radiador de coche",
+    "descripcion": "Radiador de coche hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 516.85,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Estufa inservible",
+    "descripcion": "Estufa inservible hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 173.9,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta infantil dañada",
+    "descripcion": "Bicicleta infantil dañada hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 380.59,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Triciclo viejo",
+    "descripcion": "Triciclo viejo hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 469.16,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Moto oxidada",
+    "descripcion": "Moto oxidada hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 301.62,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Mesa metálica usada",
+    "descripcion": "Mesa metálica usada hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 417.79,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Moto oxidada",
+    "descripcion": "Moto oxidada hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 404.67,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tubo de cobre",
+    "descripcion": "Tubo de cobre hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 294.41,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Mesa metálica usada",
+    "descripcion": "Mesa metálica usada hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 345.54,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Microondas quemado",
+    "descripcion": "Microondas quemado hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 617.73,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Triciclo viejo",
+    "descripcion": "Triciclo viejo hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 303.29,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Batería de auto vieja",
+    "descripcion": "Batería de auto vieja hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 428.99,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Mesa metálica usada",
+    "descripcion": "Mesa metálica usada hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 661.51,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Sillón con resortes",
+    "descripcion": "Sillón con resortes hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 427.92,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta rota",
+    "descripcion": "Bicicleta rota hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 385.66,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Silla metálica vieja",
+    "descripcion": "Silla metálica vieja hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 666.7,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tanque de agua roto",
+    "descripcion": "Tanque de agua roto hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 443.96,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tubo de cobre",
+    "descripcion": "Tubo de cobre hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 513.6,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Microondas quemado",
+    "descripcion": "Microondas quemado hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 512.89,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Escritorio roto",
+    "descripcion": "Escritorio roto hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 362.73,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tina de baño vieja",
+    "descripcion": "Tina de baño vieja hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 795.15,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Moto oxidada",
+    "descripcion": "Moto oxidada hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 502.11,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Estufa inservible",
+    "descripcion": "Estufa inservible hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 82.57,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Microondas quemado",
+    "descripcion": "Microondas quemado hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 616.34,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Radiador de coche",
+    "descripcion": "Radiador de coche hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 314.65,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cables pelados",
+    "descripcion": "Cables pelados hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 621.83,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cama oxidada",
+    "descripcion": "Cama oxidada hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 412.09,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Lavadora vieja",
+    "descripcion": "Lavadora vieja hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 425.81,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Moto oxidada",
+    "descripcion": "Moto oxidada hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 735.02,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Chasis de moto",
+    "descripcion": "Chasis de moto hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 504.96,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cama oxidada",
+    "descripcion": "Cama oxidada hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 444.63,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Motor de lavadora",
+    "descripcion": "Motor de lavadora hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 777.03,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Puerta oxidada",
+    "descripcion": "Puerta oxidada hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 721.55,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Mesa metálica usada",
+    "descripcion": "Mesa metálica usada hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 575.91,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tubo de cobre",
+    "descripcion": "Tubo de cobre hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 458.92,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Escritorio roto",
+    "descripcion": "Escritorio roto hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 320.53,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 321.19,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Radiador de coche",
+    "descripcion": "Radiador de coche hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 542.01,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tanque de agua roto",
+    "descripcion": "Tanque de agua roto hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 387.42,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Rines usados",
+    "descripcion": "Rines usados hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 690.7,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Televisor antiguo",
+    "descripcion": "Televisor antiguo hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 406.55,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Escritorio roto",
+    "descripcion": "Escritorio roto hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 489.21,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Chasis de moto",
+    "descripcion": "Chasis de moto hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 473.94,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Batería de auto vieja",
+    "descripcion": "Batería de auto vieja hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 108.37,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventana rota",
+    "descripcion": "Ventana rota hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 560.97,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Batería de auto vieja",
+    "descripcion": "Batería de auto vieja hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 349.19,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Radiador de coche",
+    "descripcion": "Radiador de coche hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 509.79,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta rota",
+    "descripcion": "Bicicleta rota hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 350.02,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Escritorio roto",
+    "descripcion": "Escritorio roto hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 235.52,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Motor de lavadora",
+    "descripcion": "Motor de lavadora hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 87.59,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tubo de cobre",
+    "descripcion": "Tubo de cobre hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 289.42,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Estufa inservible",
+    "descripcion": "Estufa inservible hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 193.67,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Batería de auto vieja",
+    "descripcion": "Batería de auto vieja hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 511.61,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventana rota",
+    "descripcion": "Ventana rota hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 191.36,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventana rota",
+    "descripcion": "Ventana rota hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 53.46,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta infantil dañada",
+    "descripcion": "Bicicleta infantil dañada hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 550.21,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Lavadora vieja",
+    "descripcion": "Lavadora vieja hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 64.07,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Moto oxidada",
+    "descripcion": "Moto oxidada hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 56.11,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Partes de licuadora",
+    "descripcion": "Partes de licuadora hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 711.52,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Partes de licuadora",
+    "descripcion": "Partes de licuadora hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 444.93,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cilindro de gas vacío",
+    "descripcion": "Cilindro de gas vacío hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 376.47,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cama oxidada",
+    "descripcion": "Cama oxidada hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 500.71,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tubo de cobre",
+    "descripcion": "Tubo de cobre hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 400.09,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Horno eléctrico usado",
+    "descripcion": "Horno eléctrico usado hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 433.13,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Horno eléctrico usado",
+    "descripcion": "Horno eléctrico usado hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 591.32,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tanque de agua roto",
+    "descripcion": "Tanque de agua roto hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 50.33,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Alambre de acero",
+    "descripcion": "Alambre de acero hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 297.91,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Chasis de moto",
+    "descripcion": "Chasis de moto hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 481.28,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Microondas quemado",
+    "descripcion": "Microondas quemado hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 774.67,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Sillón con resortes",
+    "descripcion": "Sillón con resortes hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 406.0,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Radiador de coche",
+    "descripcion": "Radiador de coche hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 642.23,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Rines usados",
+    "descripcion": "Rines usados hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 479.3,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tina de baño vieja",
+    "descripcion": "Tina de baño vieja hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 297.86,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 497.23,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta infantil dañada",
+    "descripcion": "Bicicleta infantil dañada hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 653.44,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Televisor antiguo",
+    "descripcion": "Televisor antiguo hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 212.94,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cama oxidada",
+    "descripcion": "Cama oxidada hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 752.06,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Chatarra diversa",
+    "descripcion": "Chatarra diversa hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 292.75,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Televisor antiguo",
+    "descripcion": "Televisor antiguo hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 87.21,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventilador sin aspas",
+    "descripcion": "Ventilador sin aspas hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 702.56,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 486.11,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tubo de cobre",
+    "descripcion": "Tubo de cobre hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 674.16,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Horno eléctrico usado",
+    "descripcion": "Horno eléctrico usado hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 355.33,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tanque de agua roto",
+    "descripcion": "Tanque de agua roto hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 629.51,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Triciclo viejo",
+    "descripcion": "Triciclo viejo hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 92.31,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cables pelados",
+    "descripcion": "Cables pelados hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 445.81,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Chatarra diversa",
+    "descripcion": "Chatarra diversa hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 141.05,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Triciclo viejo",
+    "descripcion": "Triciclo viejo hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 254.74,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tubo de cobre",
+    "descripcion": "Tubo de cobre hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 619.38,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Radiador de coche",
+    "descripcion": "Radiador de coche hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 289.24,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Puerta oxidada",
+    "descripcion": "Puerta oxidada hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 54.67,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Batería de auto vieja",
+    "descripcion": "Batería de auto vieja hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 446.74,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tina de baño vieja",
+    "descripcion": "Tina de baño vieja hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 648.07,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Chatarra diversa",
+    "descripcion": "Chatarra diversa hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 353.42,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 631.63,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Motor de lavadora",
+    "descripcion": "Motor de lavadora hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 799.93,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Estufa inservible",
+    "descripcion": "Estufa inservible hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 112.85,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Partes de licuadora",
+    "descripcion": "Partes de licuadora hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 425.91,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cama oxidada",
+    "descripcion": "Cama oxidada hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 339.07,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Mesa metálica usada",
+    "descripcion": "Mesa metálica usada hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 179.7,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cama oxidada",
+    "descripcion": "Cama oxidada hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 499.28,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Microondas quemado",
+    "descripcion": "Microondas quemado hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 473.33,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Chatarra diversa",
+    "descripcion": "Chatarra diversa hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 61.17,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Rines usados",
+    "descripcion": "Rines usados hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 740.7,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Puerta oxidada",
+    "descripcion": "Puerta oxidada hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 762.19,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Rines usados",
+    "descripcion": "Rines usados hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 279.05,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Televisor antiguo",
+    "descripcion": "Televisor antiguo hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 257.01,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Chasis de moto",
+    "descripcion": "Chasis de moto hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 203.0,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Rines usados",
+    "descripcion": "Rines usados hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 309.1,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Mesa metálica usada",
+    "descripcion": "Mesa metálica usada hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 245.61,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Silla metálica vieja",
+    "descripcion": "Silla metálica vieja hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 454.02,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Cilindro de gas vacío",
+    "descripcion": "Cilindro de gas vacío hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 509.76,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventana rota",
+    "descripcion": "Ventana rota hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 722.18,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Silla metálica vieja",
+    "descripcion": "Silla metálica vieja hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 781.49,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Chatarra diversa",
+    "descripcion": "Chatarra diversa hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 153.29,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Motor de lavadora",
+    "descripcion": "Motor de lavadora hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 352.62,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cilindro de gas vacío",
+    "descripcion": "Cilindro de gas vacío hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 408.85,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tina de baño vieja",
+    "descripcion": "Tina de baño vieja hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 466.44,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Horno eléctrico usado",
+    "descripcion": "Horno eléctrico usado hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 468.56,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta rota",
+    "descripcion": "Bicicleta rota hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 170.25,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Estufa inservible",
+    "descripcion": "Estufa inservible hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 550.94,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Alambre de acero",
+    "descripcion": "Alambre de acero hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 325.82,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Tina de baño vieja",
+    "descripcion": "Tina de baño vieja hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 165.87,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cama oxidada",
+    "descripcion": "Cama oxidada hecho principalmente de acero. Puede tener componentes reutilizables o reciclables.",
+    "precio": 413.31,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta rota",
+    "descripcion": "Bicicleta rota hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 171.09,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventana rota",
+    "descripcion": "Ventana rota hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 563.11,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Estufa inservible",
+    "descripcion": "Estufa inservible hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 77.58,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Batería de auto vieja",
+    "descripcion": "Batería de auto vieja hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 367.17,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta rota",
+    "descripcion": "Bicicleta rota hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 364.01,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventilador sin aspas",
+    "descripcion": "Ventilador sin aspas hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 18.34,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cables pelados",
+    "descripcion": "Cables pelados hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 149.46,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cama oxidada",
+    "descripcion": "Cama oxidada hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 692.83,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Mesa metálica usada",
+    "descripcion": "Mesa metálica usada hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 340.8,
+    "es_personalizado": true
+  },
+  {
+    "nombre": "Mesa metálica usada",
+    "descripcion": "Mesa metálica usada hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 617.95,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Alambre de acero",
+    "descripcion": "Alambre de acero hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 499.1,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Triciclo viejo",
+    "descripcion": "Triciclo viejo hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 775.35,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Moto oxidada",
+    "descripcion": "Moto oxidada hecho principalmente de cobre. Puede tener componentes reutilizables o reciclables.",
+    "precio": 386.86,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Ventilador sin aspas",
+    "descripcion": "Ventilador sin aspas hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 670.79,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de hierro. Puede tener componentes reutilizables o reciclables.",
+    "precio": 365.78,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Refrigerador descompuesto",
+    "descripcion": "Refrigerador descompuesto hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 687.95,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Llantas usadas",
+    "descripcion": "Llantas usadas hecho principalmente de mixto. Puede tener componentes reutilizables o reciclables.",
+    "precio": 175.63,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Horno eléctrico usado",
+    "descripcion": "Horno eléctrico usado hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 424.98,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta rota",
+    "descripcion": "Bicicleta rota hecho principalmente de electrónica. Puede tener componentes reutilizables o reciclables.",
+    "precio": 202.4,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Moto oxidada",
+    "descripcion": "Moto oxidada hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 612.69,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Bicicleta infantil dañada",
+    "descripcion": "Bicicleta infantil dañada hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 23.5,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Rines usados",
+    "descripcion": "Rines usados hecho principalmente de plástico. Puede tener componentes reutilizables o reciclables.",
+    "precio": 71.21,
+    "es_personalizado": false
+  },
+  {
+    "nombre": "Cables pelados",
+    "descripcion": "Cables pelados hecho principalmente de aluminio. Puede tener componentes reutilizables o reciclables.",
+    "precio": 247.43,
+    "es_personalizado": false
+  }
+]
