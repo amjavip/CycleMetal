@@ -9,6 +9,52 @@ from users.models import User  # Modelo único User con roles
 from rest_framework import viewsets
 from rest_framework_simplejwt.tokens import AccessToken, TokenError
 from django.core.exceptions import ObjectDoesNotExist
+import stripe
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from django.conf import settings
+from math import radians, cos, sin, asin, sqrt
+from django.http import JsonResponse
+
+
+def haversine(lon1, lat1, lon2, lat2):
+    """
+    Calcula la distancia entre dos puntos en km usando la fórmula de Haversine.
+    """
+    lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
+    dlon = lon2 - lon1
+    dlat = lat2 - lat1
+    a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
+    c = 2 * asin(sqrt(a))
+    r = 6371  # Radio de la Tierra en km
+    return c * r
+
+
+def get_nearby_orders(lat, lon, radio_km):
+    """
+    Devuelve órdenes 'pending' dentro de un radio dado desde la ubicación del recolector.
+    """
+    all_pending = Order.objects.filter(status="ontheway")
+    nearby = []
+
+    for order in all_pending:
+        distance = haversine(lon, lat, order.lon, order.lat)
+        if distance <= radio_km:
+            nearby.append(
+                {
+                    "order": OrderSerializer(order).data,
+                    "distance_km": round(distance, 2),
+                }
+            )
+
+    # Opcional: ordena por distancia
+    nearby.sort(key=lambda x: x["distance_km"])
+
+    return nearby
+
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 class AuthService:
@@ -134,6 +180,8 @@ class ItemCatalogView(APIView):
 
 
 # TODO debo de verificar el pago si se realizo con tarjeta, para que pase su status a on the way
+
+
 class CheckOrderPayment(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -141,18 +189,51 @@ class CheckOrderPayment(APIView):
         cardMethod = request.data.get("paymentMethod")
         token = request.data.get("token")
         idorder = request.data.get("id")
+
+        # Verificar que el token no esté expirado
         try:
-            AccessToken(token)  # valida expiración
+            AccessToken(token)
         except TokenError:
             return Response(
                 {"error": "El acceso ha expirado, solicita de nuevo el pedido"},
                 status=400,
             )
+
+        # 🚀 Pago con tarjeta
         if cardMethod == "card":
-            return Response(
-                {"error": "card"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
+            try:
+                # Buscar la orden
+                try:
+                    order = Order.objects.get(id_order=idorder)
+                    total = int(float(order.total) * 100)
+                except ObjectDoesNotExist:
+                    return Response(
+                        {"error": "La información de la orden no es válida"},
+                        status=404,
+                    )
+
+                # Crear el intent con capture manual
+                intent = stripe.PaymentIntent.create(
+                    amount=total,
+                    currency="mxn",
+                    capture_method="manual",  # <-- clave para autorizar sin cobrar
+                    metadata={"order_id": order.id_order},
+                )
+
+                # Guardar el intent ID en la orden
+                order.payment_intent_id = intent.id
+                order.metodo_pago = "card"
+                order.status = "ontheway"
+                order.save()
+
+                # Devolver clientSecret al frontend
+                return Response({"clientSecret": intent.client_secret}, status=200)
+
+            except Exception as e:
+                print(str(e))
+                return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+        # 💵 Pago en efectivo
         elif cardMethod == "cash":
             try:
                 order = Order.objects.get(id_order=idorder)
@@ -163,15 +244,15 @@ class CheckOrderPayment(APIView):
             except ObjectDoesNotExist:
                 return Response(
                     {
-                        "error": "La informacion de pago no ha sido actualizada correctamente, porfavor vuelve e intentar"
+                        "error": "La información de pago no se pudo actualizar. Intenta de nuevo."
                     },
                     status=status.HTTP_400_BAD_REQUEST,
                 )
+
+        # ❌ Otro método inválido
         else:
             return Response(
-                {
-                    "error": "La informacion de pago no ha sido actualizada correctamente, porfavor vuelve e intentar"
-                },
+                {"error": "Método de pago no válido"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -188,12 +269,29 @@ class ShowPreviousOrders(APIView):
         try:
             orders = Order.objects.filter(id_seller=id_seller)
             serializer = OrderSerializer(orders, many=True)
-            print(serializer.data)
             return Response(serializer.data, status=200)
         except ObjectDoesNotExist:
             return Response(
-                {"error": "No se logro encontrar algun pedido para esta cuenta"}
+                {"error": "No se logro encontrar algun pedido para esta cuenta"},
+                status=400,
             )
+
+
+class ShowNearbyOrders(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        lat = float(request.GET.get("lat"))
+        lon = float(request.GET.get("lon"))
+
+        print(lat, lon)
+        if not lat or not lon:
+            return Response({"error": "No hay suficientes datos"})
+        radio = 1  # valor por defecto: 1 km
+
+        orders = get_nearby_orders(lat, lon, radio)
+        print(orders)
+        return JsonResponse({"orders": orders}, status=200)
 
 
 class OrderItemViewSet(viewsets.ModelViewSet):

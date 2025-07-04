@@ -39,7 +39,7 @@ class Order(models.Model):
     total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     lat = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     lon = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
-
+    payment_intent_id = models.CharField(max_length=255, null=True, blank=True)
     METODO_PAGO_CHOICES = [("cash", "Cash"), ("card", "Card")]
     metodo_pago = models.CharField(
         max_length=20, choices=METODO_PAGO_CHOICES, null=True, blank=True

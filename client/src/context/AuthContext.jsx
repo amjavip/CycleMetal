@@ -18,12 +18,13 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem('access');
     const refresh = localStorage.getItem('refresh');
     const role = localStorage.getItem('role');
+    const vehicle = localStorage.getItem('vehicle')
     const profileString = localStorage.getItem('profile');
     const profile = profileString ? JSON.parse(profileString) : null;
     const t_token = localStorage.getItem('t_token');
     const uid = localStorage.getItem('uid')
     if (token && role && profile) {
-      setUser({ token, role, profile, refresh });
+      setUser({ token, role, profile, refresh, vehicle });
       if (t_token) {
         setT_user({ t_token, uid });
       }
@@ -31,21 +32,23 @@ export const AuthProvider = ({ children }) => {
     setLoading(false); // Terminamos de cargar después de revisar localStorage
   }, []);
 
-useEffect(() => {
-  setUpdateTokenCallback(updateAccessToken);
-}, []);
+
  const updateAccessToken = (newToken) => {
     console.log("gg");
     localStorage.setItem("access", newToken);
     setUser((prev) => (prev ? { ...prev, token: newToken } : null));
   };
+  useEffect(() => {
+  setUpdateTokenCallback(updateAccessToken);
+}, []);
 
-  const login = (token, role, profile, refresh) => {
+  const login = (token, role, profile, refresh, vehicle) => {
     localStorage.setItem('profile', JSON.stringify(profile)); // <- importante
     localStorage.setItem('access', token);
     localStorage.setItem('refresh', refresh)
+    localStorage.setItem('vehicle', vehicle)
     localStorage.setItem('role', role);
-    setUser({ token, role, profile, refresh });
+    setUser({ token, role, profile, refresh, vehicle});
     console.log(token, role, profile, refresh, " . from AuthContext");
 
   };
@@ -55,7 +58,8 @@ useEffect(() => {
     localStorage.removeItem('role');
     localStorage.removeItem('profile');
     localStorage.removeItem('t_token');
-    localStorage.removeItem('refresh')
+    localStorage.removeItem('refresh');
+    localStorage.removeItem('vehicle')
     setUser(null);
     setT_user(null);
   };
@@ -64,7 +68,7 @@ useEffect(() => {
     localStorage.setItem('uid', uid);
     setT_user({ t_token: token, uid });
   };
-
+console.log(user);
   return (
     <AuthContext.Provider value={{ user, login, logout, loading, t_user, setTToken, updateAccessToken }}>
       {children}

@@ -13,7 +13,7 @@ const Logout = ({ className = '' }) => {
   const handleLogout = () => {
     logout();
     resetOrder();
-    navigate('/inicio'); // o a /login, como prefieras
+    navigate('/login'); // o a /login, como prefieras
   };
 
   return (

@@ -10,9 +10,11 @@ const RedirectIfAuth = ({ children }) => {
   if (user) {
     if (user.role === 'seller') {
       return <Navigate to="/seller-home" />;
-    } else if (user.role === 'collector') {
+    } 
+    if (user.role === 'collector') {
       return <Navigate to="/collector-home" />;
     }
+ 
   }
 
   // Si no está autenticado, renderizamos los hijos

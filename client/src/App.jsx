@@ -35,6 +35,7 @@ import SellerOrderSumary from './pages/Seller/Services/SellerOrderData';
 
 // Collector
 import CollectorHome from './pages/Collector/CollectorHome';
+import CollectorOrder from './pages/Collector/Order/CollectorOrder';
 
 
 function App() {
@@ -117,12 +118,20 @@ function App() {
     </Route>
 </Route>
 
+        <Route
+  path="/collector-services"
+  element={
+    <ProtectedRoute role="collector">
+      <CollectorOrder />
+    </ProtectedRoute>}
+    _/>
+
         
         {/* Collector */}
         <Route
           path="/collector-home"
           element={
-            <ProtectedRoute role="sollector">
+            <ProtectedRoute role="collector">
               <CollectorHome />
             </ProtectedRoute>
           }

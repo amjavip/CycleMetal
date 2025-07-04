@@ -5,6 +5,7 @@ from .views import (
     OrderItemViewSet,
     CheckOrderPayment,
     ShowPreviousOrders,
+    ShowNearbyOrders,
 )
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
@@ -30,4 +31,5 @@ urlpatterns = [
     path(
         "api/showPrev/<str:id_seller>/", ShowPreviousOrders.as_view(), name="showPrev"
     ),
+    path("api/nearby/", ShowNearbyOrders.as_view(), name="nearby-orders"),
 ]

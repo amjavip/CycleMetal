@@ -99,36 +99,48 @@ console.log(orderData.token);
     return;
   }
 
-  const cardElement = elements.getElement(CardElement);
-  const { error, paymentMethod: pm } = await stripe.createPaymentMethod({
-    type: 'card',
-    card: cardElement,
-  });
+ // PASO 1: Crear el PaymentMethod
+const cardElement = elements.getElement(CardElement);
+const { error: pmError, paymentMethod: pm } = await stripe.createPaymentMethod({
+  type: 'card',
+  card: cardElement,
+});
 
-  if (error) {
-    setErrorMessage(error.message);
-    setIsProcessing(false);
-    return;
-  }
+if (pmError) {
+  setErrorMessage(pmError.message);
+  setIsProcessing(false);
+  return;
+}
 
-  try {
-    const response = await axios.post("http://127.0.0.1:8000/orders/api/checkout/", {
-      ...orderData,
-      paymentMethod: "card",
-      payment_method_id: pm.id,
-    }, {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+// PASO 2: Pedir al backend que cree el PaymentIntent con capture_method="manual"
+const backendRes = await axios.post("http://127.0.0.1:8000/orders/api/checkout/", {
+  id: orderData.id,
+  token: orderData.token,
+  paymentMethod: "card",
+}, {
+  headers: {
+    Authorization: `Bearer ${user.token}`,
+  },
+});
 
-    console.log("Respuesta CARD:", response.data);
-    setPaymentSuccess(true);
-  } catch (error) {
-    setErrorMessage("Error al procesar el pago con tarjeta");
-  } finally {
-    setIsProcessing(false);
-  }
+const clientSecret = backendRes.data.clientSecret;
+
+// PASO 3: Confirmar el PaymentIntent (autorizar, sin cobrar)
+const { error: confirmError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+  payment_method: pm.id,
+});
+
+if (confirmError) {
+  setErrorMessage(confirmError.message);
+  setIsProcessing(false);
+  return;
+}
+
+console.log("✅ Autorizado con éxito (no capturado aún):", paymentIntent.id);
+setPaymentSuccess(true);
+updateOrder("paymentMethod", "card");
+setIsProcessing(false);
+
 };
 
 
