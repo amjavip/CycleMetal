@@ -1,7 +1,12 @@
 from rest_framework.views import APIView
 from datetime import timedelta
-from .models import Item, Order, OrderItem
-from .serializer import ItemSerializer, OrderSerializer, OrderItemSerializer
+from .models import Item, Order, OrderItem, Vehicle
+from .serializer import (
+    ItemSerializer,
+    OrderSerializer,
+    OrderItemSerializer,
+    VehicleSerializer,
+)
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework import status
@@ -17,6 +22,12 @@ from django.conf import settings
 from math import radians, cos, sin, asin, sqrt
 from django.http import JsonResponse
 
+from django.contrib.auth.models import User
+import requests
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
 
 def haversine(lon1, lat1, lon2, lat2):
     """
@@ -28,6 +39,7 @@ def haversine(lon1, lat1, lon2, lat2):
     a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
     c = 2 * asin(sqrt(a))
     r = 6371  # Radio de la Tierra en km
+
     return c * r
 
 
@@ -36,11 +48,15 @@ def get_nearby_orders(lat, lon, radio_km):
     Devuelve órdenes 'pending' dentro de un radio dado desde la ubicación del recolector.
     """
     all_pending = Order.objects.filter(status="ontheway")
+
     nearby = []
+    print(lat, lon, radio_km, all_pending)
 
     for order in all_pending:
         distance = haversine(lon, lat, order.lon, order.lat)
-        if distance <= radio_km:
+        print("xdxdxdxdxxdxdxxdxdxdxdxddx", distance)
+        if distance and distance <= radio_km:
+            print("adddddddddddddddddddddddddddddddd")
             nearby.append(
                 {
                     "order": OrderSerializer(order).data,
@@ -50,7 +66,7 @@ def get_nearby_orders(lat, lon, radio_km):
 
     # Opcional: ordena por distancia
     nearby.sort(key=lambda x: x["distance_km"])
-
+    print(nearby)
     return nearby
 
 
@@ -128,7 +144,7 @@ class CreateTempOrderView(APIView):
 
         return Response(
             {
-                "id": order.id_order,
+                "id": order.id,
                 "location": location,
                 "total": total,
                 "comision": comision,
@@ -145,29 +161,55 @@ class CreateTempOrderView(APIView):
 class AcceptOrderView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def post(self, request, order_id):
+    def post(self, request):
+        user = request.user
+        order_id = request.data.get("order_id")
+        geometry = request.data.get("geometry")
+        distance = request.data.get("distance")
+        start_lat = request.data.get("start_lat")
+        start_lon = request.data.get("start_lon")
+        end_lat = request.data.get("end_lat")
+        end_lon = request.data.get("end_lon")
+        print(distance)
+        if user.role != "collector":
+            return Response(
+                {"error": "Solo recolectores pueden aceptar pedidos."}, status=403
+            )
+
+        # Verificar si el recolector ya tiene una ruta activa
+        if Order.objects.filter(id_collector=user, status="accepted").exists():
+            return Response({"error": "Ya tienes una ruta activa."}, status=400)
+
         try:
-            order = Order.objects.get(id_order=order_id)
+            order = Order.objects.get(id=order_id)
         except Order.DoesNotExist:
-            return Response({"error": "Orden no encontrada"}, status=404)
+            return Response({"error": "Orden no encontrada."}, status=404)
 
-        if order.status != "pending":
+        # Validar que la orden esté disponible
+        if order.status != "ontheway":
             return Response(
-                {"error": "Orden ya ha sido aceptada o cancelada"}, status=400
+                {"error": "La orden ya fue tomada por otro recolector."}, status=400
             )
 
-        # Verificar que el usuario tenga rol collector antes de asignar
-        if request.user.role != "collector":
-            return Response(
-                {"error": "Solo recolectores pueden aceptar ordenes"}, status=403
-            )
-
-        # Asigna al recolector que hace la petición
-        order.id_collector = request.user
-        order.status = "ontheway"
+        # Cambiar estado de la orden
+        order.status = "accepted"
+        order.id_collector = user
         order.save()
 
-        return Response({"message": "Orden aceptada correctamente"})
+        # Crear ruta
+        route = Route.objects.create(
+            order=order,
+            lat=start_lat,
+            lon=start_lon,
+            endlat=end_lat,
+            endlon=end_lon,
+            routeDistance=distance,
+            routeGeometry=geometry,
+        )
+
+        return Response(
+            {"message": "Ruta creada exitosamente", "route_id": route.id}, status=201
+        )
 
 
 class ItemCatalogView(APIView):
@@ -204,7 +246,7 @@ class CheckOrderPayment(APIView):
             try:
                 # Buscar la orden
                 try:
-                    order = Order.objects.get(id_order=idorder)
+                    order = Order.objects.get(id=idorder)
                     total = int(float(order.total) * 100)
                 except ObjectDoesNotExist:
                     return Response(
@@ -217,7 +259,7 @@ class CheckOrderPayment(APIView):
                     amount=total,
                     currency="mxn",
                     capture_method="manual",  # <-- clave para autorizar sin cobrar
-                    metadata={"order_id": order.id_order},
+                    metadata={"order_id": order.id},
                 )
 
                 # Guardar el intent ID en la orden
@@ -236,7 +278,7 @@ class CheckOrderPayment(APIView):
         # 💵 Pago en efectivo
         elif cardMethod == "cash":
             try:
-                order = Order.objects.get(id_order=idorder)
+                order = Order.objects.get(id=idorder)
                 order.status = "ontheway"
                 order.metodo_pago = "cash"
                 order.save()
@@ -284,13 +326,13 @@ class ShowNearbyOrders(APIView):
         lat = float(request.GET.get("lat"))
         lon = float(request.GET.get("lon"))
 
-        print(lat, lon)
+        print("xd", lat, lon)
         if not lat or not lon:
-            return Response({"error": "No hay suficientes datos"})
+            return Response({"error": "No hay suficientes datos"}, status=400)
         radio = 1  # valor por defecto: 1 km
 
         orders = get_nearby_orders(lat, lon, radio)
-        print(orders)
+
         return JsonResponse({"orders": orders}, status=200)
 
 
@@ -298,3 +340,301 @@ class OrderItemViewSet(viewsets.ModelViewSet):
     queryset = OrderItem.objects.all()
     serializer_class = OrderItemSerializer
     permission_classes = [IsAuthenticated]
+
+
+class UpdateVehicleView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def patch(self, request):
+        user = request.user
+
+        # Verifica si el usuario es un recolector
+        if user.role != "collector":
+            return Response(
+                {"detail": "No autorizado"}, status=status.HTTP_403_FORBIDDEN
+            )
+
+        id = request.data.get("id")
+        if not id:
+            return Response(
+                {"error": "Falta el tipo de vehículo"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        try:
+            nuevo_vehiculo = Vehicle.objects.get(id=id)
+        except Vehicle.DoesNotExist:
+            print("hols")
+            return Response(
+                {"error": "Tipo de vehículo no válido"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        collector = user.collectorprofile
+        print(collector)
+        collector.vehicle = nuevo_vehiculo
+        collector.save()
+        vehicle = VehicleSerializer(collector.vehicle).data
+        return Response({"vechicle": vehicle}, status=status.HTTP_200_OK)
+
+
+class VehicleViewSet(viewsets.ModelViewSet):
+    queryset = Vehicle.objects.all()
+    serializer_class = VehicleSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class ShowCurrentOrder(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        id_order = request.data.get("id")
+        if not user:
+            return Response({"error": "No hay usuario"}, status=400)
+
+
+class CalcularRutaOrdenView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        lat1 = request.data.get("lat")
+        lon1 = request.data.get("lon")
+        order_id = request.data.get("id")
+        print(lon1, lat1, order_id)
+        if not (lat1 and lon1 and order_id):
+            return Response({"error": "Datos incompletos"}, status=400)
+
+        try:
+            order = Order.objects.get(id=order_id)
+        except Order.DoesNotExist:
+            return Response({"error": "Orden no encontrada"}, status=404)
+
+        punto_inicio = (float(lat1), float(lon1))
+        punto_final = (float(order.lat), float(order.lon))
+        ruta_data = obtener_ruta_osrm([punto_inicio, punto_final])
+        instrucciones = generar_instrucciones(ruta_data)
+
+        return Response({"ruta": ruta_data, "instrucciones": instrucciones})
+
+
+# OBTENER RUTA DE LA API
+@csrf_exempt
+def obtener_ruta_osrm(puntos):
+    """Obtiene la ruta usando OSRM y devuelve la geometría."""
+    url = "http://router.project-osrm.org/route/v1/driving/"
+    coordinates = ";".join([f"{lon},{lat}" for lat, lon in puntos])
+    url += f"{coordinates}?overview=full&geometries=polyline&steps=true"
+
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return {"error": "No se pudo obtener la ruta"}
+
+
+# CALCULAR DITANCIA
+@csrf_exempt
+def calcular_distancia(punto1, punto2):
+    """Calcula la distancia entre dos puntos usando OSRM."""
+    url = f"http://router.project-osrm.org/table/v1/driving/{punto1[1]},{punto1[0]};{punto2[1]},{punto2[0]}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        print(data)
+        return data["durations"][0][1]
+    return float("inf")
+
+
+def precalcular_distancias(puntos):
+    """Obtiene una matriz de distancias entre todos los puntos."""
+    url = "http://router.project-osrm.org/table/v1/driving/"
+    coordinates = ";".join([f"{lon},{lat}" for lat, lon in puntos])
+    response = requests.get(f"{url}{coordinates}")
+
+    if response.status_code == 200:
+        data = response.json()
+        return data["durations"]
+    else:
+        return None
+
+
+def tsp_greedy_matriz(punto_inicio, puntos, matriz):
+    """Resuelve el TSP usando la matriz de distancias precalculada."""
+    unvisited = list(
+        range(1, len(puntos))
+    )  # Índices de puntos sin visitar (excepto el inicio)
+    ruta = [0]  # Índice del punto de inicio
+    current_index = 0
+
+    while unvisited:
+        next_index = min(unvisited, key=lambda i: matriz[current_index][i])
+        ruta.append(next_index)
+        unvisited.remove(next_index)
+        current_index = next_index
+
+    ruta.append(0)  # Regresa al punto de inicio
+    return [puntos[i] for i in ruta]
+
+
+@csrf_exempt
+def recoleccion_rutas(request):
+    """Vista para calcular y devolver la ruta optimizada."""
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            print(data)
+            punto_inicio = data.get("inicio")
+            puntos_seleccionados = data.get("puntos", [])
+            if not punto_inicio or not puntos_seleccionados:
+                return JsonResponse({"error": "Faltan puntos necesarios"}, status=400)
+
+            puntos = [(punto_inicio["lat"], punto_inicio["lon"])] + [
+                (p["lat"], p["lon"]) for p in puntos_seleccionados
+            ]
+            matriz = precalcular_distancias(puntos)
+            if matriz is None:
+                return JsonResponse(
+                    {"error": "No se pudo calcular la matriz de distancias"}, status=400
+                )
+
+            # Resolver el TSP
+            ruta_optima = tsp_greedy_matriz(puntos[0], puntos, matriz)
+
+            # Obtener la ruta usando OSRM
+            ruta = obtener_ruta_osrm(ruta_optima)
+
+            instrucciones = generar_instrucciones(ruta)
+            for instruccion in instrucciones:
+                print(instruccion)
+            # Devolver la ruta y las instrucciones
+            return JsonResponse(
+                {
+                    "ruta": ruta,
+                    "instrucciones": instrucciones,
+                }
+            )
+
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "JSON malformado"}, status=400)
+
+    return JsonResponse({"error": "Método no permitido"}, status=405)
+
+
+# Ejemplo de los 'steps' extraídos de la API
+
+
+# Función para generar instrucciones paso a paso
+def generar_instrucciones(ruta):
+    steps = ruta["routes"][0]["legs"][0]["steps"]
+    instrucciones = []
+    print(ruta)
+    print(steps)
+    for step in steps:
+        # Verifica si las claves existen y asigna valores predeterminados claros
+        maniobra = step["maneuver"].get(
+            "modifier", "continúa recto"
+        )  # Valor predeterminado
+        calle = step.get("name", "una calle desconocida")  # Valor predeterminado
+        distancia = step.get("distance", 0)  # En metros
+
+        # Traduce los modifiers a instrucciones claras
+        if maniobra == "right":
+            maniobra = "Gira a la derecha"
+        elif maniobra == "left":
+            maniobra = "Gira a la izquierda"
+        elif maniobra == "straight":
+            maniobra = "Continúa recto"
+        elif maniobra == "uturn":
+            maniobra = "Haz un cambio de sentido"
+        elif maniobra == "sharp right":
+            maniobra = "Gira pronunciadamente a la derecha"
+        elif maniobra == "sharp left":
+            maniobra = "Gira pronunciadamente a la izquierda"
+        else:
+            maniobra = (
+                f"{maniobra.capitalize()}"  # Si no es conocido, se deja como está
+            )
+
+        # Redondea la distancia a dos decimales si es válida
+        if distancia > 0:
+            distancia = round(distancia, 2)
+            instruccion = f"{maniobra} en {calle}, continúa durante {distancia} metros."
+        else:
+            instruccion = f"{maniobra} en {calle}."
+
+        instrucciones.append(instruccion)
+
+        # Si encuentra la instrucción "arrive", asegura que agregue la vuelta al inicio
+        if "arrive" in step.get("type", ""):
+            instrucciones.append("Has llegado al punto final de la ruta.")
+            instrucciones.append(
+                "Regresa al punto inicial."
+            )  # Esta instrucción asegura el regreso
+
+            # Si deseas que la última instrucción sea más clara y concluir la ruta
+            break  # Esto hace que el ciclo termine una vez que se procesan las instrucciones de llegada
+
+    return instrucciones
+
+
+# Generar e imprimir las instrucciones
+
+
+@csrf_exempt
+def guardar_ruta(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            geometry = data.get("geometry")
+            inicio = data.get("inicio")
+            puntos = data.get("puntos")
+            print(data)
+            if not geometry:
+                return JsonResponse({"error": "La geometría es requerida."}, status=400)
+
+            Route.objects.create(geometry=geometry, inicio=inicio, puntos=puntos)
+            return JsonResponse({"message": "Ruta guardada exitosamente."})
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=400)
+
+
+from django.http import JsonResponse
+from django.utils.timezone import now
+from routes.models import Route
+import random
+
+
+def ver_rutas(request):
+    # Obtener la fecha de hoy
+    hoy = now().date()
+
+    # Filtrar rutas que fueron creadas hoy
+    rutas = Route.objects.filter(fecha_creacion__date=hoy).values(
+        "id", "geometry", "inicio", "puntos", "fecha_creacion"
+    )
+
+    # Función para asignar colores aleatorios
+    def generar_color_unico():
+        colores = ["red", "green", "blue", "purple", "orange", "pink", "yellow"]
+        return random.choice(colores)
+
+    # Agregar colores a las rutas
+    rutas_data = []
+    for ruta in rutas:
+        ruta_data = dict(ruta)
+        ruta_data["color"] = generar_color_unico()  # Asignar un color aleatorio
+        rutas_data.append(ruta_data)
+
+    return JsonResponse({"rutas": rutas_data})
+
+
+@csrf_exempt
+def borrar_ruta(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            ruta_id = data.get("id")
+            Route.objects.filter(id=ruta_id).delete()
+            return JsonResponse({"message": "Ruta eliminada"})
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=400)

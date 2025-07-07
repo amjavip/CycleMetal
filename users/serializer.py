@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import User, SellerProfile, CollectorProfile
+from collection.serializer import VehicleSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -38,6 +39,8 @@ class SellerProfileSerializer(serializers.ModelSerializer):
 
 
 class CollectorProfileSerializer(serializers.ModelSerializer):
+    vehicle = VehicleSerializer(read_only=True)
+
     class Meta:
         model = CollectorProfile
-        fields = ["code"]
+        fields = ["code", "vehicle"]

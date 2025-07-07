@@ -4,6 +4,9 @@
   .hover-1 {
     @apply transition-all duration-500 ease-out hover:scale-105 hover:duration-200 hover:cursor-pointer;
   }
+  .card {
+     @apply rounded-box border border-1 bg-base-100;
+  }
 }
 
 
@@ -48,4 +51,24 @@ body {
   background-color: white;
   color: white;
 
+}
+/* Usa @layer si usas Tailwind */
+.radar-overlay {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: rgba(0, 153, 255, 0.2);
+  animation: radar-pulse 2s ease-out infinite;
+  z-index: 999;
+}
+
+@keyframes radar-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(5);
+    opacity: 0;
+  }
 }

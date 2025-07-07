@@ -6,6 +6,10 @@ from .views import (
     CheckOrderPayment,
     ShowPreviousOrders,
     ShowNearbyOrders,
+    VehicleViewSet,
+    UpdateVehicleView,
+    CalcularRutaOrdenView,
+    AcceptOrderView,
 )
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
@@ -15,6 +19,7 @@ from rest_framework.permissions import AllowAny
 # Enrutador para los viewsets de Seller y Collector (CRUD)
 router = DefaultRouter()
 router.register(r"orderitem", OrderItemViewSet)
+router.register(r"Vehicle", VehicleViewSet)
 
 
 urlpatterns = [
@@ -31,5 +36,8 @@ urlpatterns = [
     path(
         "api/showPrev/<str:id_seller>/", ShowPreviousOrders.as_view(), name="showPrev"
     ),
+    path("api/calcular-ruta-orden/", CalcularRutaOrdenView.as_view(), name="CalcRoute"),
     path("api/nearby/", ShowNearbyOrders.as_view(), name="nearby-orders"),
+    path("api/update-vehicle/", UpdateVehicleView.as_view(), name="update-vehicle"),
+    path("api/accept-order/", AcceptOrderView.as_view(), name="update-vehicle"),
 ]

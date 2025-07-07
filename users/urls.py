@@ -26,6 +26,8 @@ from .views import (
     RegisterUserView,
     LoginView,
     SendResetEmailView,
+    SellerWeeklyActivity,
+    CollectorStatsView,
 )
 from rest_framework.documentation import include_docs_urls
 from .views import check_username, UpdateUserView, check_pass, ChangePasswordView
@@ -38,6 +40,7 @@ router.register(r"sellers", SellerViewSet)
 router.register(r"collectors", CollectorViewSet)
 
 urlpatterns = [
+    path("api/stats/", CollectorStatsView.as_view()),
     # URLs de los ViewSets
     path("api/users/", include(router.urls)),
     # URL para la documentación de la API (si la tienes habilitada)
@@ -65,4 +68,5 @@ urlpatterns = [
     ),
     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("api/seller/weekly-activity/", SellerWeeklyActivity.as_view()),
 ]

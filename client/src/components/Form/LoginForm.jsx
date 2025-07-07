@@ -30,31 +30,36 @@ const LoginForm = () => {
       });
 
       const data = await response.json();
-console.log("gg",data);
+      console.log("Respuesta login:", data);
+
       if (response.ok) {
         // Guardamos los tokens y rol
         localStorage.setItem('access', data.access);
         localStorage.setItem('refresh', data.refresh);
         localStorage.setItem('role', data.role);
-      
-        // Guardamos información adicional según el rol
-        if (data.role === 'seller' || data.role === 'collector') {
-          
-          const userProfile = {
-            username: data.username,
-            email: data.email,
-            phone: data.phone,
-            id: data.id,
-          };
-          console.log(userProfile)
-          localStorage.setItem('profile', JSON.stringify(userProfile));  // Guardamos primero el perfil
-         
-          login(data.access, data.role, userProfile, data.refresh); // Luego actualizamos el contexto con todo
-          console.log(login)
-          console.log(userProfile);
-          navigate(`/${data.role.toLowerCase()}-home`); // Redirigimos con la ruta en minúsculas
+
+        // Construimos el perfil de usuario
+        const userProfile = {
+          username: data.username,
+          email: data.email,
+          phone: data.phone,
+          id: data.id,
+        };
+
+        localStorage.setItem('profile', JSON.stringify(userProfile));
+
+        // Guardamos el vehículo si existe (solo collectors)
+        if (data.vehicle) {
+          localStorage.setItem('vehicle', JSON.stringify(data.vehicle));
+        } else {
+          localStorage.removeItem('vehicle');
         }
-        
+
+        // Actualizamos el contexto con todos los datos
+        login(data.access, data.role, userProfile, data.refresh, data.vehicle || null);
+
+        // Redirigimos según rol
+        navigate(`/${data.role.toLowerCase()}-home`);
       } else {
         setError(data.error || 'Error al iniciar sesión');
       }

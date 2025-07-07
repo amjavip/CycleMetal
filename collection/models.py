@@ -7,12 +7,14 @@ class Order(models.Model):
     STATUS_CHOICES = [
         ("pending", "Pendiente"),
         ("ontheway", "En camino"),
-        ("rejected", "Rechazado"),
+        ("accepted", "Aceptado"),
         ("cancelled", "Cancelado"),
         ("completed", "Completado"),
     ]
 
-    id_order = models.CharField(max_length=14, unique=True, editable=False, null=False)
+    id = models.CharField(
+        primary_key=True, max_length=14, unique=True, editable=False, null=False
+    )
     orderCreationDay = models.DateTimeField(auto_now_add=True)
     id_seller = models.ForeignKey(
         "users.User",
@@ -40,20 +42,21 @@ class Order(models.Model):
     lat = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     lon = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     payment_intent_id = models.CharField(max_length=255, null=True, blank=True)
+
     METODO_PAGO_CHOICES = [("cash", "Cash"), ("card", "Card")]
     metodo_pago = models.CharField(
         max_length=20, choices=METODO_PAGO_CHOICES, null=True, blank=True
     )
 
     def save(self, *args, **kwargs):
-        if not self.id_order:
+        if not self.id:
             prefix = "ORD"
             unique_id = str(uuid.uuid4().hex[:8]).upper()
-            self.id_order = f"{prefix}-{unique_id}"
+            self.id = f"{prefix}-{unique_id}"
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.id_order} - {self.id_collector} - {self.orderCreationDay}"
+        return f"{self.id} - {self.id_collector} - {self.orderCreationDay}"
 
 
 class Item(models.Model):
@@ -82,4 +85,48 @@ class OrderItem(models.Model):
         return self.total
 
     def __str__(self):
-        return f"{self.cantidad} x {self.item.nombre} para {self.order.id_order}"
+        return f"{self.cantidad} x {self.item.nombre} para {self.order.id}"
+
+
+from django.db import models
+
+
+class Vehicle(models.Model):
+    TYPE_CHOICES = [
+        ("auto", "Auto"),
+        ("camion", "Camión"),
+        ("pickup", "Camioneta Pick Up"),
+        ("carreta", "Carreta"),
+        ("caminar", "Caminar"),
+    ]
+
+    tipo = models.CharField(max_length=20, choices=TYPE_CHOICES, null=True, blank=True)
+    nombre = models.CharField(max_length=50, null=True, blank=True)
+
+    capacidad = models.PositiveIntegerField(
+        help_text="Capacidad máxima en kg ",
+        null=True,
+        blank=True,
+    )
+    velocidad = models.PositiveIntegerField(
+        help_text="Velocidad promedio en km/h", null=True, blank=True
+    )
+    consumo = models.PositiveIntegerField(
+        help_text="Consumo aproximado en L/km", null=True, blank=True
+    )
+    modelo_3d = models.CharField(
+        max_length=200,
+        null=True,
+        blank=True,
+    )
+
+    def __str__(self):
+        return f"{self.nombre or 'Vehículo'} - {self.tipo}"
+
+    @property
+    def modelo_3d_url(self):
+        if self.modelo_3d:
+            return f"/static/{self.modelo_3d}"
+        if self.tipo:
+            return f"/static/3dmodels/{self.tipo}.glb"
+        return None

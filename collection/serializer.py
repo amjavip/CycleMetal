@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Order, OrderItem, Item
 from django.conf import settings
 from users.models import User  # tu modelo personalizado User
+from .models import Vehicle
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
@@ -32,7 +33,7 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = "__all__"
 
-        read_only_fields = ["id_order", "orderCreationDay"]
+        read_only_fields = ["id", "orderCreationDay"]
 
     def create(self, validated_data):
         items_data = validated_data.pop("items")
@@ -46,3 +47,17 @@ class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields = ["id", "nombre", "descripcion", "precio", "es_personalizado"]
+
+
+class VehicleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Vehicle
+        fields = [
+            "id",
+            "tipo",
+            "nombre",
+            "capacidad",
+            "velocidad",
+            "consumo",
+            "modelo_3d",  # Esto devolverá la URL del archivo automáticamente
+        ]

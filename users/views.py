@@ -14,10 +14,12 @@ de recomienda usar la version 3.10 ya que con esta versiona sido desarrollado es
 Para cualquier aclaracion especifica visita la documentacion de django consultala en este link
 https://www.django-rest-framework.org/
 
+Module: users.views
+Funcion: CRUD de los usuario, validacion en la autentifacion de los usuarios y mostrar estadisticas y controlar el flujo en general de las funciones que tiene que ver con los usuarios
 """
 
 from rest_framework import viewsets, status
-from datetime import timedelta
+from datetime import timedelta, datetime
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view, permission_classes
@@ -28,13 +30,15 @@ from django.core.mail import send_mail
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.core.exceptions import ValidationError
-
+from collection.serializer import VehicleSerializer
 from .models import User, SellerProfile, CollectorProfile
+from collection.models import Order
 from .serializer import (
     SellerProfileSerializer,
     CollectorProfileSerializer,
     UserSerializer,
 )
+
 
 # TODO falta que el usuario no pueda recibir la contraseña que inicie con "pbkdf2_sha256$"
 """posibles soluciones:
@@ -204,7 +208,25 @@ class LoginView(APIView):
         access_token = refresh.access_token
         access_token["role"] = user.role
         access_token["user_id"] = str(user.id)
+        if user.role == "collector":
+            collector = user.collectorprofile
+            vehicle = None  # Aseguras que existe la variable
+            if collector.vehicle:
+                vehicle = VehicleSerializer(collector.vehicle).data
 
+            return Response(
+                {
+                    "refresh": str(refresh),
+                    "access": str(refresh.access_token),
+                    "id": str(user.id),
+                    "username": user.username,
+                    "email": user.email,
+                    "phone": user.phone,
+                    "role": user.role,
+                    "vehicle": vehicle,
+                },
+                status=status.HTTP_200_OK,
+            )
         return Response(
             {
                 "refresh": str(refresh),
@@ -389,3 +411,86 @@ class CollectorViewSet(viewsets.ModelViewSet):
     queryset = CollectorProfile.objects.all()
     serializer_class = CollectorProfileSerializer
     permission_classes = [IsAuthenticated]
+
+
+class SellerWeeklyActivity(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+
+        if user.role == "collector":
+            return Response(
+                {"error": "Solo recolectores pueden ver esta info"}, status=403
+            )
+
+        # Obtener sus órdenes completadas
+        orders = Order.objects.filter(id_seller=user.id, status="completed")
+
+        dias = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"]
+        resumen = {d: 0 for d in dias}
+
+        for order in orders:
+            dia = order.orderCreationDay.strftime("%a")
+            dia_spanish = {
+                "Mon": "Lun",
+                "Tue": "Mar",
+                "Wed": "Mié",
+                "Thu": "Jue",
+                "Fri": "Vie",
+                "Sat": "Sáb",
+                "Sun": "Dom",
+            }.get(dia, "")
+            if dia_spanish:
+                resumen[dia_spanish] += 1  # ✅ Contamos 1 orden, no peso
+
+        data = [{"name": dia, "kg": resumen[dia]} for dia in dias]
+        return Response(data)
+
+
+class CollectorStatsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+
+        if user.role != "collector":
+            return Response({"error": "No autorizado"}, status=403)
+
+        hoy = datetime.now()
+        inicio_semana = hoy - timedelta(days=hoy.weekday())  # lunes de esta semana
+
+        # Filtrar pedidos asignados al recolector y creados esta semana
+        pedidos_semana = Order.objects.filter(
+            id_collector=user, orderCreationDay__date__gte=inicio_semana.date()
+        )
+
+        # Contar pedidos completados
+        completados = pedidos_semana.filter(status="completed").count()
+
+        # Contar órdenes aceptadas (ya no pendientes)
+        aceptados = pedidos_semana.filter(status="acepted").count()
+        print(aceptados)
+        # Sumar propinas (sin usar Sum)
+        propinas = sum(
+            [float(p.tip) for p in pedidos_semana if p.status == "completed"]
+        )
+
+        # Determinar el día más activo
+        dias = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"]
+        conteo_por_dia = [0] * 7
+        for orden in pedidos_semana:
+            dia_index = orden.orderCreationDay.weekday()
+            conteo_por_dia[dia_index] += 1
+        dia_mas_activo = (
+            dias[conteo_por_dia.index(max(conteo_por_dia))] if pedidos_semana else "N/A"
+        )
+
+        return Response(
+            {
+                "completados": completados,
+                "aceptados": aceptados,
+                "propinas": round(propinas, 2),
+                "dia_mas_activo": dia_mas_activo,
+            }
+        )

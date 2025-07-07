@@ -52,7 +52,7 @@ export default function SellerServices() {
             >
               <div>
                 <p className="text-md font-semibold text-gray-800">
-                  Pedido: {order.id_order}
+                  Pedido: {order.id}
                 </p>
                 <p className="text-sm text-gray-600">
                   Fecha: {new Date(order.orderCreationDay).toLocaleDateString()}
@@ -245,7 +245,7 @@ export default function SellerServices() {
                   <>
                     <div className="flex flex-row justify-between">
                       <div>
-                        <p className="font-semibold text-xl">Pedido - {pedidoActual.id_order
+                        <p className="font-semibold text-xl">Pedido - {pedidoActual.id
                         }</p>
                       </div>
                       <div>

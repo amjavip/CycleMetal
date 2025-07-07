@@ -3,75 +3,53 @@ import Noticias from "../../components/Seller/SellerNews";
 import ActividadSemanal from "../../components/Seller/SellerWeeklyActivity";
 import { useAuth } from "../../context/AuthContext";
 
-export default function SellerHome(){
+export default function SellerHome() {
   const { user } = useAuth();
 
-  
-    return(
-        <div className="min-h-screen bg-opacity-60 bg-gradient-to-t from-[#909090] to-[#FFF] p-6 top-0">
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          {/* Resumen del usuario */}
-          <div className="bg-[#fff] p-6 w-full rounded-xl row-span-4 flex flex-col">
+  return (
+    <div className="min-h-screen bg-base-200 p-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {/* Perfil del usuario */}
+        <div className="card bg-base-100 shadow-lg p-6 flex flex-col items-center ">
           <img
-  src="/12694.jpg"
-  alt="Foto de perfil"
-  className="w-85 h-85 rounded-full object-cover self-center"
-/>
-<br />
-
-            <p className="text-black text-3xl font-semibold">{user.profile.username}</p><p className="text-[#202020] ">({user.profile.email})</p>
-            <br />
-          <button className="btn btn-primary bg-[#303030] hover:bg-[#404040] border-none text-white w-full py-3 self-center rounded-md 
-                transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg ">
-                Editar perfil
-              </button>
-          </div>
-          
-         
-          {/* Historial de recolecciones */}
-          <div className="bg-white p-6 rounded-xl row-span-3 col-span-2 flex flex-col md:flex-row items-center gap-4 justify-center items-center self-center">
-  {/* Gráfica */}
-  <div className="w-full md:w-3/4 h-full self-center">
-    {/* Aquí va tu componente de gráfica */}
-    <ActividadSemanal></ActividadSemanal>
-    {/* Por ejemplo tu BarChart */}
-   
-  </div>
-
-  {/* Botón de puntos */}
-  <div className="w-full md:w-1/4 flex justify-center">
-    <button className="w-full md:w-auto bg-[#4CAF50] hover:bg-[#45A049] text-white font-bold py-4 px-6 rounded-lg shadow-lg text-lg transition-transform transform hover:scale-105">
-      🔋 135 puntos
-    </button>
-  </div>
-</div>
-
-  
-          
-          {/* Notificaciones */}
-          <div className="bg-[#fff] rounded-xl col-span-2 row-span-1 flex flex-col justify-center">
-            
-            <Noticias></Noticias>
-          </div>
-  
-          {/* Acciones rápidas */}
-          
+            src="/12694.jpg"
+            alt="Foto de perfil"
+            className="w-32 h-32 rounded-full object-cover mb-4"
+          />
+          <h2 className="text-2xl font-bold text-primary">{user.profile.username}</h2>
+          <p className="text-sm text-gray-500">{user.profile.email}</p>
+          <button className="btn btn-neutral mt-4 w-full">Editar perfil</button>
         </div>
-        <footer className=" text-[#333] py-6 mt-10">
-  <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-    <div className="text-sm text-center md:text-left">
-      © {new Date().getFullYear()} CycleMeta+. Todos los derechos reservados.
-    </div>
 
-    <div className="flex space-x-4">
-      <a href="#" className="hover:underline text-sm transition-all duration-200">Inicio</a>
-      <a href="#" className="hover:underline text-sm transition-all duration-200">Sobre nosotros</a>
-      <a href="#" className="hover:underline text-sm transition-all duration-200">Contacto</a>
-    </div>
-  </div>
-</footer>
+        {/* Gráfica + puntos */}
+        <div className="card bg-base-100 shadow-lg col-span-1 md:col-span-2 flex flex-col md:flex-row items-center justify-between gap-4 p-6">
+          <div className="w-full md:w-3/4">
+            <ActividadSemanal />
+          </div>
+          <div className="w-full md:w-1/4 flex justify-center">
+            <button className="btn btn-success w-full md:w-auto text-lg">
+              🔋 135 puntos
+            </button>
+          </div>
+        </div>
 
+        {/* Noticias o notificaciones */}
+        <div className="card bg-base-100 shadow-lg col-span-1 md:col-span-3 p-6">
+          <Noticias />
+        </div>
       </div>
-    );
+
+      {/* Footer */}
+      <footer className="text-gray-500 mt-12 border-t pt-6 text-sm text-center md:text-left">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 px-4">
+          <span>© {new Date().getFullYear()} CycleMeta+. Todos los derechos reservados.</span>
+          <div className="flex space-x-4">
+            <a href="#" className="link link-hover">Inicio</a>
+            <a href="#" className="link link-hover">Sobre nosotros</a>
+            <a href="#" className="link link-hover">Contacto</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
 }

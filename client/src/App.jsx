@@ -36,6 +36,12 @@ import SellerOrderSumary from './pages/Seller/Services/SellerOrderData';
 // Collector
 import CollectorHome from './pages/Collector/CollectorHome';
 import CollectorOrder from './pages/Collector/Order/CollectorOrder';
+import CollectorVehicule from './pages/Collector/Vehicule/CollectorVehicle';
+import CollectorProfile from './pages/Collector/Account/CollectorProfile';
+import CollectorChangePassword from './pages/Collector/Account/CollectorChangePassword';
+import CollectorDetails from './pages/Collector/Account/CollectorDetails';
+import CollectorRecovery from './pages/Collector/Account/CollectorRecovery';
+import CollectorStats from './pages/Collector/Stats/CollectorStats';
 
 
 function App() {
@@ -118,11 +124,35 @@ function App() {
     </Route>
 </Route>
 
-        <Route
+      <Route
+  path="/collector-account"
+  element={
+    <ProtectedRoute role="collector">
+      <AccountLayout />
+    </ProtectedRoute>
+  }
+>
+  <Route index element={<Navigate to="profile" />} />
+  <Route path="profile" element={<CollectorProfile />} />
+  <Route path="changepassword" element={<CollectorChangePassword />} />
+  <Route path="recovery" element={<CollectorRecovery />} />
+  <Route path="details" element={<CollectorDetails />} />
+</Route>
+
+      
+  {/* 👇 Ruta hija visible dentro de <SellerServices /> gracias a <Outlet /> */}
+       <Route
   path="/collector-services"
   element={
     <ProtectedRoute role="collector">
       <CollectorOrder />
+    </ProtectedRoute>}
+    _/>
+         <Route
+  path="/collector-stats"
+  element={
+    <ProtectedRoute role="collector">
+      <CollectorStats />
     </ProtectedRoute>}
     _/>
 
@@ -136,7 +166,18 @@ function App() {
             </ProtectedRoute>
           }
         />
+         <Route
+          path="/collector-vehicle"
+          element={
+            <ProtectedRoute role="collector">
+              <CollectorVehicule />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
+   
+
+     
     </>
   );
 }

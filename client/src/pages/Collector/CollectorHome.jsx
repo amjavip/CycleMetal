@@ -1,6 +1,12 @@
 import { useAuth } from "../../context/AuthContext";
 import ActividadSemanal from "../../components/Seller/SellerWeeklyActivity";
 import Noticias from "../../components/Seller/SellerNews";
+import React from "react";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, useGLTF } from "@react-three/drei";
+
+import { VehicleModel } from "../../components/VehiculeModelsRender";
+
 
 export default function CollectorHome() {
     const { user } = useAuth();
@@ -28,8 +34,6 @@ export default function CollectorHome() {
                     </button>
                 </div>
 
-                {/* 📊 Historial o gráficas */}
-                {/* 📊 Estadísticas centrales */}
                 <div className="row-span-3 col-span-1 flex flex-col gap-4 justify-center h-full">
                     <div className="stats shadow bg-base-100 h-1/4 hover-1">
                         <div className="stat">
@@ -64,7 +68,6 @@ export default function CollectorHome() {
                         </div>
                     </div>
 
-                    {/* ✅ Pedidos completados */}
                     <div className="stats shadow bg-base-100 h-1/4 hover-1">
                         <div className="stat">
                             <div className="stat-figure text-success">
@@ -95,102 +98,67 @@ export default function CollectorHome() {
 
 
 
-                {/* 🚗 Vehículo asignado */}
-                <div className="bg-base-100 rounded-box shadow row-span-3 col-span-1 p-6 flex flex-col gap-4 position-relative">
-                    <h2 className="text-lg font-semibold">Vehículo asignado</h2>
+               {/* 🚗 Vehículo asignado */}
+        <div className="bg-base-100 rounded-box shadow row-span-3 col-span-1 p-6 flex flex-col gap-4 relative">
 
-                    {/* Si no ha seleccionado uno */}
-                    {!user.vehicle ? (
-                        <div className="alert alert-warning text-sm">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 stroke-current shrink-0" fill="none" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01M12 6a9 9 0 11-9 9 9 9 0 019-9z" />
-                            </svg>
-                            <span>Aún no has seleccionado un vehículo. Hazlo para comenzar a recolectar.</span>
-                        </div>
-                    ) : (
-                        <>
-                            <div className="flex gap-3 z-100 position-absolute top-0">
-                                {["auto", "Camión", "Carreta", "Caminar"].map((tipo) => (
-                                    <div key={tipo} className="group relative">
-                                        <button className={`btn btn-sm ${user.vehicle === tipo ? "btn-primary" : "btn-ghost"} capitalize`}>
-                                            {tipo}
-                                        </button>
-
-                                        {/* Estadísticas en hover */}
-                                        <div className="absolute z-10 hidden group-hover:flex flex-col gap-2 top-10  w-56 bg-base-200 p-4 rounded-box shadow-md text-sm transition-all duration-300">
-                                            <p className="font-semibold">{tipo} - Estadísticas:</p>
-
-                                            <div className="z-100">
-                                                <p>🚀 Rapidez</p>
-                                                <progress
-                                                    className="progress progress-success w-full h-2"
-                                                    value={
-                                                        tipo === "Caminar" ? 20 :
-                                                            tipo === "Carreta" ? 40 :
-                                                                tipo === "Camión" ? 80 :
-                                                                    tipo === "auto" ? 70 : 0
-                                                    }
-                                                    max="100"
-                                                />
-                                            </div>
-
-                                            <div>
-                                                <p>⛽ Consumo</p>
-                                                <progress
-                                                    className="progress progress-success w-full h-2"
-                                                    value={
-                                                        tipo === "Caminar" ? 0 :
-                                                            tipo === "Carreta" ? 10 :
-                                                                tipo === "Camión" ? 90 :
-                                                                    tipo === "auto" ? 60 : 0
-                                                    }
-                                                    max="100"
-                                                />
-
-                                            </div>
-
-                                            <div>
-                                                <p>📦 Capacidad</p>
-                                                <progress
-                                                    className="progress progress-success w-full h-2"
-                                                    value={
-                                                        tipo === "Caminar" ? 10 :
-                                                            tipo === "Carreta" ? 60 :
-                                                                tipo === "Camión" ? 100 :
-                                                                    tipo === "auto" ? 50 : 0
-                                                    }
-                                                    max="100"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-
-                            {/* Modelo 3D del vehículo (espacio reservado) */}
-                            <div className="bg-black w-full h-40 mt-4 rounded-box flex items-center justify-center text-white opacity-70 text-xs">
-                                {/* Aquí irá el modelo 3D del vehículo seleccionado */}
-                                Modelo 3D del vehículo seleccionado
-                            </div>
-                        </>
-                    )}
-                </div>
-
+          {!user.vehicle ? (
+            <div className="alert alert-warning text-sm flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 stroke-current shrink-0" fill="none" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01M12 6a9 9 0 11-9 9 9 9 0 019-9z" />
+              </svg>
+              <span>Aún no has seleccionado un vehículo. Hazlo para comenzar a recolectar.</span>
             </div>
-
-            {/* Footer */}
-            <footer className="text-base-content py-6 mt-10">
-                <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <div className="text-sm text-center md:text-left">
-                        © {new Date().getFullYear()} CycleMeta+. Todos los derechos reservados.
-                    </div>
-                    <div className="flex space-x-4">
-                        <a href="#" className="link link-hover text-sm">Inicio</a>
-                        <a href="#" className="link link-hover text-sm">Sobre nosotros</a>
-                        <a href="#" className="link link-hover text-sm">Contacto</a>
-                    </div>
+          ) : (
+            <>
+            
+          <h2 className="text-lg font-semibold">Vehículo seleccionado</h2>
+              <p className="font-semibold text-center text-xl">{user.vehicle.tipo}</p>
+              {/* Estadísticas sencillas (opcional) */}
+              <div className="flex justify-around mb-4">
+                <div>
+                  <p>Velocidad</p>
+                  <progress className="progress progress-success w-24" value={user.vehicle.velocidad} max="60" />
+                  <p className="text-xs">{user.vehicle.velocidad} km/h</p>
                 </div>
-            </footer>
+                <div>
+                  <p>Consumo</p>
+                  <progress className="progress progress-error w-24" value={user.vehicle.consumo} max="50" />
+                  <p className="text-xs">{user.vehicle.consumo} L/km</p>
+                </div>
+                <div>
+                  <p>Capacidad</p>
+                  <progress className="progress progress-info w-24" value={user.vehicle.capacidad} max="1000" />
+                  <p className="text-xs">{user.vehicle.capacidad} kg</p>
+                </div>
+              </div>
+
+              {/* Aquí va el modelo 3D */}
+              <div className=" w-full h-full mt-0 rounded-box flex items-center justify-center text-black hover:s">
+        {user.vehicle && user.vehicle.modelo_3d ? (
+        
+         <VehicleModel url={user.vehicle.modelo_3d} />
+        ) : (
+          <p className="text-xs">Modelo 3D no disponible</p>
+        )}
+      </div>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="text-base-content py-6 mt-10">
+        <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="text-sm text-center md:text-left">
+            © {new Date().getFullYear()} CycleMeta+. Todos los derechos reservados.
+          </div>
+          <div className="flex space-x-4">
+            <a href="#" className="link link-hover text-sm">Inicio</a>
+            <a href="#" className="link link-hover text-sm">Sobre nosotros</a>
+            <a href="#" className="link link-hover text-sm">Contacto</a>
+          </div>
+        </div>
+      </footer>
 
         </div>
     );

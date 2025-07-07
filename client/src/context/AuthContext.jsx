@@ -14,15 +14,31 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null); // Estado para el usuario
   const [t_user, setT_user] = useState(null);
   const [loading, setLoading] = useState(true); // Estado de carga inicial
+
   useEffect(() => {
     const token = localStorage.getItem('access');
     const refresh = localStorage.getItem('refresh');
     const role = localStorage.getItem('role');
-    const vehicle = localStorage.getItem('vehicle')
+
     const profileString = localStorage.getItem('profile');
+    const vehicleString = localStorage.getItem('vehicle');
+
     const profile = profileString ? JSON.parse(profileString) : null;
+    let vehicle = null;
+try {
+  const vehicleString = localStorage.getItem('vehicle');
+  if (vehicleString && vehicleString !== "undefined") {
+    vehicle = JSON.parse(vehicleString);
+  }
+} catch (err) {
+  console.warn("Error al parsear vehicle:", err);
+  vehicle = null;
+}
+
+
     const t_token = localStorage.getItem('t_token');
-    const uid = localStorage.getItem('uid')
+    const uid = localStorage.getItem('uid');
+
     if (token && role && profile) {
       setUser({ token, role, profile, refresh, vehicle });
       if (t_token) {
@@ -32,25 +48,22 @@ export const AuthProvider = ({ children }) => {
     setLoading(false); // Terminamos de cargar después de revisar localStorage
   }, []);
 
-
- const updateAccessToken = (newToken) => {
-    console.log("gg");
+  const updateAccessToken = (newToken) => {
     localStorage.setItem("access", newToken);
     setUser((prev) => (prev ? { ...prev, token: newToken } : null));
   };
+
   useEffect(() => {
-  setUpdateTokenCallback(updateAccessToken);
-}, []);
+    setUpdateTokenCallback(updateAccessToken);
+  }, []);
 
   const login = (token, role, profile, refresh, vehicle) => {
-    localStorage.setItem('profile', JSON.stringify(profile)); // <- importante
+    localStorage.setItem('profile', JSON.stringify(profile));
+    localStorage.setItem('vehicle', JSON.stringify(vehicle));
     localStorage.setItem('access', token);
-    localStorage.setItem('refresh', refresh)
-    localStorage.setItem('vehicle', vehicle)
+    localStorage.setItem('refresh', refresh);
     localStorage.setItem('role', role);
-    setUser({ token, role, profile, refresh, vehicle});
-    console.log(token, role, profile, refresh, " . from AuthContext");
-
+    setUser({ token, role, profile, refresh, vehicle });
   };
 
   const logout = () => {
@@ -59,10 +72,11 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('profile');
     localStorage.removeItem('t_token');
     localStorage.removeItem('refresh');
-    localStorage.removeItem('vehicle')
+    localStorage.removeItem('vehicle');
     setUser(null);
     setT_user(null);
   };
+
   const setTToken = (token, uid) => {
     localStorage.setItem('t_token', token);
     localStorage.setItem('uid', uid);
@@ -70,7 +84,9 @@ export const AuthProvider = ({ children }) => {
   };
 console.log(user);
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading, t_user, setTToken, updateAccessToken }}>
+    <AuthContext.Provider
+      value={{ user, login, logout, loading, t_user, setTToken, updateAccessToken }}
+    >
       {children}
     </AuthContext.Provider>
   );

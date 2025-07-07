@@ -82,7 +82,16 @@ class CollectorProfile(models.Model):
     )
 
     code = models.CharField(max_length=11, unique=True, blank=True, null=True)
+    vehicle = models.ForeignKey(
+        "collection.Vehicle",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="orders_as_seller",
+    )
+    has_active_route = models.BooleanField(default=False)
 
+    # nombre único para la relación inversa)=)
     def save(self, *args, **kwargs):
         if not self.code:
             while True:
