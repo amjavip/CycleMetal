@@ -22,7 +22,6 @@ from django.conf import settings
 from math import radians, cos, sin, asin, sqrt
 from django.http import JsonResponse
 
-from django.contrib.auth.models import User
 import requests
 import json
 from django.http import JsonResponse
@@ -56,7 +55,7 @@ def get_nearby_orders(lat, lon, radio_km):
         distance = haversine(lon, lat, order.lon, order.lat)
         print("xdxdxdxdxxdxdxxdxdxdxdxddx", distance)
         if distance and distance <= radio_km:
-            print("adddddddddddddddddddddddddddddddd")
+
             nearby.append(
                 {
                     "order": OrderSerializer(order).data,
@@ -163,6 +162,14 @@ class AcceptOrderView(APIView):
 
     def post(self, request):
         user = request.user
+        if user.role != "collector":
+            return Response(
+                {"error": "No puedes acceder a esta funcion sin ssr un recolector"},
+                status=400,
+            )
+        collector = user.collectorprofile
+        if collector.has_active_route:
+            return Response({"error": "Tienes una ruta activa"}, status=400)
         order_id = request.data.get("order_id")
         geometry = request.data.get("geometry")
         distance = request.data.get("distance")
@@ -170,14 +177,9 @@ class AcceptOrderView(APIView):
         start_lon = request.data.get("start_lon")
         end_lat = request.data.get("end_lat")
         end_lon = request.data.get("end_lon")
-        print(distance)
-        if user.role != "collector":
-            return Response(
-                {"error": "Solo recolectores pueden aceptar pedidos."}, status=403
-            )
 
         # Verificar si el recolector ya tiene una ruta activa
-        if Order.objects.filter(id_collector=user, status="accepted").exists():
+        if Order.objects.filter(id_collector=user.id, status="accepted").exists():
             return Response({"error": "Ya tienes una ruta activa."}, status=400)
 
         try:
@@ -323,6 +325,15 @@ class ShowNearbyOrders(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
+        user = request.user
+        if user.role != "collector":
+            return Response(
+                {"error": "No puedes acceder a esta funcion sin ssr un recolector"},
+                status=400,
+            )
+        collector = user.collectorprofile
+        if collector.has_active_route:
+            return Response({"error": "Tienes una ruta activa"}, status=400)
         lat = float(request.GET.get("lat"))
         lon = float(request.GET.get("lon"))
 

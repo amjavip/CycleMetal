@@ -150,13 +150,37 @@ class UpdateUserView(APIView):
                 {"error": "Invalid role"}, status=status.HTTP_400_BAD_REQUEST
             )
 
+        print(serializer)
         if serializer.is_valid():
+
             serializer.save()
 
             refresh = RefreshToken.for_user(user)
             access_token = refresh.access_token
             access_token["role"] = role
             access_token["user_id"] = str(user.id)
+            if user.role == "collector":
+                collector = user.collectorprofile
+                vehicle_data = None  # Aseguras que existe la variable
+                if collector.vehicle:
+                    vehicle_data = VehicleSerializer(collector.vehicle).data
+                    print("hello", collector.has_active_route)
+
+                return Response(
+                    {
+                        "refresh": str(refresh),
+                        "access": str(refresh.access_token),
+                        "id": str(user.id),
+                        "username": user.username,
+                        "email": user.email,
+                        "phone": user.phone,
+                        "role": user.role,
+                        "vehicle": vehicle_data,
+                        "has_active_route": collector.has_active_route,
+                    },
+                    status=status.HTTP_200_OK,
+                )
+
             return Response(
                 {
                     "refresh": str(refresh),
@@ -169,8 +193,6 @@ class UpdateUserView(APIView):
                 },
                 status=status.HTTP_200_OK,
             )
-
-        print("no es valido")
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -210,9 +232,11 @@ class LoginView(APIView):
         access_token["user_id"] = str(user.id)
         if user.role == "collector":
             collector = user.collectorprofile
-            vehicle = None  # Aseguras que existe la variable
+            vehicle_data = None  # Aseguras que existe la variable
             if collector.vehicle:
-                vehicle = VehicleSerializer(collector.vehicle).data
+                vehicle_data = VehicleSerializer(collector.vehicle).data
+                active = CollectorProfileSerializer(collector.has_active_route).data
+                print("hello", collector.has_active_route)
 
             return Response(
                 {
@@ -223,7 +247,8 @@ class LoginView(APIView):
                     "email": user.email,
                     "phone": user.phone,
                     "role": user.role,
-                    "vehicle": vehicle,
+                    "vehicle": vehicle_data,
+                    "has_active_route": active,
                 },
                 status=status.HTTP_200_OK,
             )

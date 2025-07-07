@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../context/AuthContext';
 
 import {
@@ -42,7 +42,7 @@ function CheckoutForm() {
   const navigate = useNavigate();
   const stripe = useStripe();
   const elements = useElements();
-  const { orderData, updateOrder } = useOrder();
+  const { orderData, updateOrder, resetOrder } = useOrder();
    const { user }= useAuth();
 
   const [paymentMethod, setPaymentMethod] = useState('card' || 'cash');
@@ -80,10 +80,13 @@ console.log(orderData.token);
           Authorization: `Bearer ${user.token}`,
         },
       });
-
+      
+      navigate("/seller-services")
+      resetOrder();
       console.log("Respuesta CASH:", response.data);
       updateOrder("paymentMethod", response.data.paymentMethod)
       setPaymentSuccess(true);
+      
     } catch (error) {
       setErrorMessage("Error al procesar el pago en efectivo");
     } finally {
@@ -140,7 +143,6 @@ console.log("✅ Autorizado con éxito (no capturado aún):", paymentIntent.id);
 setPaymentSuccess(true);
 updateOrder("paymentMethod", "card");
 setIsProcessing(false);
-
 };
 
 

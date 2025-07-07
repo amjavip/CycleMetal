@@ -40,7 +40,7 @@ export default function Home() {
 
           {/* Botones */}
           <div className="flex gap-4">
-            <Link to="/news">
+            <Link to="/register">
               <button className="btn btn-primary bg-[#303030] hover:bg-[#404040] border-none text-white px-6 py-3 rounded-md 
                 transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg">
                 Empezar
@@ -48,12 +48,6 @@ export default function Home() {
             </Link>
             
 
-            <Link to="/how-it-works">
-              <button className="btn btn-secondary bg-[#303030] hover:bg-[#404040] border-none text-white px-7 py-3 rounded-md 
-                transition-all duration-300 ease-in-out transform hover:scale-105 shadow-md hover:shadow-lg">
-                Aprende cómo funciona
-              </button>
-            </Link>
           </div>
           <br /><br /><br /><br /><br /><br /><br /><br />
           

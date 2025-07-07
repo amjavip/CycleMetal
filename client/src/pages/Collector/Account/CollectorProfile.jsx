@@ -73,13 +73,14 @@ export default function CollectorProfile() {
         };
       
         // Guardar nueva token y perfil actualizado
-        localStorage.setItem('refresh', data.refresh)
+        localStorage.setItem('refresh', data.refresh);
         localStorage.setItem('access', data.access);
-    
+        localStorage.setItem('has_active_route', data.has_active_route);
+        localStorage.setItem('vehicle', data.vehicle)
         localStorage.setItem('profile', JSON.stringify(newProfile));
         
         // Actualizar AuthContext
-        login(data.access, data.role, newProfile, data.refresh);
+        login(data.access, data.role, newProfile, data.refresh, data.vehicle, data.has_active_route);
         
         setIsModified(false);        // Oculta el botón otra vez
         setFormData(updatedData); // Resetea formData

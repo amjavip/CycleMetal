@@ -111,7 +111,6 @@ function App() {
     </ProtectedRoute>
   }
 >
-  {/* 👇 Ruta hija visible dentro de <SellerServices /> gracias a <Outlet /> */}
   <Route
    path="neworder" 
    element={
@@ -140,7 +139,6 @@ function App() {
 </Route>
 
       
-  {/* 👇 Ruta hija visible dentro de <SellerServices /> gracias a <Outlet /> */}
        <Route
   path="/collector-services"
   element={

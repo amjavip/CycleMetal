@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem('access');
     const refresh = localStorage.getItem('refresh');
     const role = localStorage.getItem('role');
+    const has_active_route = localStorage.getItem('has_active_route'||true);
 
     const profileString = localStorage.getItem('profile');
     const vehicleString = localStorage.getItem('vehicle');
@@ -40,7 +41,7 @@ try {
     const uid = localStorage.getItem('uid');
 
     if (token && role && profile) {
-      setUser({ token, role, profile, refresh, vehicle });
+      setUser({ token, role, profile, refresh, vehicle, has_active_route });
       if (t_token) {
         setT_user({ t_token, uid });
       }
@@ -57,13 +58,14 @@ try {
     setUpdateTokenCallback(updateAccessToken);
   }, []);
 
-  const login = (token, role, profile, refresh, vehicle) => {
+  const login = (token, role, profile, refresh, vehicle, has_active_route ) => {
     localStorage.setItem('profile', JSON.stringify(profile));
     localStorage.setItem('vehicle', JSON.stringify(vehicle));
     localStorage.setItem('access', token);
     localStorage.setItem('refresh', refresh);
     localStorage.setItem('role', role);
-    setUser({ token, role, profile, refresh, vehicle });
+    localStorage.setItem('has_active_route', has_active_route);
+    setUser({ token, role, profile, refresh, vehicle, has_active_route });
   };
 
   const logout = () => {
@@ -73,6 +75,7 @@ try {
     localStorage.removeItem('t_token');
     localStorage.removeItem('refresh');
     localStorage.removeItem('vehicle');
+    localStorage.removeItem('has_active_route')
     setUser(null);
     setT_user(null);
   };

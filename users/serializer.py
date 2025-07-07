@@ -43,4 +43,4 @@ class CollectorProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CollectorProfile
-        fields = ["code", "vehicle"]
+        fields = ["code", "vehicle", "has_active_route"]
