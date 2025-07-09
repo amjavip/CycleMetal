@@ -232,11 +232,12 @@ class LoginView(APIView):
         access_token["user_id"] = str(user.id)
         if user.role == "collector":
             collector = user.collectorprofile
-            vehicle_data = None  # Aseguras que existe la variable
+            vehicle_data = None
+
             if collector.vehicle:
                 vehicle_data = VehicleSerializer(collector.vehicle).data
-                active = CollectorProfileSerializer(collector.has_active_route).data
-                print("hello", collector.has_active_route)
+
+            collector.has_active_route  # Solo asigna booleano, sin serializar
 
             return Response(
                 {
@@ -248,10 +249,11 @@ class LoginView(APIView):
                     "phone": user.phone,
                     "role": user.role,
                     "vehicle": vehicle_data,
-                    "has_active_route": active,
+                    "has_active_route": collector.has_active_route,
                 },
                 status=status.HTTP_200_OK,
             )
+
         return Response(
             {
                 "refresh": str(refresh),

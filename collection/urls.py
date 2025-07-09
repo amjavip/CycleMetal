@@ -10,6 +10,8 @@ from .views import (
     UpdateVehicleView,
     CalcularRutaOrdenView,
     AcceptOrderView,
+    CancelOrderView,
+    CompleteOrderView,
 )
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
@@ -40,4 +42,6 @@ urlpatterns = [
     path("api/nearby/", ShowNearbyOrders.as_view(), name="nearby-orders"),
     path("api/update-vehicle/", UpdateVehicleView.as_view(), name="update-vehicle"),
     path("api/accept-order/", AcceptOrderView.as_view(), name="update-vehicle"),
+    path("api/cancel-order/", CancelOrderView.as_view(), name="cancel-order"),
+    path("api/complete-order/", CompleteOrderView.as_view(), name="complete_order"),
 ]

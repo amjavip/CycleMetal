@@ -56,7 +56,7 @@ const LoginForm = () => {
         }
 
         // Actualizamos el contexto con todos los datos
-        login(data.access, data.role, userProfile, data.refresh, data.vehicle || null);
+        login(data.access, data.role, userProfile, data.refresh, data.vehicle || null, data.has_active_route);
 
         // Redirigimos según rol
         navigate(`/${data.role.toLowerCase()}-home`);

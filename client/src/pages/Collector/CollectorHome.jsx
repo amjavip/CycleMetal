@@ -4,12 +4,26 @@ import Noticias from "../../components/Seller/SellerNews";
 import React from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
-
+import useCollectorStats from "../../components/Collector/CollectorStats";
+import useNearbyOrders from "../../components/Collector/CollectorNearbyOrders";
 import { VehicleModel } from "../../components/VehiculeModelsRender";
-
+import { useState } from "react";
 
 export default function CollectorHome() {
     const { user } = useAuth();
+    const { stats, loading } = useCollectorStats();
+const nearbyOrders = useNearbyOrders();
+const [lastRefresh, setLastRefresh] = useState(new Date());
+const tiempoDesde = (fecha) => {
+  const ahora = new Date();
+  const diffMs = ahora - new Date(fecha);
+  const diffMin = Math.floor(diffMs / 60000);
+  if (diffMin === 0) return "hace unos segundos";
+  if (diffMin === 1) return "hace 1 minuto";
+  return `hace ${diffMin} minutos`;
+};
+
+
 
     return (
         <div className="min-h-screen bg-base-200 text-base-content p-6">
@@ -34,70 +48,52 @@ export default function CollectorHome() {
                     </button>
                 </div>
 
-                <div className="row-span-3 col-span-1 flex flex-col gap-4 justify-center h-full">
-                    <div className="stats shadow bg-base-100 h-1/4 hover-1">
-                        <div className="stat">
-                            <div className="stat-figure text-yellow-500">
-                                {/* Heroicon de estrella con mejor proporción */}
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-10 w-10"
-                                    fill="currentColor"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                                </svg>
-                            </div>
-                            <div className="stat-title">Reputación</div>
-                            <div className="stat-value text-yellow-500">4.7 / 5</div>
-                            <div className="stat-desc">Basado en 38 valoraciones</div>
-                        </div>
-                    </div>
+             <div className="row-span-3 col-span-1 flex flex-col gap-4 justify-center h-full">    
+{/* 📍 Pedidos cerca */}
+<div className="stats shadow bg-base-100 h-1/3 hover-1">
+  <div className="stat">
+    <div className="stat-figure text-primary">
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 19V6h13M5 6h.01M5 12h.01M5 18h.01"></path>
+      </svg>
+    </div>
+    <div className="stat-title">Pedidos cerca de ti</div>
+    <div className="stat-value text-primary">{nearbyOrders}</div>
+    <div className="stat-desc">Actualizado {tiempoDesde(lastRefresh)}</div>
 
-                    {/* 📍 Pedidos cerca */}
-                    <div className="stats shadow bg-base-100 h-1/4 hover-1">
-                        <div className="stat">
-                            <div className="stat-figure text-primary">
-                                <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 19V6h13M5 6h.01M5 12h.01M5 18h.01"></path>
-                                </svg>
-                            </div>
-                            <div className="stat-title">Pedidos cerca de ti</div>
-                            <div className="stat-value text-primary">8</div>
-                            <div className="stat-desc">Actualizado hace 5 minutos</div>
-                        </div>
-                    </div>
+  </div>
+</div>
 
-                    <div className="stats shadow bg-base-100 h-1/4 hover-1">
-                        <div className="stat">
-                            <div className="stat-figure text-success">
-                                <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                            </div>
-                            <div className="stat-title">Pedidos completados</div>
-                            <div className="stat-value text-success">124</div>
-                            <div className="stat-desc">En el último mes</div>
-                        </div>
-                    </div>
+{/* ✅ Pedidos completados */}
+<div className="stats shadow bg-base-100 h-1/3 hover-1">
+  <div className="stat">
+    <div className="stat-figure text-success">
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </div>
+    <div className="stat-title">Pedidos completados</div>
+    <div className="stat-value text-success">{stats?.completados || 0}</div>
+    <div className="stat-desc">Esta semana</div>
+  </div>
+</div>
 
-                    {/* 📈 Eficiencia o calificación */}
-                    <div className="stats shadow bg-base-100 h-1/4 hover-1">
-                        <div className="stat">
-                            <div className="stat-figure text-warning">
-                                <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.354a4 4 0 01.207 7.846A3.5 3.5 0 0012 19.5a4 4 0 01-.207-7.846A3.5 3.5 0 0012 4.354z"></path>
-                                </svg>
-                            </div>
-                            <div className="stat-title">Tasa de eficiencia</div>
-                            <div className="stat-value text-warning">92%</div>
-                            <div className="stat-desc">Promedio de éxito</div>
-                        </div>
-                    </div>
-                </div>
+{/* 💰 Propinas */}
+<div className="stats shadow bg-base-100 h-1/3 hover-1">
+  <div className="stat">
+    <div className="stat-figure text-accent">
+      <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.5 0-2 .5-2 1.5S10.5 11 12 11s2 .5 2 1.5S13.5 14 12 14m0-10v1m0 14v1" />
+      </svg>
+    </div>
+    <div className="stat-title">Propinas semanales</div>
+    <div className="stat-value text-accent">${stats?.propinas || 0}</div>
+    <div className="stat-desc">Día más activo: {stats?.dia_mas_activo || "N/A"}</div>
+  </div>
+</div>
 
 
-
+</div>
                {/* 🚗 Vehículo asignado */}
         <div className="bg-base-100 rounded-box shadow row-span-3 col-span-1 p-6 flex flex-col gap-4 relative">
 

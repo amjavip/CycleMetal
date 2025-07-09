@@ -179,8 +179,6 @@ class AcceptOrderView(APIView):
         end_lon = request.data.get("end_lon")
 
         # Verificar si el recolector ya tiene una ruta activa
-        if Order.objects.filter(id_collector=user.id, status="accepted").exists():
-            return Response({"error": "Ya tienes una ruta activa."}, status=400)
 
         try:
             order = Order.objects.get(id=order_id)
@@ -192,7 +190,9 @@ class AcceptOrderView(APIView):
             return Response(
                 {"error": "La orden ya fue tomada por otro recolector."}, status=400
             )
-
+        if Route.objects.filter(order_id=order_id).exists():
+            # Ya existe ruta, maneja el caso: error o retorna la existente
+            return Response({"error": "Ruta para esta orden ya existe"}, status=400)
         # Cambiar estado de la orden
         order.status = "accepted"
         order.id_collector = user
@@ -208,9 +208,16 @@ class AcceptOrderView(APIView):
             routeDistance=distance,
             routeGeometry=geometry,
         )
-
+        collector.has_active_route = True
+        collector.save()
         return Response(
-            {"message": "Ruta creada exitosamente", "route_id": route.id}, status=201
+            {
+                "message": "Ruta creada exitosamente",
+                "route_id": route.id,
+                "has_active_route": True,
+                "order": OrderSerializer(order).data,
+            },
+            status=201,
         )
 
 
@@ -425,7 +432,14 @@ class CalcularRutaOrdenView(APIView):
         ruta_data = obtener_ruta_osrm([punto_inicio, punto_final])
         instrucciones = generar_instrucciones(ruta_data)
 
-        return Response({"ruta": ruta_data, "instrucciones": instrucciones})
+        return Response(
+            {
+                "ruta": ruta_data,
+                "instrucciones": instrucciones,
+                "lat": order.lat,
+                "lon": order.lon,
+            }
+        )
 
 
 # OBTENER RUTA DE LA API
@@ -649,3 +663,90 @@ def borrar_ruta(request):
             return JsonResponse({"message": "Ruta eliminada"})
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=400)
+
+
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Order
+from routes.models import Route
+
+
+class CancelOrderView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+        if user.role != "collector":
+            return Response(
+                {"error": "No tienes permiso para cancelar una orden."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        order_id = request.data.get("id")
+        print(order_id)
+
+        try:
+            order = Order.objects.get(id=order_id)
+        except Order.DoesNotExist:
+            print("aaa")
+            return Response({"error": "Orden no encontrada."}, status=400)
+
+        if order.status != "accepted":
+            return Response(
+                {"error": "Solo puedes cancelar órdenes activas."},
+                status=400,
+            )
+        try:
+            route = Route.objects.get(order=order)
+        except ObjectDoesNotExist:
+            return Response(
+                {"error": "no hay ruta."},
+                status=400,
+            )
+        route.delete()
+        # Actualizar el estado de la orden
+        order.status = "ontheway"
+        order.id_collector = None
+        order.save()
+
+        # Marcar que el recolector ya no tiene ruta activa
+        collector = user.collectorprofile
+        collector.has_active_route = False
+        collector.save()
+
+        return Response({"message": "Orden cancelada y ruta eliminada."}, status=200)
+
+
+class CompleteOrderView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+        order_id = request.data.get("order_id")
+
+        if not order_id:
+            return Response({"error": "Falta el ID de la orden"}, status=400)
+
+        try:
+            route = Route.objects.get(order_id=order_id)
+
+            # Marcar la ruta como completada
+
+            # Marcar también la orden como completada
+            order = route.order
+            order.status = (
+                "completed"  # Asegúrate de que este estado exista en tu modelo
+            )
+            order.save()
+
+            return Response({"message": "Orden completada con éxito"}, status=200)
+
+        except Route.DoesNotExist:
+            return Response(
+                {"error": "Ruta no encontrada o no asignada a este recolector"},
+                status=404,
+            )
+        except Exception as e:
+            return Response({"error": str(e)}, status=500)

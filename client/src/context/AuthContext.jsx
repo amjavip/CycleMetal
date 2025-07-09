@@ -5,6 +5,7 @@ import { setUpdateTokenCallback } from './tokenService';
 // Creamos el contexto de autenticación
 export const AuthContext = createContext();
 
+
 // Custom hook para usar el contexto
 export const useAuth = () => {
   return useContext(AuthContext);
@@ -15,6 +16,7 @@ export const AuthProvider = ({ children }) => {
   const [t_user, setT_user] = useState(null);
   const [loading, setLoading] = useState(true); // Estado de carga inicial
 
+  
   useEffect(() => {
     const token = localStorage.getItem('access');
     const refresh = localStorage.getItem('refresh');
@@ -88,8 +90,9 @@ try {
 console.log(user);
   return (
     <AuthContext.Provider
-      value={{ user, login, logout, loading, t_user, setTToken, updateAccessToken }}
-    >
+  value={{ user, login, logout, loading, t_user, setTToken, updateAccessToken, setUser }}
+>
+
       {children}
     </AuthContext.Provider>
   );

@@ -22,7 +22,7 @@ class Route(models.Model):
     endlon = models.CharField(max_length=255, blank=True, null=True)
 
     routeDistance = models.FloatField(blank=True, null=True)
-    routeGeometry = models.TextField(null=False, blank=False)
+    routeGeometry = models.TextField(null=True, blank=True)
 
     routeCreationDay = models.DateTimeField(default=timezone.now)
 
