@@ -86,7 +86,7 @@ class CreateTempOrderView(APIView):
     def post(self, request):
         seller_id = request.data.get("sellerId")
         items = request.data.get("items")
-        tip = float(request.data.get("tip", 0))
+        tip = float(request.data.get("tip"))
         location = request.data.get("location", [None, None])
         lat = location[0]
         lon = location[1]
@@ -149,7 +149,7 @@ class CreateTempOrderView(APIView):
                 "comision": comision,
                 "subtotal": subtotal_with_comision,
                 "token": order_token,
-                "tip": tip,
+                "tip": order.tip,
                 "items": items,
                 "date": order.orderCreationDay,
             },

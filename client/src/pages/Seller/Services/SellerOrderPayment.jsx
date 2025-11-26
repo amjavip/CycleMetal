@@ -165,13 +165,13 @@ setIsProcessing(false);
           
              <li className="flex justify-between border-b py-2">
               <span>Comision</span>
-              <span>${orderData.comision}</span>
+              <span>${orderData.comision.toFixed(3)}</span>
             </li>
-              {orderData.tip>0 &&<li className="flex justify-between border-b py-2">
+             <li className="flex justify-between border-b py-2">
               <span>Propina</span>
               <span>${orderData.tip}</span>
             </li>
-            }
+            
           </ul>
           <div className="flex justify-between font-semibold text-lg border-t pt-2">
             <span>Total:</span>

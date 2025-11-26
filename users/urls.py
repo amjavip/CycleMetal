@@ -28,6 +28,7 @@ from .views import (
     SendResetEmailView,
     SellerWeeklyActivity,
     CollectorStatsView,
+    UserViewSet,
 )
 from rest_framework.documentation import include_docs_urls
 from .views import check_username, UpdateUserView, check_pass, ChangePasswordView
@@ -38,6 +39,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 router = DefaultRouter()
 router.register(r"sellers", SellerViewSet)
 router.register(r"collectors", CollectorViewSet)
+router.register(r"users", UserViewSet)  # Para listar todos los usuarios
 
 urlpatterns = [
     path("api/stats/", CollectorStatsView.as_view()),
@@ -46,7 +48,10 @@ urlpatterns = [
     # URL para la documentación de la API (si la tienes habilitada)
     path(
         "api/docs/",
-        include_docs_urls(title="CycleMetal API", permission_classes=[AllowAny]),
+        include_docs_urls(
+            title="CycleMetal API", permission_classes=[AllowAny], urlconf="users.urls"
+        ),
+        name="users-docs",
     ),
     # Verificacion de datos
     path("api/check-username/", check_username, name="check_username"),

@@ -41,8 +41,7 @@ const SellerNavbar = () => {
           >
             <Link to="/seller-home" className="border-none text-black px-3 py-1 rounded-md 
           transition-all duration-300 ease-in-out transform hover:bg-[#e4e4e5] ">Inicio</Link>
-            <Link to="/seller-activity" className="hover:bg-[#404040] border-none text-black px-3 py-1 rounded-md 
-          transition-all duration-300 ease-in-out transform hover:bg-[#e4e4e5] ">Actividad</Link>
+           
             <Link to="/seller-services" className="hover:bg-[#404040] border-none text-black px-3 py-1 rounded-md 
           transition-all duration-300 ease-in-out transform hover:bg-[#e4e4e5] ">Servicios</Link>
             <Link to="/seller-account" className="hover:bg-[#404040] border-none text-black px-3 py-1 rounded-md 

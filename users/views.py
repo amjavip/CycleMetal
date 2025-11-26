@@ -49,6 +49,8 @@ from .serializer import (
 
 # Esta solucion es momentanea y se puede mejorar en un futuro
 def validate_password(newpassword):
+    if not newpassword:
+        raise ValidationError("La contraseña no puede estar vacía.")
     if newpassword.startswith("pbkdf2_sha256$"):
         raise ValidationError("La contraseña no puede comenzar con 'pbkdf2_sha256$'.")
     return newpassword
@@ -87,7 +89,6 @@ class RegisterUserView(APIView):
                 {"error": "Role must be either 'seller' or 'collector'"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-
         # Crear usuario base
         user_serializer = UserSerializer(data=request.data)
         if user_serializer.is_valid():
@@ -104,6 +105,8 @@ class RegisterUserView(APIView):
 @api_view(["POST"])  # Esta Vista(funcion) solo recibe peticiones del tipo POST
 @permission_classes([AllowAny])
 def check_username(request):
+    print("request:", request)
+    print("data:", request.data)
     """Dentro de esta vista se verifica la disponibilidad
     en la base de datos, esto para mantener la integridad
     de los datos y mantener datos unicos.
@@ -112,6 +115,7 @@ def check_username(request):
     email = request.data.get("email")
     """Se declaran las variables por medio de una peticion get al cuestionario de registro"""
     # Verificar si el nombre de usuario o email ya existe en el modelo User
+    print(username, email)
     if username_or_email_exists(username, email):
         return Response({"exists": True})
 
@@ -126,6 +130,8 @@ def username_or_email_exists(username, email):
 
 
 class UpdateUserView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def put(self, request):
         user_id = request.data.get("id")
         role = request.data.get("role")
@@ -140,7 +146,13 @@ class UpdateUserView(APIView):
                 {"error": "User not found"}, status=status.HTTP_404_NOT_FOUND
             )
         print(user.username)
-
+        if username != user.username and email != user.email:
+            if username_or_email_exists(username, email):
+                print("el nombre de usuario o email ya existe")
+            return Response(
+                {"error": "El nombre de usuario o email ya existe"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         if role == "seller" or role == "collector":
 
             serializer = UserSerializer(user, data=request.data, partial=True)
@@ -193,6 +205,7 @@ class UpdateUserView(APIView):
                 },
                 status=status.HTTP_200_OK,
             )
+        print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -431,7 +444,13 @@ class ChangePasswordView(APIView):
 class SellerViewSet(viewsets.ModelViewSet):
     queryset = SellerProfile.objects.all()
     serializer_class = SellerProfileSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [AllowAny]
 
 
 class CollectorViewSet(viewsets.ModelViewSet):

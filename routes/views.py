@@ -9,15 +9,6 @@ import stripe
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from django.conf import settings
-from math import radians, cos, sin, asin, sqrt
-from django.http import JsonResponse
-
-import requests
-import json
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-
 from collection.models import Order
 from .models import Route
 

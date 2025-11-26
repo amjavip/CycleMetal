@@ -129,7 +129,7 @@ const lon2 = orderData.rutas[0]?.lon;
 
         const distancia = Math.sqrt((lat2 - lat1) ** 2 + (lon2 - lon1) ** 2) * 111;
         console.log(lat2)
-        if (distancia <= 0.1) {
+        if (distancia <= 0.01) {
             try {
                 await axios.post(
                     "http://127.0.0.1:8000/orders/api/complete-order/",

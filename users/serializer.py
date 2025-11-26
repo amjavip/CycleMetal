@@ -5,10 +5,11 @@ from collection.serializer import VehicleSerializer
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
+    date_joined = serializers.DateTimeField(format="iso-8601")
 
     class Meta:
         model = User
-        fields = ["id", "email", "username", "password", "role", "phone"]
+        fields = ["id", "email", "username", "password", "role", "phone", "date_joined"]
 
     def create(self, validated_data):
         password = validated_data.pop("password")

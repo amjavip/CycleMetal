@@ -26,8 +26,6 @@ SECRET_KEY = "django-insecure-zswcxsft+k!+_cgj(=7qrc5qn3-mla$7pd2#k+($6pbav7o@#b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -145,7 +143,26 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:5173"]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://192.168.1.66",  # Tu IP local
+    "http://10.0.2.2:8000",
+    "http://localhost:8080",
+    "http://127.0.0.1:5173",
+    "http://192.168.155.194:8000",
+    "http://192.168.1.69:5173",
+    "http://0.0.0.0:8000",
+]
+ALLOWED_HOSTS = [
+    "192.168.1.66",
+    "192.168.1.69",
+    "localhost",
+    "127.0.0.1",
+    "192.168.155.194",
+    "0.0.0.0:8000",
+]
+
+
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
     "DEFAULT_AUTHENTICATION_CLASSES": (

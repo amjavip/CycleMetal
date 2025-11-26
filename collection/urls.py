@@ -29,8 +29,10 @@ urlpatterns = [
     # URL para la documentación de la API (si la tienes habilitada)
     path(
         "api/docs/",
-        include_docs_urls(title="Orders API"),
-        kwargs={"permission_classes": [AllowAny]},
+        include_docs_urls(
+            title="Orders API", permission_classes=[AllowAny], urlconf="collection.urls"
+        ),
+        name="orders-docs",
     ),
     path("api/catalog/", ItemCatalogView.as_view(), name="item-catalog"),
     path("api/create/", CreateTempOrderView.as_view(), name="neworder"),
