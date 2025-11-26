@@ -108,7 +108,32 @@ chore:    Mantenimiento
 | Frontend          | 5173  | `npm run dev`                   |
 | Backend      | 8000  | `python manage.py runserver`                 |
 
-Para desplegar el proyecto de manera local por LAN se recomienda usar los siguiente comandos
-python manage.py runserver 0.0.0.0:8000 <- con puerto 0.0.0.0
-npm run dev -- --host <- usara la direccion IPv4 por lo que todos los dispositivos con acceso a esta red podran acceder a la pagina 
+Despliegue local en red LAN
+
+Para permitir que otros dispositivos dentro de la misma red local accedan al proyecto, es necesario ejecutar tanto el backend como el frontend escuchando en la dirección de red correcta.
+
+Backend (Django):
+Ejecutar el servidor con:
+
+python manage.py runserver 0.0.0.0:8000
+
+
+La dirección 0.0.0.0 indica que Django debe aceptar conexiones desde cualquier interfaz de red de la máquina.
+Los demás dispositivos deberán acceder mediante la dirección IPv4 local de la computadora, por ejemplo:
+
+http://192.168.1.69:8000/
+
+
+Frontend (Vite, React u otro framework similar):
+Ejecutar el entorno de desarrollo con:
+
+npm run dev -- --host
+
+
+El parámetro --host hace que el servidor de desarrollo exponga la aplicación mediante la dirección IPv4 local de la computadora, lo que permite que otros dispositivos dentro de la misma red puedan acceder ingresando:
+
+http://192.168.1.69:5173/
+
+
+Para que las solicitudes del frontend al backend funcionen correctamente, las URLs usadas en fetch o Axios deben apuntar a la dirección IP real, no a localhost.
 
