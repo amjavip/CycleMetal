@@ -108,3 +108,7 @@ chore:    Mantenimiento
 | Frontend          | 5173  | `npm run dev`                   |
 | Backend      | 8000  | `python manage.py runserver`                 |
 
+Para desplegar el proyecto de manera local por LAN se recomienda usar los siguiente comandos
+python manage.py runserver 0.0.0.0:8000 <- con puerto 0.0.0.0
+npm run dev -- --host <- usara la direccion IPv4 por lo que todos los dispositivos con acceso a esta red podran acceder a la pagina 
+
