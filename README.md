@@ -114,26 +114,20 @@ Para permitir que otros dispositivos dentro de la misma red local accedan al pro
 
 Backend (Django):
 Ejecutar el servidor con:
-
+```bash
 python manage.py runserver 0.0.0.0:8000
-
+```
 
 La dirección 0.0.0.0 indica que Django debe aceptar conexiones desde cualquier interfaz de red de la máquina.
-Los demás dispositivos deberán acceder mediante la dirección IPv4 local de la computadora, por ejemplo:
+Los demás dispositivos deberán acceder mediante la dirección IPv4 local de la computadora
 
-http://192.168.1.69:8000/
-
-
-Frontend (Vite, React u otro framework similar):
+Frontend (Vite):
 Ejecutar el entorno de desarrollo con:
-
+```bash
 npm run dev -- --host
+```
+El parámetro --host hace que el servidor de desarrollo exponga la aplicación mediante la dirección IPv4 local de la computadora, lo que permite que otros dispositivos dentro de la misma red puedan acceder
 
-
-El parámetro --host hace que el servidor de desarrollo exponga la aplicación mediante la dirección IPv4 local de la computadora, lo que permite que otros dispositivos dentro de la misma red puedan acceder ingresando:
-
-http://192.168.1.69:5173/
-
-
-Para que las solicitudes del frontend al backend funcionen correctamente, las URLs usadas en fetch o Axios deben apuntar a la dirección IP real, no a localhost.
+Para que las solicitudes del frontend al backend funcionen correctamente, las URLs usadas en fetch o Axios deben apuntar a la dirección IP real, no a localhost, por lo en desarrollo se podra cambiar la IP del URL en el .env.
+> Para la consulta de datos sensibles como .env y contraseñas consultar por mensaje en el grupo privado de trabajo, donde igual se les informara de su respectiva implementacion en el proyecto.
 
