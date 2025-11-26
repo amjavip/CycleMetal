@@ -14,7 +14,7 @@ import {
 } from '@stripe/react-stripe-js';
 import { useOrder } from '../../../context/OrderContext';
 import axios from 'axios';
-
+const API_URL = import.meta.env.VITE_API_URL;
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 const CARD_ELEMENT_OPTIONS = {
@@ -72,7 +72,7 @@ console.log(orderData.token);
 
   if (paymentMethod === 'cash') {
     try {
-      const response = await axios.post("http://127.0.0.1:8000/orders/api/checkout/", {
+      const response = await axios.post(`${API_URL}/orders/api/checkout/`, {
         ...orderData,
         paymentMethod: "cash",
       }, {
@@ -116,7 +116,7 @@ if (pmError) {
 }
 
 // PASO 2: Pedir al backend que cree el PaymentIntent con capture_method="manual"
-const backendRes = await axios.post("http://127.0.0.1:8000/orders/api/checkout/", {
+const backendRes = await axios.post(`${API_URL}/orders/api/checkout/`, {
   id: orderData.id,
   token: orderData.token,
   paymentMethod: "card",

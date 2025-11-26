@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+const API_URL = import.meta.env.VITE_API_URL;
 const RegisterForm = ({ setMessage }) => {  
   const [formData, setFormData] = useState({
     username: "",
@@ -23,7 +23,7 @@ const RegisterForm = ({ setMessage }) => {
   const checkUsername = async () => {
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/users/api/check-username/",
+        `${API_URL}/users/api/check-username/`,
         { username: formData.username, email: formData.email }
       );
       return response.data.exists;

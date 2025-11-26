@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';  // Importamos el contexto
+const API_URL = import.meta.env.VITE_API_URL;
 
 const LoginForm = () => {
   const [emailOrUsername, setEmailOrUsername] = useState("");
@@ -18,7 +19,7 @@ const LoginForm = () => {
     }
 
     try {
-      const response = await fetch('http://192.168.1.69:8000/users/api/login/', {
+      const response = await fetch(`${API_URL}/users/api/login/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

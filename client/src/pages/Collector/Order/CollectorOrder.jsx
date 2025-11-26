@@ -10,7 +10,7 @@ export default function CollectorOrder() {
     const { updateOrder, orderData, resetOrder } = useOrder();
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
-
+const API_URL = import.meta.env.VITE_API_URL;
     useEffect(() => {
         if (!navigator.geolocation) return;
 
@@ -20,7 +20,7 @@ export default function CollectorOrder() {
 
             // Revisar ruta activa
             try {
-                const res = await axios.get("http://127.0.0.1:8000/routes/api/active-route/", {
+                const res = await axios.get(`${API_URL}/routes/api/active-route/`, {
                     headers: { Authorization: `Bearer ${user.token}` },
                 });
 
@@ -50,7 +50,7 @@ export default function CollectorOrder() {
 
             // Pedidos cercanos
             try {
-                const res = await axios.get("http://127.0.0.1:8000/orders/api/nearby/", {
+                const res = await axios.get(`${API_URL}/orders/api/nearby/`, {
                     params: { lat: latitude, lon: longitude },
                     headers: { Authorization: `Bearer ${user.token}` },
                 });
@@ -70,7 +70,7 @@ export default function CollectorOrder() {
 
         try {
             const res = await axios.post(
-                "http://127.0.0.1:8000/orders/api/calcular-ruta-orden/",
+                `${API_URL}/orders/api/calcular-ruta-orden/`,
                 {
                     lat: orderData.location.lat,
                     lon: orderData.location.lon,
@@ -104,7 +104,7 @@ export default function CollectorOrder() {
     const cancelarOrden = async () => {
         try {
             await axios.post(
-                "http://127.0.0.1:8000/orders/api/cancel-order/",
+                `${API_URL}/orders/api/cancel-order/`,
                 { id: orderData.id },
                 {
                     headers: { Authorization: `Bearer ${user.token}` },
@@ -132,7 +132,7 @@ const lon2 = orderData.rutas[0]?.lon;
         if (distancia <= 0.01) {
             try {
                 await axios.post(
-                    "http://127.0.0.1:8000/orders/api/complete-order/",
+                    `${API_URL}/orders/api/complete-order/`,
                     { order_id: orderData.id },
                     {
                         headers: { Authorization: `Bearer ${user.token}` },
@@ -196,7 +196,7 @@ const lon2 = orderData.rutas[0]?.lon;
                                         onClick={async () => {
                                             try {
                                                 const res = await axios.post(
-                                                    "http://127.0.0.1:8000/orders/api/accept-order/",
+                                                    `${API_URL}/orders/api/accept-order/`,
                                                     {
                                                         order_id: order.id,
                                                         geometry: orderData.rutas[0]?.geometry,

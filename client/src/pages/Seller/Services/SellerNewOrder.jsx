@@ -9,7 +9,7 @@ import BotonAnimado from "../../../components/Button/neworderbutton";
 import { RxCross2 } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
 import { div, userData } from "three/tsl";
-
+const API_URL = import.meta.env.VITE_API_URL;
 export default function SellerNewOrder() {
     const isNewOrderRoute = location.pathname === "/seller-services/neworder";
     const navigate = useNavigate();
@@ -23,7 +23,7 @@ export default function SellerNewOrder() {
 
 
     useEffect(() => {
-        axios.get("http://127.0.0.1:8000/orders/api/catalog/")
+        axios.get(`${API_URL}/orders/api/catalog/`)
             .then((res) => setCatalog(res.data))
             .catch((err) => console.error("Error al cargar el catálogo", err));
     }, []);

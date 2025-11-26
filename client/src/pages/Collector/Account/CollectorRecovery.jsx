@@ -4,6 +4,7 @@ import { useAuth } from "../../../context/AuthContext";
 export default function CollectorRecovery() {
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
+    const API_URL = import.meta.env.VITE_API_URL;
     const { user } = useAuth();
   
     const handleSubmit = async (e) => {
@@ -17,7 +18,7 @@ export default function CollectorRecovery() {
           return;
       }
       try {
-        const response = await fetch("http://127.0.0.1:8000/users/api/auth/send-reset-email/", {
+        const response = await fetch(`${API_URL}/users/api/auth/send-reset-email/`, {
           method: "POST",
           headers: { "Content-Type": "application/json",
              'Authorization': `Bearer ${user.token}`

@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import axios from "axios";
 
 export default function ConfirmNewPassword() {
+  const API_URL = import.meta.env.VITE_API_URL;
   const { uid, token } = useParams(); // captura uid y token de la URL
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -37,7 +38,7 @@ export default function ConfirmNewPassword() {
     }
 
     try {
-      const response = await axios.post('http://localhost:8000/users/api/auth/set-new-password/', {
+      const response = await axios.post(`${API_URL}/users/api/auth/set-new-password/`, {
         new_password: newPassword,
         id: user.profile.id,
         uid: t_user.uid,

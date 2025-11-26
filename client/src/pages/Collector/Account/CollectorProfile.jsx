@@ -5,7 +5,7 @@ import TiltCard from "../../../components/TiltCard";
 import { DataArrayTexture } from "three";
 export default function CollectorProfile() {
   const { user, login } = useAuth();  // Obtiene los datos del usuario desde el contexto
-
+const API_URL = import.meta.env.VITE_API_URL;
   const [formData, setFormData] = useState({
     username: "",
     phone: "",
@@ -53,7 +53,7 @@ export default function CollectorProfile() {
 
     // Hacer la solicitud PUT al backend
     try {
-      const response = await fetch('http://localhost:8000/users/api/update/', {
+      const response = await fetch(`${API_URL}/users/api/update/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

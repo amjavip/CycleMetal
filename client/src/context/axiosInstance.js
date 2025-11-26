@@ -1,9 +1,9 @@
 import axios from "axios";
 import { notifyTokenUpdate } from "./tokenService";
-
+const API_URL = import.meta.env.VITE_API_URL;
 const refreshAccessToken = async () => {
   try {
-    const res = await axios.post("http://127.0.0.1:8000/users/api/token/refresh/", {
+    const res = await axios.post(`${API_URL}/users/api/token/refresh/`, {
       refresh: localStorage.getItem("refresh"),
     });
     return res.data.access;

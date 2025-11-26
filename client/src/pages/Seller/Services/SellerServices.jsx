@@ -6,7 +6,9 @@ import { useState } from "react";
 import BotonAnimado from "../../../components/Button/neworderbutton";
 import { useOrder } from "../../../context/OrderContext";
 import Mapa from "../../../components/map/ShowMap";
+const API_URL = import.meta.env.VITE_API_URL;
 export default function SellerServices() {
+  
   const { resetOrder, orderData } = useOrder();
   const traducirEstado = (status) => {
     switch (status) {
@@ -111,7 +113,7 @@ export default function SellerServices() {
   const [previousOrder, setPreviousOrder] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/orders/api/showPrev/${user.profile.id}/`, {
+      .get(`${API_URL}/orders/api/showPrev/${user.profile.id}/`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

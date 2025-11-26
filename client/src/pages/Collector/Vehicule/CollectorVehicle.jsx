@@ -10,10 +10,10 @@ export default function CollectorVehicule() {
   const [vehiculos, setVehiculos] = useState([]);
   const [seleccionado, setSeleccionado] = useState(null);
   const [guardando, setGuardando] = useState(false);
-
+const API_URL = import.meta.env.VITE_API_URL;
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/orders/api/order/Vehicle/", {
+      .get(`${API_URL}/orders/api/order/Vehicle/`, {
         headers: { Authorization: `Bearer ${user.token}` },
       })
       .then((res) => setVehiculos(res.data))
@@ -29,7 +29,7 @@ export default function CollectorVehicule() {
     setGuardando(true);
     try {
      await axios.patch(
-  "http://127.0.0.1:8000/orders/api/update-vehicle/",
+  `${API_URL}/orders/api/update-vehicle/`,
   { id: seleccionado.id },
   {
     headers: { Authorization: `Bearer ${user.token}` },

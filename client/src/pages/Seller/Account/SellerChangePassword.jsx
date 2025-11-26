@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
-
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function SellerChangePassword() {
   const [password, setPassword] = useState('');
@@ -15,7 +15,7 @@ export default function SellerChangePassword() {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:8000/users/api/verify-password/', {
+      const response = await fetch(`${API_URL}/users/api/verify-password/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

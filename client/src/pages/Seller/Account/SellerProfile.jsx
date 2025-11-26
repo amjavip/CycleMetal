@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import TiltCard from "../../../components/TiltCard";
 import { DataArrayTexture } from "three";
+const API_URL = import.meta.env.VITE_API_URL;
 export default function SellerProfile() {
   const { user, login } = useAuth();  // Obtiene los datos del usuario desde el contexto
 
@@ -53,7 +54,7 @@ export default function SellerProfile() {
 
     // Hacer la solicitud PUT al backend
     try {
-      const response = await fetch('http://localhost:8000/users/api/update/', {
+      const response = await fetch(`${API_URL}/users/api/update/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

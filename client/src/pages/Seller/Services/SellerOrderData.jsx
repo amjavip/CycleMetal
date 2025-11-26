@@ -12,11 +12,11 @@ export default function SummaryPage() {
     const navigate = useNavigate();
     const [catalog, setCatalog] = useState([]);
     const [propina, setPropina] = useState(0);
-
-    const VALIDATE_ORDER_URL = "http://127.0.0.1:8000/orders/api/create/";
+const API_URL = import.meta.env.VITE_API_URL;
+    const VALIDATE_ORDER_URL = `${API_URL}/orders/api/create/`;
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/orders/api/catalog/")
+        fetch(`${API_URL}/orders/api/catalog/`)
             .then(res => res.json())
             .then(data => setCatalog(data));
     }, []);
