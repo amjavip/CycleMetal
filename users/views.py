@@ -307,7 +307,7 @@ def change_password(role, user_id, new_password):
 
     user.password = make_password(new_password)
     user.save()
-    print("contraseña guardada")
+
     return False
 
 
@@ -366,7 +366,9 @@ class SendResetEmailView(APIView):
                 )
 
         reset_url, token, uid = generate_reset_url(user)
-
+        """cambiar el link de recuperacion de aca abajo pq no funciona si no estamos en local host
+        
+        """
         send_mail(
             "Restablece tu contraseña",
             f"Haz clic en el siguiente enlace para cambiar tu contraseña:\n\nhttp://localhost:5173{reset_url}",
