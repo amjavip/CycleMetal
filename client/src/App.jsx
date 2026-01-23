@@ -42,6 +42,7 @@ import CollectorChangePassword from './pages/Collector/Account/CollectorChangePa
 import CollectorDetails from './pages/Collector/Account/CollectorDetails';
 import CollectorRecovery from './pages/Collector/Account/CollectorRecovery';
 import CollectorStats from './pages/Collector/Stats/CollectorStats';
+import SellerDeleteAccount from './pages/Seller/Account/SellerDeleleAccount';
 
 
 function App() {
@@ -101,6 +102,7 @@ function App() {
   <Route path="changepassword" element={<SellerChangePassword />} />
   <Route path="Recovery" element={<SellerRecovery />} />
   <Route path="details" element={<SellerDetails />} />
+   <Route path="delete" element={<SellerDeleteAccount />} />
 </Route>
 
         <Route
@@ -136,6 +138,7 @@ function App() {
   <Route path="changepassword" element={<CollectorChangePassword />} />
   <Route path="recovery" element={<CollectorRecovery />} />
   <Route path="details" element={<CollectorDetails />} />
+  <Route path="delete" element={<SellerDeleteAccount />} />
 </Route>
 
       

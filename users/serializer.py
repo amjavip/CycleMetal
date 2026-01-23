@@ -5,7 +5,7 @@ from collection.serializer import VehicleSerializer
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
-    date_joined = serializers.DateTimeField(format="iso-8601")
+    date_joined = serializers.DateTimeField(format="iso-8601", read_only=True)
 
     class Meta:
         model = User

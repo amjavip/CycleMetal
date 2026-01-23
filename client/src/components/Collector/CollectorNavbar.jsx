@@ -1,64 +1,78 @@
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Logout from "../Form/LogoutForm";
-import SearchBar from "../SearchBar";
-const CollectorNavbar = () => {
-    const { user } = useAuth();
-    const [menuOpen, setMenuOpen] = useState(false); // ✅ Estado para el menú
-  
-    return (
-      <nav className="sticky top-0 z-50 bg-[#FFF]/60 backdrop-blur-md text-black p-4 border-gray-300">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 md:px-8">
-          {/* Logo o nombre del sitio */}
-          <Link to="/seller-home" className="text-2xl font-semibold text-[#202020]">
-            CycleMetal
-          </Link>
-  
-          {/* Botón hamburguesa (solo en móvil) */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)} // ✅ Toggle del menú
-            type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-700 rounded-lg md:hidden hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300"
-            aria-controls="navbar-default"
-            aria-expanded={menuOpen}
-          >
-            <span className="sr-only">Abrir menú</span>
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-  
-          {/* Opciones del navbar */}
-          <div
-            className={`${menuOpen ? "flex" : "hidden"} flex-col md:flex md:flex-row items-start md:items-center space-y-2 md:space-y-0 md:space-x-6 w-full md:w-auto mt-4 md:mt-0`}
-            id="navbar-default"
-          >
-            <Link to="/collector-home" className="border-none text-black px-3 py-1 rounded-md 
-          transition-all duration-300 ease-in-out transform hover:bg-[#e4e4e5] ">Inicio</Link>
-            <Link to="/collector-stats" className="hover:bg-[#404040] border-none text-black px-3 py-1 rounded-md 
-          transition-all duration-300 ease-in-out transform hover:bg-[#e4e4e5] ">Estadisticas</Link>
-            <Link to="/collector-services" className="hover:bg-[#404040] border-none text-black px-3 py-1 rounded-md 
-          transition-all duration-300 ease-in-out transform hover:bg-[#e4e4e5] ">Pedidos</Link>
-            <Link to="/collector-account" className="hover:bg-[#404040] border-none text-black px-3 py-1 rounded-md 
-          transition-all duration-300 ease-in-out transform hover:bg-[#e4e4e5] ">Cuenta</Link>
-          <Link to="/collector-vehicle" className="hover:bg-[#404040] border-none text-black px-3 py-1 rounded-md 
-          transition-all duration-300 ease-in-out transform hover:bg-[#e4e4e5] ">Vehiculo</Link>
-            <Logout className="hover:bg-[#404040] border-none text-black px-3 py-1 rounded-md 
-          transition-all duration-300 ease-in-out transform hover:bg-[#e4e4e5] "/>
-           
+import { Home, BarChart2, Package, User, Truck, LogOut } from "lucide-react";
 
+// Sub-componente para los botones con animación
+const NavLink = ({ orphans, to, text, icon: Icon, isLogout = false, onClick }) => {
+  const content = (
+    <div className="group relative overflow-hidden px-4 py-2 rounded-xl transition-all duration-300 hover:bg-gray-100 flex items-center justify-center cursor-pointer">
+      {/* Texto que sube */}
+      <span className="inline-block transition-transform duration-300 group-hover:-translate-y-10 font-medium text-gray-700">
+        {text}
+      </span>
+      
+      {/* Icono que sube desde abajo - Verde Clarito */}
+      <span className="absolute translate-y-10 transition-transform duration-300 group-hover:translate-y-0 text-emerald-500">
+        <Icon size={20} />
+      </span>
+    </div>
+  );
+
+  if (isLogout) {
+    return <div onClick={onClick}>{content}</div>;
+  }
+
+  return <Link to={to}>{content}</Link>;
+};
+
+const CollectorNavbar = () => {
+  const { user } = useAuth();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  return (
+    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-gray-100 text-black">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-6 py-3">
+        
+        {/* Logo: CYCLE (Negro) METAL (Gris Clarito) */}
+        <Link to="/collector-home" className="text-2xl font-black tracking-tighter text-black hover:opacity-80 transition-opacity">
+          CYCLE<span className="text-gray-400">METAL</span>
+        </Link>
+
+        {/* Botón hamburguesa móvil */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="p-2 md:hidden hover:bg-gray-100 rounded-lg transition-colors"
+        >
+          <div className="w-6 h-0.5 bg-black mb-1.5"></div>
+          <div className="w-6 h-0.5 bg-black mb-1.5"></div>
+          <div className="w-6 h-0.5 bg-black"></div>
+        </button>
+
+        {/* Menú de navegación */}
+        <div className={`${menuOpen ? "flex" : "hidden"} md:flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-1 w-full md:w-auto mt-4 md:mt-0`}>
           
+          <NavLink to="/collector-home" text="Inicio" icon={Home} />
+          <NavLink to="/collector-stats" text="Estadísticas" icon={BarChart2} />
+          <NavLink to="/collector-services" text="Pedidos" icon={Package} />
+          <NavLink to="/collector-account" text="Cuenta" icon={User} />
+          <NavLink to="/collector-vehicle" text="Vehículo" icon={Truck} />
+          
+          {/* Separador sutil */}
+          <div className="hidden md:block w-px h-6 bg-gray-200 mx-2"></div>
+
+          {/* Logout con la misma animación */}
+          <div className="w-full md:w-auto">
+            <Logout /> 
+            {/* Nota: Si quieres que el Logout tenga la animación exacta, 
+                puedes pasarle el estilo al componente Logout o envolverlo. 
+                Aquí abajo te explico cómo modificar el componente LogoutForm */}
           </div>
         </div>
-      </nav>
-    );
-  };
-  
+      </div>
+    </nav>
+  );
+};
+
 export default CollectorNavbar;
