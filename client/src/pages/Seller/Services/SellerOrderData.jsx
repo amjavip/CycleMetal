@@ -88,16 +88,7 @@ const API_URL = import.meta.env.VITE_API_URL;
                 <div className="border-t pt-4 mt-4">
                     <p>Subtotal: ${subtotal.toFixed(2)} MXN</p>
                     <p>Comisión empresa (10%): ${comision.toFixed(2)} MXN</p>
-                    <div className="mt-2">
-                        <label className="block mb-1">Propina (opcional):</label>
-                        <input
-                            type="number"
-                            className="border p-2 rounded w-32"
-                            value={propina}
-                            onChange={(e) => setPropina(e.target.value)}
-                            placeholder="0"
-                        />
-                    </div>
+                   
                     <p className="mt-4 font-bold text-xl">
                         Total a pagar: ${total.toFixed(2)} MXN
                     </p>

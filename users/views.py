@@ -492,7 +492,7 @@ class SellerWeeklyActivity(APIView):
             if dia_spanish:
                 resumen[dia_spanish] += 1  # ✅ Contamos 1 orden, no peso
 
-        data = [{"name": dia, "kg": resumen[dia]} for dia in dias]
+        data = [{"name": dia, "pedidos": resumen[dia]} for dia in dias]
         return Response(data)
 
 

@@ -27,9 +27,7 @@ export default function SellerHome() {
             <ActividadSemanal />
           </div>
           <div className="w-full md:w-1/4 flex justify-center">
-            <button className="btn btn-success w-full md:w-auto text-lg">
-              🔋 135 puntos
-            </button>
+           
           </div>
         </div>
 

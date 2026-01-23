@@ -10,7 +10,7 @@ const AccountNavItem = ({ to, text, icon: Icon, isDanger = false }) => {
       className={({ isActive }) => `
         group relative flex items-center px-4 py-3 rounded-xl transition-all duration-300 overflow-hidden
         ${isActive 
-          ? (isDanger ? "bg-red-50 text-red-600 border-l-4 border-red-600 shadow-sm" : "bg-emerald-50 text-emerald-700 border-l-4 border-emerald-600 shadow-sm") 
+          ? (isDanger ? "bg-red-50 text-red-600 border-l-4 border-red-600 shadow-sm" : "bg-gray-50 text-emerald-700 border-l-4 border-emerald-600 shadow-sm") 
           : (isDanger ? "text-red-500 hover:bg-red-100/50" : "text-gray-600 hover:bg-gray-100")
         }
       `}

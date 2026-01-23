@@ -15,13 +15,13 @@ import { useAuth } from "../../context/AuthContext";
 export default function ActividadSemanal() {
   const { user } = useAuth();
   const [data, setData] = useState([
-    { name: "Lun", kg: 0 },
-    { name: "Mar", kg: 0 },
-    { name: "Mié", kg: 0 },
-    { name: "Jue", kg: 0 },
-    { name: "Vie", kg: 0 },
-    { name: "Sáb", kg: 0 },
-    { name: "Dom", kg: 0 },
+    { name: "Lun", pedidos: 0 },
+    { name: "Mar", pedidos: 0 },
+    { name: "Mié", pedidos: 0 },
+    { name: "Jue", pedidos: 0 },
+    { name: "Vie", pedidos: 0 },
+    { name: "Sáb", pedidos: 0 },
+    { name: "Dom", pedidos: 0 },
   ]);
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export default function ActividadSemanal() {
           <XAxis dataKey="name" />
           <YAxis label={{ value: "orders", angle: -90, position: "insideLeft" }} />
           <Tooltip />
-          <Bar dataKey="kg" fill="#303030" radius={[8, 8, 0, 0]} />
+          <Bar dataKey="pedidos" fill="#303030" radius={[8, 8, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>
