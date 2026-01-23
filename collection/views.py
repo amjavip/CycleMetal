@@ -30,20 +30,24 @@ from django.views.decorators.csrf import csrf_exempt
 
 def haversine(lon1, lat1, lon2, lat2):
     """
-    Calcula la distancia entre dos puntos en km usando la fórmula de Haversine.
+
+    Calculte the distance between 2 points in the earth
+    Calcula la distancia entre 2 puntos de la tierra
+
     """
     lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
     dlon = lon2 - lon1
     dlat = lat2 - lat1
     a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
     c = 2 * asin(sqrt(a))
-    r = 6371  # Radio de la Tierra en km
+    r = 6371  # EARTH radius
 
     return c * r
 
 
 def get_nearby_orders(lat, lon, radio_km):
     """
+    Returns 'pending' orders within a given radius from the collector's location.
     Devuelve órdenes 'pending' dentro de un radio dado desde la ubicación del recolector.
     """
     all_pending = Order.objects.filter(status="ontheway")
@@ -312,7 +316,7 @@ class ShowPreviousOrders(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, id_seller):
-        if not id:
+        if not id_seller:
             return Response(
                 {"error": "La informacion que se necesita no ha sido proporcionada"},
                 status=status.HTTP_400_BAD_REQUEST,
