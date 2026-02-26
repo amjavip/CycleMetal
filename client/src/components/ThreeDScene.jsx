@@ -16,7 +16,7 @@ const CameraUpdater = ({ cameraPosition }) => {
 };
 
 const ThreeDScene = () => {
-  const { scene } = useGLTF("../public/modelos/truck.glb"); // Ruta del modelo GLB
+  const { scene } = useGLTF("./public/modelos/truck.glb"); // Ruta del modelo GLB
 
   // Estados internos para la cámara y el modelo
   const [cameraPosition, setCameraPosition] = useState([7, 5, 7]);
