@@ -1,78 +1,58 @@
 import React, { useState, useEffect } from 'react';
 import { Canvas, useThree } from '@react-three/fiber';
 import { useGLTF, OrbitControls } from '@react-three/drei';
+import truckModel from '../assets/Truck.glb'; // ← IMPORTANTE
 
-// Componente para actualizar la cámara
 const CameraUpdater = ({ cameraPosition }) => {
-  const { camera } = useThree(); // Accede a la cámara
+  const { camera } = useThree();
 
   useEffect(() => {
-    // Actualiza la posición de la cámara
     camera.position.set(...cameraPosition);
-    camera.updateProjectionMatrix(); // Asegúrate de que la cámara se actualice
+    camera.updateProjectionMatrix();
   }, [cameraPosition, camera]);
 
-  return null; // No renderiza nada
+  return null;
 };
 
 const ThreeDScene = () => {
-  const { scene } = useGLTF("/public/modelos/truck.glb"); // Ruta del modelo GLB
 
-  // Estados internos para la cámara y el modelo
+  const { scene } = useGLTF(truckModel); // ← usar import
+
   const [cameraPosition, setCameraPosition] = useState([7, 5, 7]);
   const [modelPosition, setModelPosition] = useState([0, -3, -5]);
 
-  // Manejo del scroll
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const scrollMax = document.documentElement.scrollHeight - window.innerHeight;
       const scrollPercentage = scrollMax > 0 ? scrollPosition / scrollMax : 0;
-      
 
-      // Mantener una distancia adecuada entre la cámara y el modelo
-      const newCameraPosition = [
-        7 - (7  * scrollPercentage), 
-        5 + (15 * scrollPercentage), 
-        7 + (7 * scrollPercentage) ,
-      ];
+      setCameraPosition([
+        7 - (7 * scrollPercentage),
+        5 + (15 * scrollPercentage),
+        7 + (7 * scrollPercentage),
+      ]);
 
-      const newModelPosition = [
-        0 + (0 * scrollPercentage), 
-        -3 - (5 * scrollPercentage), 
+      setModelPosition([
+        0,
+        -3 - (5 * scrollPercentage),
         -5 + (6 * scrollPercentage)
-      ];
-
-      setCameraPosition(newCameraPosition);
-      setModelPosition(newModelPosition);
+      ]);
     };
 
     window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <Canvas
-      camera={{
-        position: cameraPosition, // Posición inicial de la cámara
-        fov: 50,
-        near: 0.1,
-        far: 1000,
-      }}
-    >
+    <Canvas camera={{ position: cameraPosition, fov: 50, near: 0.1, far: 1000 }}>
       <ambientLight intensity={1} />
-      <directionalLight position={[0, 10, 0]} castShadow intensity={6} />
+      <directionalLight position={[0, 10, 0]} intensity={6} />
 
-      {/* Modelo 3D con posición dinámica */}
-      <primitive object={scene} scale={3} position={modelPosition} castShadow />
+      <primitive object={scene} scale={3} position={modelPosition} />
 
-      {/* Actualizador de la cámara */}
       <CameraUpdater cameraPosition={cameraPosition} />
 
-      {/* OrbitControls deshabilitado */}
       <OrbitControls enableZoom={false} enableRotate={false} enablePan={false} />
     </Canvas>
   );
