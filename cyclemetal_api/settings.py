@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-zswcxsft+k!+_cgj(=7qrc5qn3-mla$7pd2#k+($6pbav7o@#b"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 INSTALLED_APPS = [
@@ -155,16 +155,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://192.168.155.158:5173",
     "https://scintillating-syrniki-47a4b8.netlify.app",
 ]
-ALLOWED_HOSTS = [
-    "192.168.1.66",
-    "192.168.1.69",
-    "localhost",
-    "127.0.0.1",
-    "192.168.155.194",
-    "0.0.0.0:8000",
-    "192.168.155.158:5173",
-    "192.168.155.158",
-]
+ALLOWED_HOSTS = ["*"]
 
 
 REST_FRAMEWORK = {

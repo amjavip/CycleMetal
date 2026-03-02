@@ -10,6 +10,7 @@ Django==5.1.7
 django-cors-headers==4.7.0
 djangorestframework==3.15.2
 djangorestframework_simplejwt==5.5.0
+gunicorn==25.1.0
 idna==3.10
 itypes==1.2.0
 Jinja2==3.1.6
