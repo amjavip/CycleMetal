@@ -27,7 +27,8 @@ export default function Home() {
         
         {/* Contenedor de texto */}
         <div className="flex-1 text-center lg:text-left px-5 py-25 flex flex-col justify-center gap-6">
-          <h1 className="text-4xl md:text-7xl font-semibold text-[#000]">Faster, easier, cheaper</h1>
+          <h1 className="text-4xl md:text-7xl font-semibold text-[#000]">
+Más rápido, más fácil, más barato</h1>
           <h2 className="text-4xl md:text-6xl text-[#000]">CycleMetal</h2>
 
           {/* Mensajes de texto */}

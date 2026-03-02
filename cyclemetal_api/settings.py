@@ -153,6 +153,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://192.168.1.69:5173",
     "http://0.0.0.0:8000",
     "http://192.168.155.158:5173",
+    "https://scintillating-syrniki-47a4b8.netlify.app",
 ]
 ALLOWED_HOSTS = [
     "192.168.1.66",
