@@ -28,4 +28,5 @@ tomli==2.2.1
 typing_extensions==4.12.2
 tzdata==2025.1
 uritemplate==4.1.1
+setuptools==75.1.0
 urllib3==2.3.0
