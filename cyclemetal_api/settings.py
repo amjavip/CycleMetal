@@ -161,7 +161,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://192.168.155.158:5173",
     "https://scintillating-syrniki-47a4b8.netlify.app",
 ]
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["cyclemetal.onrender.com", "127.0.0.1:8000"]
 
 
 REST_FRAMEWORK = {
